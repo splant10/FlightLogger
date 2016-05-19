@@ -13,16 +13,12 @@ public class HomeScreen extends AppCompatActivity {
         setContentView(R.layout.activity_home_screen);
     }
 
-    public void openFlightPlanner(View view) {
-
-    }
-
     public void openFlightLogger(View view) {
         Intent intent = new Intent(this, FlightLogActivity.class);
         startActivity(intent);
     }
-
-    public void openViewPrevious(View view) {
-
+    public void openFlightPlanner(View view) {
+        Intent intent = new Intent(this, FlightPlanActivity.class);
+        startActivity(intent);
     }
 }

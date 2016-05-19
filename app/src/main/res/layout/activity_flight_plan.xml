@@ -24,8 +24,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Flight Logs"
-            android:id="@+id/txtFLTitle"
+            android:text="Flight Plans"
+            android:id="@+id/txtFPTitle"
             android:layout_marginStart="25dp"
             android:layout_marginTop="25dp"
             android:layout_alignParentTop="true"
@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/lvFlightLogs"
             android:layout_centerHorizontal="true"
-            android:layout_below="@+id/txtFLTitle" />
+            android:layout_below="@+id/txtFPTitle" />
 
     </RelativeLayout>
 
