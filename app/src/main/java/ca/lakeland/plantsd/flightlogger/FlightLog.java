@@ -8,11 +8,43 @@ import java.util.Date;
 public class FlightLog {
 
     private String serialNum, location, pilot, spotter, weatherConditions,
-    purposeOfFlight, payloadType, battPackNum, comments;
-    private int takeoffHour, takeoffMinute, landHour, landMinute, totalFlightTime,
-    windSpeed, temperature, flightPlanNum, flightLogNum, agencyNum, accumFlightTime,
-    maxAltitude, battStartVoltage, battEndVoltage;
+    purposeOfFlight, payloadType, battPackNum, comments, takeoffTime, landTime;
+    private int totalFlightTime,windSpeed, temperature, flightPlanNum, flightLogNum, agencyNum,
+            accumFlightTime, maxAltitude, battStartVoltage, battEndVoltage;
     private Date date;
+
+    public FlightLog() {
+    }
+
+    public FlightLog(String serialNum, String location, String pilot, String spotter,
+                     String weatherConditions, String purposeOfFlight, String payloadType,
+                     String battPackNum, String comments, String takeoffTime, String landTime,
+                     int totalFlightTime, int windSpeed, int temperature, int flightPlanNum,
+                     int flightLogNum, int agencyNum, int accumFlightTime, int maxAltitude,
+                     int battStartVoltage, int battEndVoltage, Date date) {
+        this.serialNum = serialNum;
+        this.location = location;
+        this.pilot = pilot;
+        this.spotter = spotter;
+        this.weatherConditions = weatherConditions;
+        this.purposeOfFlight = purposeOfFlight;
+        this.payloadType = payloadType;
+        this.battPackNum = battPackNum;
+        this.comments = comments;
+        this.takeoffTime = takeoffTime;
+        this.landTime = landTime;
+        this.totalFlightTime = totalFlightTime;
+        this.windSpeed = windSpeed;
+        this.temperature = temperature;
+        this.flightPlanNum = flightPlanNum;
+        this.flightLogNum = flightLogNum;
+        this.agencyNum = agencyNum;
+        this.accumFlightTime = accumFlightTime;
+        this.maxAltitude = maxAltitude;
+        this.battStartVoltage = battStartVoltage;
+        this.battEndVoltage = battEndVoltage;
+        this.date = date;
+    }
 
     public String getSerialNum() {
         return serialNum;
@@ -86,36 +118,20 @@ public class FlightLog {
         this.comments = comments;
     }
 
-    public int getTakeoffHour() {
-        return takeoffHour;
+    public String getTakeoffTime() {
+        return takeoffTime;
     }
 
-    public void setTakeoffHour(int takeoffHour) {
-        this.takeoffHour = takeoffHour;
+    public void setTakeoffTime(String takeoffTime) {
+        this.takeoffTime = takeoffTime;
     }
 
-    public int getTakeoffMinute() {
-        return takeoffMinute;
+    public String getLandTime() {
+        return landTime;
     }
 
-    public void setTakeoffMinute(int takeoffMinute) {
-        this.takeoffMinute = takeoffMinute;
-    }
-
-    public int getLandHour() {
-        return landHour;
-    }
-
-    public void setLandHour(int landHour) {
-        this.landHour = landHour;
-    }
-
-    public int getLandMinute() {
-        return landMinute;
-    }
-
-    public void setLandMinute(int landMinute) {
-        this.landMinute = landMinute;
+    public void setLandTime(String landTime) {
+        this.landTime = landTime;
     }
 
     public int getTotalFlightTime() {

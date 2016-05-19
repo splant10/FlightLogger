@@ -5,10 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context=".FlightLogActivity">
+    tools:context=".FlightPlansActivity">
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/fabFP"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
@@ -35,7 +35,7 @@
         <ListView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/lvFlightLogs"
+            android:id="@+id/lvFlightPlans"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/txtFPTitle" />
 

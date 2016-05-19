@@ -18,11 +18,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".FlightLogActivity" />
+        <activity android:name=".FlightLogsActivity" />
         <activity
-            android:name=".FlightPlanActivity"
+            android:name=".FlightPlansActivity"
             android:label="@string/title_activity_flight_plan"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".NewFlightLogActivity"></activity>
     </application>
 
 </manifest>

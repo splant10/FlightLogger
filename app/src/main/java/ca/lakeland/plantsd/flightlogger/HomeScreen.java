@@ -14,11 +14,11 @@ public class HomeScreen extends AppCompatActivity {
     }
 
     public void openFlightLogger(View view) {
-        Intent intent = new Intent(this, FlightLogActivity.class);
+        Intent intent = new Intent(this, FlightLogsActivity.class);
         startActivity(intent);
     }
     public void openFlightPlanner(View view) {
-        Intent intent = new Intent(this, FlightPlanActivity.class);
+        Intent intent = new Intent(this, FlightPlansActivity.class);
         startActivity(intent);
     }
 }
