@@ -33,7 +33,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ca.lakeland.plantsd.flightlogger.HomeScreen" />
         </activity>
-        <activity android:name=".NewPilotActivity"></activity>
+        <activity android:name=".NewPilotActivity" />
+        <activity android:name=".PilotInfoActivity"></activity>
     </application>
 
 </manifest>
