@@ -46,7 +46,12 @@ public class HomeScreen extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void addPilot(Pilot p) {
+    public void btnPilotsClick(View view) {
+        Intent intent = new Intent(this, PilotsActivity.class);
+        startActivity(intent);
+    }
+
+    public static void addPilot(Pilot p) {
         pilots.add(p);
     }
 }

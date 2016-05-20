@@ -36,7 +36,8 @@
         <ListView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/lvPilots" />
+            android:id="@+id/lvPilots"
+            android:layout_marginTop="60dp" />
     </RelativeLayout>
 
 </android.support.design.widget.CoordinatorLayout>

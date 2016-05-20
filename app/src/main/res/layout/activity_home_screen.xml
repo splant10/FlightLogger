@@ -10,26 +10,6 @@
     tools:context="ca.lakeland.plantsd.flightlogger.HomeScreen"
     android:background="@drawable/bkg_gradient">
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Flight Plans"
-        android:id="@+id/btnFlightPlan"
-        android:layout_above="@+id/btnFlightLog"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="38dp"
-        android:onClick="openFlightPlanner" />
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Flight Logs"
-        android:id="@+id/btnFlightLog"
-        android:onClick="openFlightLogger"
-        android:layout_centerVertical="true"
-        android:layout_alignStart="@+id/btnFlightPlan"
-        android:layout_alignEnd="@+id/btnFlightPlan" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -41,6 +21,37 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="48dp" />
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Flight Plans"
+        android:id="@+id/btnFlightPlan"
+        android:onClick="openFlightPlanner"
+        android:layout_above="@+id/btnFlightLog"
+        android:layout_marginBottom="0dp"
+        android:layout_alignEnd="@+id/txtTitle"
+        android:layout_alignStart="@+id/txtTitle" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Flight Logs"
+        android:id="@+id/btnFlightLog"
+        android:onClick="openFlightLogger"
+        android:layout_centerVertical="true"
+        android:layout_alignStart="@+id/btnFlightPlan"
+        android:layout_alignEnd="@+id/btnFlightPlan" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Pilots"
+        android:id="@+id/btnPilots"
+        android:layout_below="@+id/btnFlightLog"
+        android:onClick="btnPilotsClick"
+        android:layout_alignEnd="@+id/btnFlightLog"
+        android:layout_alignStart="@+id/btnFlightLog" />
 
     <ImageView
         android:layout_width="wrap_content"

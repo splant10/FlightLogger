@@ -40,16 +40,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cancel"
-        android:id="@+id/btnCancelPilot"
+        android:id="@+id/btnCancelPilotClick"
         android:layout_below="@+id/etPilotName"
-        android:layout_marginTop="33dp" />
+        android:layout_marginTop="33dp"
+        android:onClick="btnCancelPilotClick" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Confirm"
-        android:id="@+id/btnConfirmPilot"
-        android:layout_alignTop="@+id/btnCancelPilot"
-        android:layout_alignEnd="@+id/etPilotName" />
+        android:id="@+id/btnConfirmPilotClick"
+        android:layout_alignTop="@+id/btnCancelPilotClick"
+        android:layout_alignEnd="@+id/etPilotName"
+        android:onClick="btnConfirmPilotClick" />
 
 </RelativeLayout>
