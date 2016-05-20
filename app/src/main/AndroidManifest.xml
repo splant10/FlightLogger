@@ -23,7 +23,17 @@
             android:name=".FlightPlansActivity"
             android:label="@string/title_activity_flight_plan"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".NewFlightLogActivity"></activity>
+        <activity android:name=".NewFlightLogActivity" />
+        <activity
+            android:name=".PilotsActivity"
+            android:label="@string/title_activity_add_pilots"
+            android:parentActivityName=".HomeScreen"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ca.lakeland.plantsd.flightlogger.HomeScreen" />
+        </activity>
+        <activity android:name=".NewPilotActivity"></activity>
     </application>
 
 </manifest>

@@ -11,6 +11,8 @@ public class Pilot {
 
     public Pilot(String name) {
         this.name = name;
+        this.takeoffsAndLandings = 0;
+        this.flightTime = 0;
     }
 
     public String getName() {
