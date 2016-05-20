@@ -7,7 +7,8 @@ import java.util.Date;
  */
 public class FlightLog {
 
-    private String serialNum, location, pilot, spotter, weatherConditions,
+    private Pilot pilot;
+    private String serialNum, location,spotter, weatherConditions,
     purposeOfFlight, payloadType, battPackNum, comments, takeoffTime, landTime;
     private int totalFlightTime,windSpeed, temperature, flightPlanNum, flightLogNum, agencyNum,
             accumFlightTime, maxAltitude, battStartVoltage, battEndVoltage;
@@ -16,7 +17,7 @@ public class FlightLog {
     public FlightLog() {
     }
 
-    public FlightLog(String serialNum, String location, String pilot, String spotter,
+    public FlightLog(String serialNum, String location, String spotter,
                      String weatherConditions, String purposeOfFlight, String payloadType,
                      String battPackNum, String comments, String takeoffTime, String landTime,
                      int totalFlightTime, int windSpeed, int temperature, int flightPlanNum,
@@ -24,7 +25,6 @@ public class FlightLog {
                      int battStartVoltage, int battEndVoltage, Date date) {
         this.serialNum = serialNum;
         this.location = location;
-        this.pilot = pilot;
         this.spotter = spotter;
         this.weatherConditions = weatherConditions;
         this.purposeOfFlight = purposeOfFlight;
@@ -60,14 +60,6 @@ public class FlightLog {
 
     public void setLocation(String location) {
         this.location = location;
-    }
-
-    public String getPilot() {
-        return pilot;
-    }
-
-    public void setPilot(String pilot) {
-        this.pilot = pilot;
     }
 
     public String getSpotter() {
