@@ -27,8 +27,8 @@ public class Pilot {
         return takeoffsAndLandings;
     }
 
-    public void setTakeoffsAndLandings(int takeoffsAndLandings) {
-        this.takeoffsAndLandings = takeoffsAndLandings;
+    public void incrementTakeoffsAndLandings() {
+        this.takeoffsAndLandings += 1;
     }
 
     public int getFlightTime() {

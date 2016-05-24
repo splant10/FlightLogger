@@ -28,7 +28,6 @@ public class NewPilotActivity extends PilotsActivity {
         String name = pilotNameField.getText().toString();
         Pilot p = new Pilot(name);
         HomeScreen.getPilotList().add(p);
-        Log.d("..................", HomeScreen.getPilotList().toString());
         finish();
     }
 
