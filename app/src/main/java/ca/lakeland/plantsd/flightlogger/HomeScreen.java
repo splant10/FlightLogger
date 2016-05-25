@@ -6,9 +6,15 @@ import android.os.Bundle;
 import android.view.View;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class HomeScreen extends AppCompatActivity {
+
+    private List<String> payloads = Arrays.asList("RX100", "Tetracam");
+    public List<String> getPayloads() {
+        return this.payloads;
+    }
 
     // Lazy Singletons for flight plan/log number and all pilots/spotters
     private static FlightNum flightNum = null;

@@ -36,7 +36,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/etLogSerial"
                 android:inputType="text"
-                android:hint="ex: Jasmine" />
+                android:hint="ex: Jasmine"
+                android:text="Jasmine" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -78,7 +79,8 @@
             <Spinner
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/spinLogPilot" />
+                android:id="@+id/spinLogPilot"
+                android:spinnerMode="dialog" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -90,7 +92,8 @@
             <Spinner
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/spinLogSpotter" />
+                android:id="@+id/spinLogSpotter"
+                android:spinnerMode="dialog" />
 
         </LinearLayout>
     </ScrollView>
