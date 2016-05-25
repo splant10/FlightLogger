@@ -46,7 +46,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Pilots"
+        android:text="Pilots &amp; Spotters"
         android:id="@+id/btnPilots"
         android:layout_below="@+id/btnFlightLog"
         android:onClick="btnPilotsClick"

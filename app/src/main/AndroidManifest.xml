@@ -34,7 +34,7 @@
                 android:value="ca.lakeland.plantsd.flightlogger.HomeScreen" />
         </activity>
         <activity android:name=".NewPilotActivity" />
-        <activity android:name=".PilotInfoActivity"></activity>
+        <activity android:name=".PilotInfoActivity" />
     </application>
 
 </manifest>

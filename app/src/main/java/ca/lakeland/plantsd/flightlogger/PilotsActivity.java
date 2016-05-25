@@ -19,6 +19,8 @@ public class PilotsActivity extends AppCompatActivity implements AdapterView.OnI
     private ListView lvPilots;
     private PilotsAdapter customAdapter;
 
+    private ListView lvSpotters;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,11 +41,15 @@ public class PilotsActivity extends AppCompatActivity implements AdapterView.OnI
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        // Set up the pilots and spotters list views
         lvPilots = (ListView) findViewById(R.id.lvPilots);
         customAdapter = new PilotsAdapter(this, R.layout.adapter_pilot_row, HomeScreen.getPilotList());
         lvPilots.setAdapter(customAdapter);
-
         lvPilots.setOnItemClickListener(this);
+
+        lvSpotters = (ListView) findViewById(R.id.lvSpotters);
+        ArrayAdapter<String> spotAdapter = new ArrayAdapter<String>(this, R.layout.adapter_pilot_row, R.id.txtPilotName, HomeScreen.getSpotterList());
+        lvSpotters.setAdapter(spotAdapter);
 
     }
 

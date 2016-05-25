@@ -6,10 +6,11 @@ import android.os.Bundle;
 import android.view.View;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HomeScreen extends AppCompatActivity {
 
-    // Lazy Singletons for flight plan/log number and all pilots
+    // Lazy Singletons for flight plan/log number and all pilots/spotters
     private static FlightNum flightNum = null;
     static public FlightNum getFlightNum() {
         if (flightNum == null) {
@@ -25,6 +26,15 @@ public class HomeScreen extends AppCompatActivity {
         }
         return pilots;
     }
+
+    private static ArrayList<String> spotters = null;
+    static public ArrayList<String> getSpotterList() {
+        if (spotters == null) {
+            spotters = new ArrayList<String>();
+        }
+        return spotters;
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -54,4 +54,25 @@
         android:layout_alignEnd="@+id/etPilotName"
         android:onClick="btnConfirmPilotClick" />
 
+    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true">
+        <RadioButton android:id="@+id/radioPilot"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Pilot"
+            android:onClick="onRadioButtonClicked"
+            android:layout_marginRight="20dp"
+            android:enabled="true"
+            android:checked="true" />
+        <RadioButton android:id="@+id/radioSpotter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Spotter"
+            android:onClick="onRadioButtonClicked"/>
+    </RadioGroup>
+
 </RelativeLayout>
