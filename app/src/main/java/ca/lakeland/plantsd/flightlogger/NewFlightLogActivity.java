@@ -30,7 +30,7 @@ public class NewFlightLogActivity extends AppCompatActivity implements AdapterVi
         EditText etLogDate = (EditText) findViewById(R.id.etLogDate);
         etLogDate.setText(today);
 
-        // Spinner for pilot selection
+        // ***********  Spinner for pilot selection ************ //
         Spinner pilotSpinner = (Spinner) findViewById(R.id.spinLogPilot);
         pilotSpinner.setOnItemSelectedListener(this);
         List<String> pilotNames = new ArrayList<String>();
@@ -45,6 +45,21 @@ public class NewFlightLogActivity extends AppCompatActivity implements AdapterVi
 
         // Attach data adapter to spinner
         pilotSpinner.setAdapter(pilotNameAdapter);
+        // *********** End spinner for pilot selection ************ //
+
+        // ***********  Spinner for spotter selection ************ //
+        Spinner spotterSpinner = (Spinner) findViewById(R.id.spinLogSpotter);
+        spotterSpinner.setOnItemSelectedListener(this);
+        ArrayList<String> spotterList = HomeScreen.getSpotterList();
+
+        // Create adapter for the spinner
+        ArrayAdapter<String> spotterNameAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, spotterList);
+
+        // Attach data adapter to spinner
+        spotterSpinner.setAdapter(spotterNameAdapter);
+        // *********** End spinner for spotter selection ************ //
+
+
 
     }
 

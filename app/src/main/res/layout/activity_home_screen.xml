@@ -16,49 +16,52 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="FlightLogger"
         android:id="@+id/txtTitle"
-        android:textSize="50dp"
+        android:textSize="55dp"
         android:textAlignment="center"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="48dp" />
 
     <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="70dp"
         android:text="Flight Plans"
         android:id="@+id/btnFlightPlan"
         android:onClick="openFlightPlanner"
-        android:layout_above="@+id/btnFlightLog"
-        android:layout_marginBottom="0dp"
-        android:layout_alignEnd="@+id/txtTitle"
-        android:layout_alignStart="@+id/txtTitle" />
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/txtTitle"
+        android:layout_marginTop="35dp"
+        android:textSize="20dp" />
 
     <Button
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:text="Flight Logs"
         android:id="@+id/btnFlightLog"
         android:onClick="openFlightLogger"
         android:layout_centerVertical="true"
         android:layout_alignStart="@+id/btnFlightPlan"
-        android:layout_alignEnd="@+id/btnFlightPlan" />
+        android:layout_alignEnd="@+id/btnFlightPlan"
+        android:layout_below="@+id/btnFlightPlan"
+        android:textSize="20dp" />
 
     <Button
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:text="Pilots &amp; Spotters"
         android:id="@+id/btnPilots"
         android:layout_below="@+id/btnFlightLog"
         android:onClick="btnPilotsClick"
         android:layout_alignEnd="@+id/btnFlightLog"
-        android:layout_alignStart="@+id/btnFlightLog" />
+        android:layout_alignStart="@+id/btnFlightLog"
+        android:textSize="20dp" />
 
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imgLogo"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="47dp"
+        android:layout_marginTop="10dp"
         android:src="@drawable/csi_logo"
-        android:layout_below="@+id/btnFlightLog" />
+        android:layout_below="@+id/btnPilots" />
 </RelativeLayout>
