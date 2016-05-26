@@ -63,5 +63,6 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="10dp"
         android:src="@drawable/csi_logo"
-        android:layout_below="@+id/btnPilots" />
+        android:layout_below="@+id/btnPilots"
+        android:onClick="gotoTest" />
 </RelativeLayout>

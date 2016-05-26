@@ -9,6 +9,14 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="ca.lakeland.plantsd.flightlogger.NewFlightLogActivity">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="New Flight Log"
+        android:id="@+id/txtNewLogTitle"
+        android:layout_centerHorizontal="true" />
+
     <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -16,13 +24,15 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true" >
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="35dp">
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:weightSum="1">
+            android:weightSum="1"
+            android:id="@+id/llLogScroll">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -31,13 +41,22 @@
                 android:text="Draganflyer Helicopter Serial Number:"
                 android:id="@+id/txtSerialNumTitle" />
 
+            <!-- Dummy item to prevent etLogSerial from receiving focus -->
+            <LinearLayout
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:layout_width="0px"
+                android:layout_height="0px"/>
+
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/etLogSerial"
                 android:inputType="text"
                 android:hint="ex: Jasmine"
-                android:text="Jasmine" />
+                android:text="Jasmine"
+                android:nextFocusUp="@id/etLogSerial"
+                android:nextFocusLeft="@id/etLogSerial"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -94,6 +113,136 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/spinLogSpotter"
                 android:spinnerMode="dialog" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Wind Speed (km/h):"
+                    android:id="@+id/txtLogWindSpeed" />
+
+                <EditText
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:id="@+id/etLogWindSpeed"
+                    android:layout_below="@+id/txtLogWindSpeed"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignEnd="@+id/txtLogWindSpeed"
+                    android:inputType="numberDecimal" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Temperature (C):"
+                    android:id="@+id/txtLogTemperature"
+                    android:layout_alignParentTop="true"
+                    android:layout_toEndOf="@+id/txtLogWindSpeed"
+                    android:layout_marginLeft="20dp" />
+
+                <EditText
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/etLogTemperature"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignStart="@+id/txtLogTemperature"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignEnd="@+id/txtLogTemperature"
+                    android:inputType="numberDecimal" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Weather Conditions:"
+                android:id="@+id/txtLogWeather" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:ems="10"
+                android:id="@+id/etLogWeather" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Purpose of Flight:"
+                android:id="@+id/txtLogPurpose" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:ems="10"
+                android:id="@+id/etLogPurpose" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Payload Type:"
+                android:id="@+id/txtLogPayload" />
+
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/spinLogPayload" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/llLogFlightInfos">
+
+                <include
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    layout="@layout/activity_flight_info"
+                    android:layout_margin="6px" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/llLogInfoButtons">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Add Another Flight"
+                    android:id="@+id/btnLogOneMoreFlight"
+                    android:layout_gravity="center_horizontal"
+                    android:onClick="btnOneMoreFlight" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Comments:"
+                android:id="@+id/txtLogComments" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textMultiLine"
+                android:ems="10"
+                android:id="@+id/etLogComments" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Submit"
+                android:id="@+id/btnLogSubmit" />
 
         </LinearLayout>
     </ScrollView>
