@@ -1,5 +1,6 @@
 package ca.lakeland.plantsd.flightlogger;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 /**
@@ -7,43 +8,44 @@ import java.util.Date;
  */
 public class FlightLog {
 
+    // weird order for declaration of variables to keep in sync with design of New Flight Log Activity
+    private String serialNum;
+    private String date;
+    private String location;
     private Pilot pilot;
-    private String serialNum, location,spotter, weatherConditions,
-    purposeOfFlight, payloadType, battPackNum, comments, takeoffTime, landTime;
-    private int totalFlightTime,windSpeed, temperature, flightPlanNum, flightLogNum, agencyNum,
-            accumFlightTime, maxAltitude, battStartVoltage, battEndVoltage;
-    private Date date;
+    private String spotter;
+    private float windSpeed;
+    private float temperature;
+    private String weatherConditions;
+    private String purposeOfFlight;
+    private String payloadType;
+    private ArrayList<Flight> flights;
+    private String comments;
+    private int flightLogNum, agencyNum;
+    private float accumFlightTime, maxAltitude;
+
 
     public FlightLog() {
     }
 
-    public FlightLog(String serialNum, String location, String spotter,
-                     String weatherConditions, String purposeOfFlight, String payloadType,
-                     String battPackNum, String comments, String takeoffTime, String landTime,
-                     int totalFlightTime, int windSpeed, int temperature, int flightPlanNum,
-                     int flightLogNum, int agencyNum, int accumFlightTime, int maxAltitude,
-                     int battStartVoltage, int battEndVoltage, Date date) {
+    public FlightLog(String serialNum, String date, String location, Pilot pilot, String spotter,
+                     float windSpeed, float temperature, String weatherConditions, String purposeOfFlight,
+                     String payloadType, ArrayList<Flight> flights, String comments, int flightLogNum,
+                     float maxAltitude) {
         this.serialNum = serialNum;
+        this.date = date;
         this.location = location;
+        this.pilot = pilot;
         this.spotter = spotter;
+        this.windSpeed = windSpeed;
+        this.temperature = temperature;
         this.weatherConditions = weatherConditions;
         this.purposeOfFlight = purposeOfFlight;
         this.payloadType = payloadType;
-        this.battPackNum = battPackNum;
+        this.flights = flights;
         this.comments = comments;
-        this.takeoffTime = takeoffTime;
-        this.landTime = landTime;
-        this.totalFlightTime = totalFlightTime;
-        this.windSpeed = windSpeed;
-        this.temperature = temperature;
-        this.flightPlanNum = flightPlanNum;
         this.flightLogNum = flightLogNum;
-        this.agencyNum = agencyNum;
-        this.accumFlightTime = accumFlightTime;
         this.maxAltitude = maxAltitude;
-        this.battStartVoltage = battStartVoltage;
-        this.battEndVoltage = battEndVoltage;
-        this.date = date;
     }
 
     public String getSerialNum() {
@@ -94,14 +96,6 @@ public class FlightLog {
         this.payloadType = payloadType;
     }
 
-    public String getBattPackNum() {
-        return battPackNum;
-    }
-
-    public void setBattPackNum(String battPackNum) {
-        this.battPackNum = battPackNum;
-    }
-
     public String getComments() {
         return comments;
     }
@@ -110,52 +104,20 @@ public class FlightLog {
         this.comments = comments;
     }
 
-    public String getTakeoffTime() {
-        return takeoffTime;
-    }
-
-    public void setTakeoffTime(String takeoffTime) {
-        this.takeoffTime = takeoffTime;
-    }
-
-    public String getLandTime() {
-        return landTime;
-    }
-
-    public void setLandTime(String landTime) {
-        this.landTime = landTime;
-    }
-
-    public int getTotalFlightTime() {
-        return totalFlightTime;
-    }
-
-    public void setTotalFlightTime(int totalFlightTime) {
-        this.totalFlightTime = totalFlightTime;
-    }
-
-    public int getWindSpeed() {
+    public float  getWindSpeed() {
         return windSpeed;
     }
 
-    public void setWindSpeed(int windSpeed) {
+    public void setWindSpeed(float windSpeed) {
         this.windSpeed = windSpeed;
     }
 
-    public int getTemperature() {
+    public float getTemperature() {
         return temperature;
     }
 
-    public void setTemperature(int temperature) {
+    public void setTemperature(float temperature) {
         this.temperature = temperature;
-    }
-
-    public int getFlightPlanNum() {
-        return flightPlanNum;
-    }
-
-    public void setFlightPlanNum(int flightPlanNum) {
-        this.flightPlanNum = flightPlanNum;
     }
 
     public int getFlightLogNum() {
@@ -174,7 +136,7 @@ public class FlightLog {
         this.agencyNum = agencyNum;
     }
 
-    public int getAccumFlightTime() {
+    public float getAccumFlightTime() {
         return accumFlightTime;
     }
 
@@ -182,35 +144,39 @@ public class FlightLog {
         this.accumFlightTime = accumFlightTime;
     }
 
-    public int getMaxAltitude() {
+    public float getMaxAltitude() {
         return maxAltitude;
     }
 
-    public void setMaxAltitude(int maxAltitude) {
+    public void setMaxAltitude(float maxAltitude) {
         this.maxAltitude = maxAltitude;
     }
 
-    public int getBattStartVoltage() {
-        return battStartVoltage;
-    }
-
-    public void setBattStartVoltage(int battStartVoltage) {
-        this.battStartVoltage = battStartVoltage;
-    }
-
-    public int getBattEndVoltage() {
-        return battEndVoltage;
-    }
-
-    public void setBattEndVoltage(int battEndVoltage) {
-        this.battEndVoltage = battEndVoltage;
-    }
-
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
+    }
+
+    public Pilot getPilot() {
+        return pilot;
+    }
+
+    public void setPilot(Pilot pilot) {
+        this.pilot = pilot;
+    }
+
+    public ArrayList<Flight> getFlights() {
+        return flights;
+    }
+
+    public void setFlights(ArrayList<Flight> flights) {
+        this.flights = flights;
+    }
+
+    public void setAccumFlightTime(float accumFlightTime) {
+        this.accumFlightTime = accumFlightTime;
     }
 }

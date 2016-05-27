@@ -11,6 +11,10 @@ public class FlightNum {
         this.flightNum = 0;
     }
 
+    public int getFlightNum() {
+        return this.flightNum;
+    }
+
     public void setFlightNum(int num) {
         this.flightNum = num;
     }

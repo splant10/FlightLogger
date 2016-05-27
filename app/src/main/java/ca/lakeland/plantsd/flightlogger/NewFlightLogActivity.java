@@ -9,6 +9,7 @@ import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -148,13 +149,6 @@ public class NewFlightLogActivity extends AppCompatActivity implements AdapterVi
         }
     }
 
-    public void btnSubmit(View view) {
-        try {
-            fl = new FlightLog();
-        } catch (Exception e) {
-            Toast.makeText(this, "Something went wrong; couldn't save the flight log", Toast.LENGTH_SHORT).show();
-        }
-    }
 
     // to make a text field pop up a time picker dialog, go like this:
     // editText.setOnTouchListener(timePickerListener);
@@ -170,7 +164,7 @@ public class NewFlightLogActivity extends AppCompatActivity implements AdapterVi
                 mTimePicker = new TimePickerDialog(NewFlightLogActivity.this, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
-                        String suffix = (selectedHour >= 12) ? "pm" : "am";
+                        String suffix = (selectedHour >= 12) ? " PM" : " AM";
                         selectedHour = selectedHour % 12;
                         // need to pad hours and minutes with zeroes
                         String selectedHourString = (selectedHour == 0) ? "12" : Integer.toString(selectedHour);
@@ -187,4 +181,83 @@ public class NewFlightLogActivity extends AppCompatActivity implements AdapterVi
             return false;
         }
     };
+
+    public void btnSubmit(View view) {
+        try {
+            // FlightLog(String serialNum, String date, String location, Pilot pilot, String spotter,
+            //          float windSpeed, float temperature, String weatherConditions, String purposeOfFlight,
+            //          String payloadType, ArrayList<Flight> flights, String comments, int flightLogNum,
+            //          float maxAltitude)
+            EditText etSerial = (EditText) findViewById(R.id.etLogSerial);
+            EditText etDate = (EditText) findViewById(R.id.etLogDate);
+            EditText etLoc = (EditText) findViewById(R.id.etLogLocation);
+            EditText etWindSpeed = (EditText) findViewById(R.id.etLogWindSpeed);
+            EditText etTemp = (EditText) findViewById(R.id.etLogTemperature);
+            EditText etWCond = (EditText) findViewById(R.id.etLogWeather);
+            EditText etPurp = (EditText) findViewById(R.id.etLogPurpose);
+            EditText etAltitude = (EditText) findViewById(R.id.etLogAltitude);
+            LinearLayout llFlightInfos = (LinearLayout) findViewById(R.id.llLogFlightInfos);
+            EditText etComments = (EditText) findViewById(R.id.etLogComments);
+
+
+            String serial = etSerial.getText().toString();
+            String date = etDate.getText().toString();
+            String location = etLoc.getText().toString();
+            String pilotName = ((Spinner) findViewById(R.id.spinLogPilot)).getSelectedItem().toString();
+            ArrayList<Pilot> pilots = HomeScreen.getPilotList();
+            Pilot pilot = new Pilot("Colonel Sanders"); // This is necessary for Android to see pilot
+                                            // isn't empty. Will be overwritten immediately below.
+            for (int i = 0; i < pilots.size(); ++i) {
+                Pilot p = pilots.get(i);
+                if (p.getName().equals(pilotName)) {
+                    pilot = p;
+                    break;
+                }
+            }
+            String spotter = ((Spinner) findViewById(R.id.spinLogSpotter)).getSelectedItem().toString();
+            float windSpeed = Float.parseFloat(etWindSpeed.getText().toString());
+            float temperature = Float.parseFloat(etTemp.getText().toString());
+            String weatherConditions = etWCond.getText().toString();
+            String purpose = etPurp.getText().toString();
+            String payload = ((Spinner) findViewById(R.id.spinLogPayload)).getSelectedItem().toString();
+            float altitude = Float.parseFloat(etAltitude.getText().toString());
+
+            ArrayList<Flight> flights = new ArrayList<Flight>();
+            int flightCount = llFlightInfos.getChildCount();
+            for (int i = 0; i < flightCount; ++i) { // iterate over flights
+                try {
+                    EditText etTakeoff = (EditText) llFlightInfos.getChildAt(i).findViewById(R.id.etInfoTakeoff);
+                    EditText etLand = (EditText) llFlightInfos.getChildAt(i).findViewById(R.id.etInfoLand);
+                    EditText etTime = (EditText) llFlightInfos.getChildAt(i).findViewById(R.id.etInfoTime);
+                    EditText etBattNum = (EditText) llFlightInfos.getChildAt(i).findViewById(R.id.etInfoBattNum);
+                    EditText etStartVolt = (EditText) llFlightInfos.getChildAt(i).findViewById(R.id.etInfoStartVolt);
+                    EditText etEndVolt = (EditText) llFlightInfos.getChildAt(i).findViewById(R.id.etInfoEndVolt);
+
+                    String takeoff = etTakeoff.getText().toString();
+                    String land = etLand.getText().toString();
+                    int time = Integer.parseInt(etTime.getText().toString());
+                    String battNum = etBattNum.getText().toString();
+                    Float startVolt = Float.parseFloat(etStartVolt.getText().toString());
+                    Float endVolt = Float.parseFloat(etEndVolt.getText().toString());
+
+                    Flight flight = new Flight(takeoff, land, time, battNum, startVolt, endVolt);
+                    flights.add(flight);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            String comments = etComments.getText().toString();
+            int flightLogNum = HomeScreen.getFlightNum().getFlightNum();
+
+            FlightLog fl = new FlightLog(serial, date, location, pilot, spotter, windSpeed, temperature, weatherConditions,
+                    purpose, payload, flights, comments, flightLogNum, altitude);
+
+            HomeScreen.getFlightLogs().add(fl);
+            finish();
+        } catch (Exception e) {
+            Toast.makeText(this, "Something went wrong; couldn't save the flight log", Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
+    }
 }

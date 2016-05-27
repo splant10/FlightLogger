@@ -9,8 +9,12 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 
 public class FlightLogsActivity extends AppCompatActivity {
+
+    private ListView lvFlightLogs;
+    private FlightLogsAdapter customAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +33,11 @@ public class FlightLogsActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        // Set up the pilots and spotters list views
+        lvFlightLogs = (ListView) findViewById(R.id.lvFlightLogs);
+        customAdapter = new FlightLogsAdapter(this, R.layout.adapter_flight_log_row, HomeScreen.getFlightLogs());
+        lvFlightLogs.setAdapter(customAdapter);
     }
 
     @Override

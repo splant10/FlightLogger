@@ -42,6 +42,14 @@ public class HomeScreen extends AppCompatActivity {
         return spotters;
     }
 
+    private static ArrayList<FlightLog> flightLogs = null;
+    static public ArrayList<FlightLog> getFlightLogs() {
+        if (flightLogs == null) {
+            flightLogs = new ArrayList<FlightLog>();
+        }
+        return flightLogs;
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

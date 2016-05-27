@@ -192,9 +192,23 @@
                 android:id="@+id/txtLogPayload" />
 
             <Spinner
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/spinLogPayload" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Altitude:"
+                android:id="@+id/txtLogAltitude" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:ems="10"
+                android:id="@+id/etLogAltitude" />
 
             <LinearLayout
                 android:orientation="vertical"
@@ -243,7 +257,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Submit"
-                android:id="@+id/btnLogSubmit" />
+                android:id="@+id/btnLogSubmit"
+                android:onClick="btnSubmit" />
 
         </LinearLayout>
     </ScrollView>

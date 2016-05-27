@@ -8,12 +8,12 @@ public class Flight {
     private String takeoffTime;
     private String landTime;
     private int flightTime; // total time in the air.
-    private int battPackNum;
-    private int battStartVoltage;
-    private int battEndVoltage;
+    private String battPackNum;
+    private Float battStartVoltage;
+    private Float battEndVoltage;
 
     public Flight(String takeoffTime, String landTime, int flightTime,
-                  int packNum, int startVoltage, int endVoltage) {
+                  String packNum, float startVoltage, float endVoltage) {
         this.takeoffTime = takeoffTime;
         this.landTime = landTime;
         this.flightTime = flightTime;
@@ -34,15 +34,15 @@ public class Flight {
         return flightTime;
     }
 
-    public int getBattPackNum() {
+    public String getBattPackNum() {
         return battPackNum;
     }
 
-    public int getBattStartVoltage() {
+    public float getBattStartVoltage() {
         return battStartVoltage;
     }
 
-    public int getBattEndVoltage() {
+    public float getBattEndVoltage() {
         return battEndVoltage;
     }
 }
