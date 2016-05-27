@@ -6,12 +6,14 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
-public class FlightLogsActivity extends AppCompatActivity {
+public class FlightLogsActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     private ListView lvFlightLogs;
     private FlightLogsAdapter customAdapter;
@@ -38,6 +40,7 @@ public class FlightLogsActivity extends AppCompatActivity {
         lvFlightLogs = (ListView) findViewById(R.id.lvFlightLogs);
         customAdapter = new FlightLogsAdapter(this, R.layout.adapter_flight_log_row, HomeScreen.getFlightLogs());
         lvFlightLogs.setAdapter(customAdapter);
+        lvFlightLogs.setOnItemClickListener(this);
     }
 
     @Override
@@ -60,5 +63,11 @@ public class FlightLogsActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onItemClick(AdapterView<?> l, View v, int position, long id) {
+        Log.i("Hello THERE", "you clicked item: " + id + " at position: " + position);
+        FlightLog fl = HomeScreen.getFlightLogs().get(position);
+        Log.i("-----------------|", "that would be " + fl.getDate());
     }
 }

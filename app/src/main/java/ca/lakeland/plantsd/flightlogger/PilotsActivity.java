@@ -25,8 +25,6 @@ public class PilotsActivity extends AppCompatActivity implements AdapterView.OnI
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pilots);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabP);
 
@@ -39,7 +37,6 @@ public class PilotsActivity extends AppCompatActivity implements AdapterView.OnI
                 startActivity(intent);
             }
         });
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // Set up the pilots and spotters list views
         lvPilots = (ListView) findViewById(R.id.lvPilots);
