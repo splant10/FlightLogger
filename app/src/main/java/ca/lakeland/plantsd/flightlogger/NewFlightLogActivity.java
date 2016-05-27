@@ -1,6 +1,9 @@
 package ca.lakeland.plantsd.flightlogger;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
+import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -67,8 +70,17 @@ public class NewFlightLogActivity extends AppCompatActivity implements AdapterVi
         spotterSpinner.setAdapter(spotterNameAdapter);
         // *********** End spinner for spotter selection ************ //
 
+        // ***********  Spinner for Payload selection ************ //
+        Spinner payloadSpinner = (Spinner) findViewById(R.id.spinLogPayload);
+        payloadSpinner.setOnItemSelectedListener(this);
+        List<String> payloadList = HomeScreen.getPayloads();
+        ArrayAdapter<String> payloadAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, payloadList);
+        payloadSpinner.setAdapter(payloadAdapter);
+        // *********** End spinner for payload selection ************ //
 
-        LinearLayout layout = (LinearLayout) findViewById(R.id.llLogScroll);
+        // This makes a date picker dialog pop up when clicking the date edittext
+        EditText et = (EditText) findViewById(R.id.etLogDate);
+        SetDate sd = new SetDate(et, this);
     }
 
     @Override
@@ -79,37 +91,8 @@ public class NewFlightLogActivity extends AppCompatActivity implements AdapterVi
 
     }
 
-    // *************************** Make a date picker dialog on certain et clicks
-    DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
-
-        @Override
-        public void onDateSet(DatePicker view, int year, int monthOfYear,
-                              int dayOfMonth) {
-            myCalendar.set(Calendar.YEAR, year);
-            myCalendar.set(Calendar.MONTH, monthOfYear);
-            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-            updateLabel();
-        }
-    };
-
-    // When making an edittext that you want to pop up a date picker dialog, you have to:
-    // edittext.setOnClickListener(dateOnClickListener);
-    // E
-    View.OnClickListener dateOnClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            new DatePickerDialog(NewFlightLogActivity.this, date, myCalendar
-                    .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                    myCalendar.get(Calendar.DAY_OF_MONTH)).show();
-        }
-    };
-
-    private void updateLabel() {
-        String myFormat = "MMM-dd-yyyy";
-    }
-
-    // *************************** End date picker dialog ************************
-
+    // ********************* Date picker dialog **************************//
+    // ******************* End Date picker dialog ************************//
 
     public void btnOneMoreFlight(View view) {
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);

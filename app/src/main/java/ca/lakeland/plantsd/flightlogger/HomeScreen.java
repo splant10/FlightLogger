@@ -11,9 +11,10 @@ import java.util.List;
 
 public class HomeScreen extends AppCompatActivity {
 
-    private List<String> payloads = Arrays.asList("RX100", "Tetracam");
-    public List<String> getPayloads() {
-        return this.payloads;
+    private static List<String> payloads = Arrays.asList("QX10","QX100","NEX5r","RX100","RX100M2",
+            "RX100M3","ADC-Micro","RedEdge","HDR-AS100");
+    static public List<String> getPayloads() {
+        return payloads;
     }
 
     // Lazy Singletons for flight plan/log number and all pilots/spotters
