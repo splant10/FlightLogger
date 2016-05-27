@@ -206,7 +206,8 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     layout="@layout/activity_flight_info"
-                    android:layout_margin="6px" />
+                    android:layout_margin="6px"
+                    android:id="@+id/include1" />
             </LinearLayout>
 
             <LinearLayout

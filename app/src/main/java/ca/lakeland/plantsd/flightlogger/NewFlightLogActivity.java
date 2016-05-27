@@ -3,12 +3,14 @@ package ca.lakeland.plantsd.flightlogger;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.app.TimePickerDialog;
 import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -18,6 +20,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
@@ -81,6 +84,13 @@ public class NewFlightLogActivity extends AppCompatActivity implements AdapterVi
         // This makes a date picker dialog pop up when clicking the date edittext
         EditText et = (EditText) findViewById(R.id.etLogDate);
         SetDate sd = new SetDate(et, this);
+
+        // Set time picker listeners on the time fields in the first info box
+        LinearLayout llLogFlightInfos = (LinearLayout) findViewById(R.id.llLogFlightInfos);
+        EditText et2 = (EditText) llLogFlightInfos.getChildAt(0).findViewById(R.id.etInfoTakeoff);
+        et2.setOnTouchListener(timePickerListener);
+        EditText et3 = (EditText) llLogFlightInfos.getChildAt(0).findViewById(R.id.etInfoLand);
+        et3.setOnTouchListener(timePickerListener);
     }
 
     @Override
@@ -91,9 +101,6 @@ public class NewFlightLogActivity extends AppCompatActivity implements AdapterVi
 
     }
 
-    // ********************* Date picker dialog **************************//
-    // ******************* End Date picker dialog ************************//
-
     public void btnOneMoreFlight(View view) {
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         int margin = 6;
@@ -102,6 +109,12 @@ public class NewFlightLogActivity extends AppCompatActivity implements AdapterVi
         LinearLayout flightLayout = (LinearLayout) findViewById(R.id.llLogFlightInfos);
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View newView = inflater.inflate(R.layout.activity_flight_info, null);
+
+        EditText takeoffTime = (EditText) newView.findViewById(R.id.etInfoTakeoff);
+        takeoffTime.setOnTouchListener(timePickerListener);
+        EditText landTime = (EditText) newView.findViewById(R.id.etInfoLand);
+        landTime.setOnTouchListener(timePickerListener);
+
         newView.setLayoutParams(lp);
         flightLayout.addView(newView);
 
@@ -142,4 +155,36 @@ public class NewFlightLogActivity extends AppCompatActivity implements AdapterVi
             Toast.makeText(this, "Something went wrong; couldn't save the flight log", Toast.LENGTH_SHORT).show();
         }
     }
+
+    // to make a text field pop up a time picker dialog, go like this:
+    // editText.setOnTouchListener(timePickerListener);
+    View.OnTouchListener timePickerListener = new View.OnTouchListener() {
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            if (event.getAction() == MotionEvent.ACTION_UP) {
+                final EditText et = (EditText) v;
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(NewFlightLogActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        String suffix = (selectedHour >= 12) ? "pm" : "am";
+                        selectedHour = selectedHour % 12;
+                        // need to pad hours and minutes with zeroes
+                        String selectedHourString = (selectedHour == 0) ? "12" : Integer.toString(selectedHour);
+                        String selectedMinuteString = (selectedMinute < 10) ? "0" + Integer.toString(selectedMinute) : Integer.toString(selectedMinute);
+
+                        et.setText( "" + selectedHourString + ":" + selectedMinuteString + suffix);
+                    }
+                }, hour, minute, false); // false: not 24 hour view
+                mTimePicker.setTitle("Select Time");
+                mTimePicker.show();
+
+                return true;
+            }
+            return false;
+        }
+    };
 }

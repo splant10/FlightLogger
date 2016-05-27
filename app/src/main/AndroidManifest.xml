@@ -35,7 +35,6 @@
         </activity>
         <activity android:name=".NewPilotActivity" />
         <activity android:name=".PilotInfoActivity" />
-        <activity android:name=".test"></activity>
     </application>
 
 </manifest>
