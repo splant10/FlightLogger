@@ -248,7 +248,7 @@ public class NewFlightLogActivity extends AppCompatActivity implements AdapterVi
             }
 
             String comments = etComments.getText().toString();
-            int flightLogNum = HomeScreen.getFlightNum().getFlightNum();
+            int flightLogNum = HomeScreen.getFlightNum().getFlightNumber();
 
             FlightLog fl = new FlightLog(serial, date, location, pilot, spotter, windSpeed, temperature, weatherConditions,
                     purpose, payload, flights, comments, flightLogNum, altitude);

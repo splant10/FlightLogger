@@ -11,7 +11,7 @@ public class FlightNum {
         this.flightNum = 0;
     }
 
-    public int getFlightNum() {
+    public int getFlightNumber() {
         return this.flightNum;
     }
 
