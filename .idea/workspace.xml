@@ -11,12 +11,8 @@
   <component name="ChangeListManager">
     <list default="true" id="d79aae86-4434-46f6-a5b6-16c01aaea922" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/FlightLogsActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/FlightLogsActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/FlightPlansActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/FlightPlansActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/HomeScreen.java" afterPath="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/HomeScreen.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/NewFlightLogActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/NewFlightLogActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/PilotInfoActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/PilotInfoActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/PilotsActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/PilotsActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_home_screen.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_home_screen.xml" />
     </list>
     <ignored path="FlightLogger.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -118,11 +114,13 @@
       <file leaf-file-name="HomeScreen.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/HomeScreen.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.6454446">
-              <caret line="142" column="0" selection-start-line="142" selection-start-column="0" selection-end-line="142" selection-end-column="0" />
+            <state vertical-scroll-proportion="1.3526448">
+              <caret line="192" column="14" selection-start-line="192" selection-start-column="14" selection-end-line="192" selection-end-column="14" />
               <folding>
-                <element signature="e#3363#3364#0" expanded="true" />
-                <element signature="e#3392#3393#0" expanded="true" />
+                <element signature="e#5248#5249#0" expanded="true" />
+                <element signature="e#5277#5278#0" expanded="true" />
+                <element signature="e#6937#8633#0" expanded="true" />
+                <element signature="e#8632#8633#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -1779,7 +1777,6 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_test.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/DatePickerFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/SetDate.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_home_screen.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_flight_info.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_new_flight_log.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/Flight.java" />
@@ -1794,6 +1791,7 @@
         <option value="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/NewFlightLogActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/PilotInfoActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/PilotsActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_home_screen.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/HomeScreen.java" />
       </list>
     </option>
@@ -1850,6 +1848,28 @@
               <option name="myItemId" value="app" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
             </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FlightLogger" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="res" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="layout" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidResFolderTypeNode" />
+            </PATH_ELEMENT>
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -1881,6 +1901,16 @@
             <PATH_ELEMENT>
               <option name="myItemId" value="flightlogger" />
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="FlightLogger" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -2196,7 +2226,7 @@
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33546326" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.5473908" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290735" sideWeight="0.4978678" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290735" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -2286,8 +2316,10 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="21" column="47" selection-start-line="21" selection-start-column="35" selection-end-line="21" selection-end-column="47" />
           <folding>
-            <element signature="e#3363#3364#0" expanded="true" />
-            <element signature="e#3392#3393#0" expanded="true" />
+            <element signature="e#5248#5249#0" expanded="true" />
+            <element signature="e#5277#5278#0" expanded="true" />
+            <element signature="e#6937#8633#0" expanded="true" />
+            <element signature="e#8632#8633#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2368,8 +2400,10 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="20" column="66" selection-start-line="20" selection-start-column="35" selection-end-line="20" selection-end-column="66" />
           <folding>
-            <element signature="e#3363#3364#0" expanded="true" />
-            <element signature="e#3392#3393#0" expanded="true" />
+            <element signature="e#5248#5249#0" expanded="true" />
+            <element signature="e#5277#5278#0" expanded="true" />
+            <element signature="e#6937#8633#0" expanded="true" />
+            <element signature="e#8632#8633#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2509,17 +2543,6 @@
           <folding>
             <element signature="imports" expanded="false" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_home_screen.xml">
-      <provider selected="true" editor-type-id="android-designer">
-        <state />
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -2713,13 +2736,26 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_home_screen.xml">
+      <provider selected="true" editor-type-id="android-designer">
+        <state />
+      </provider>
+      <provider editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/HomeScreen.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.6454446">
-          <caret line="142" column="0" selection-start-line="142" selection-start-column="0" selection-end-line="142" selection-end-column="0" />
+        <state vertical-scroll-proportion="1.3526448">
+          <caret line="192" column="14" selection-start-line="192" selection-start-column="14" selection-end-line="192" selection-end-column="14" />
           <folding>
-            <element signature="e#3363#3364#0" expanded="true" />
-            <element signature="e#3392#3393#0" expanded="true" />
+            <element signature="e#5248#5249#0" expanded="true" />
+            <element signature="e#5277#5278#0" expanded="true" />
+            <element signature="e#6937#8633#0" expanded="true" />
+            <element signature="e#8632#8633#0" expanded="true" />
           </folding>
         </state>
       </provider>
