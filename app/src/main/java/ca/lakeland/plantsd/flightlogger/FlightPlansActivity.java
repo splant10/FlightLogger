@@ -9,7 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-public class FlightPlansActivity extends AppCompatActivity {
+public class FlightPlansActivity extends HomeScreen {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

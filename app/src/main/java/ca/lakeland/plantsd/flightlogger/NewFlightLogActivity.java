@@ -29,7 +29,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-public class NewFlightLogActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
+public class NewFlightLogActivity extends FlightLogsActivity implements AdapterView.OnItemSelectedListener {
 
     FlightLog fl;
 

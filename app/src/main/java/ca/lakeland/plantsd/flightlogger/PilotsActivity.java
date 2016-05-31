@@ -15,7 +15,7 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
-public class PilotsActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class PilotsActivity extends HomeScreen implements AdapterView.OnItemClickListener {
 
     private ListView lvPilots;
     private PilotsAdapter customAdapter;

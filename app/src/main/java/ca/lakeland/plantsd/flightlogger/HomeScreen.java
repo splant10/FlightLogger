@@ -21,8 +21,6 @@ import java.util.List;
 
 public class HomeScreen extends AppCompatActivity {
 
-    String fileSavedData = "saved_data.txt";
-
     Gson gson = new Gson();
 
     private static List<String> payloads = Arrays.asList("QX10","QX100","NEX5r","RX100","RX100M2",
@@ -121,11 +119,35 @@ public class HomeScreen extends AppCompatActivity {
         try {
             Context appContext = this.getApplicationContext();
             System.out.println(appContext);
-            fos = appContext.openFileOutput("datastore-json.txt", Context.MODE_PRIVATE);
-            String jsonData = gson.toJson(getPilotList());
+
+            // Saving Flightnum
+            fos = appContext.openFileOutput("flightnum-json.txt", Context.MODE_PRIVATE);
+            String jsonData = gson.toJson(getFlightNum());
             System.out.println(jsonData);
             fos.write(jsonData.getBytes());
             fos.close();
+
+            // Saving Pilots
+            fos = appContext.openFileOutput("pilots-json.txt", Context.MODE_PRIVATE);
+            jsonData = gson.toJson(getPilotList());
+            System.out.println(jsonData);
+            fos.write(jsonData.getBytes());
+            fos.close();
+
+            // Saving Spotters
+            fos = appContext.openFileOutput("spotters-json.txt", Context.MODE_PRIVATE);
+            jsonData = gson.toJson(getSpotterList());
+            System.out.println(jsonData);
+            fos.write(jsonData.getBytes());
+            fos.close();
+
+            // Saving FlightLogs
+            fos = appContext.openFileOutput("flightlogs-json.txt", Context.MODE_PRIVATE);
+            jsonData = gson.toJson(getFlightLogs());
+            System.out.println(jsonData);
+            fos.write(jsonData.getBytes());
+            fos.close();
+
         } catch (IOException e) {
             e.printStackTrace();
         }

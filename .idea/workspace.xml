@@ -11,10 +11,12 @@
   <component name="ChangeListManager">
     <list default="true" id="d79aae86-4434-46f6-a5b6-16c01aaea922" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/FlightLogsAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/FlightLogsAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/FlightLogsActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/FlightLogsActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/FlightPlansActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/FlightPlansActivity.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/HomeScreen.java" afterPath="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/HomeScreen.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/NewFlightLogActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/NewFlightLogActivity.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/PilotsAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/PilotsAdapter.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/PilotInfoActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/PilotInfoActivity.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/PilotsActivity.java" afterPath="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/PilotsActivity.java" />
     </list>
     <ignored path="FlightLogger.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -52,15 +54,25 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="activity_flight_log.xml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_flight_log.xml">
-          <provider selected="true" editor-type-id="android-designer">
-            <state />
-          </provider>
-          <provider editor-type-id="text-editor">
+      <file leaf-file-name="FlightLogsActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/FlightLogsActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="29" column="43" selection-start-line="29" selection-start-column="43" selection-end-line="29" selection-end-column="43" />
+              <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FlightPlansActivity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/FlightPlansActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="14" column="29" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
+              <folding>
+                <element signature="e#798#1066#0" expanded="true" />
+                <element signature="e#1065#1066#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -82,7 +94,7 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/NewFlightLogActivity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="202" column="58" selection-start-line="202" selection-start-column="58" selection-end-line="202" selection-end-column="58" />
+              <caret line="31" column="42" selection-start-line="31" selection-start-column="42" selection-end-line="31" selection-end-column="42" />
               <folding />
             </state>
           </provider>
@@ -106,11 +118,11 @@
       <file leaf-file-name="HomeScreen.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/HomeScreen.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="1.0306122">
-              <caret line="127" column="24" selection-start-line="127" selection-start-column="24" selection-end-line="127" selection-end-column="24" />
+            <state vertical-scroll-proportion="0.6454446">
+              <caret line="142" column="0" selection-start-line="142" selection-start-column="0" selection-end-line="142" selection-end-column="0" />
               <folding>
-                <element signature="e#3409#3410#0" expanded="true" />
-                <element signature="e#3438#3439#0" expanded="true" />
+                <element signature="e#3363#3364#0" expanded="true" />
+                <element signature="e#3392#3393#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -1747,7 +1759,6 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_flight_plan.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/FlightLogActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/FlightPlanActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/FlightPlansActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/AddPilotsActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_add_pilots.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/Singleton.java" />
@@ -1756,7 +1767,6 @@
         <option value="$PROJECT_DIR$/app/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/styles.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values-v21/styles.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/PilotInfoActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/Pilot.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_new_pilot.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_pilots.xml" />
@@ -1775,14 +1785,16 @@
         <option value="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/Flight.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/FlightLog.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/adapter_flight_log_row.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/FlightLogsActivity.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/PilotsActivity.java" />
         <option value="$PROJECT_DIR$/build.gradle" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/FlightNum.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/HomeScreen.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/FlightLogsAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/NewFlightLogActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/PilotsAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/FlightLogsActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/FlightPlansActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/NewFlightLogActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/PilotInfoActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/PilotsActivity.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/HomeScreen.java" />
       </list>
     </option>
   </component>
@@ -2176,7 +2188,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1358" y="-502" width="1936" height="1096" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290735" sideWeight="0.5" order="12" side_tool="false" content_ui="tabs" />
@@ -2184,7 +2196,7 @@
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23961662" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33546326" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290735" sideWeight="0.4978678" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290735" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
@@ -2192,7 +2204,7 @@
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3290735" sideWeight="0.5021322" order="11" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Android Model" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
@@ -2274,8 +2286,8 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="21" column="47" selection-start-line="21" selection-start-column="35" selection-end-line="21" selection-end-column="47" />
           <folding>
-            <element signature="e#3409#3410#0" expanded="true" />
-            <element signature="e#3438#3439#0" expanded="true" />
+            <element signature="e#3363#3364#0" expanded="true" />
+            <element signature="e#3392#3393#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2356,8 +2368,8 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="20" column="66" selection-start-line="20" selection-start-column="35" selection-end-line="20" selection-end-column="66" />
           <folding>
-            <element signature="e#3409#3410#0" expanded="true" />
-            <element signature="e#3438#3439#0" expanded="true" />
+            <element signature="e#3363#3364#0" expanded="true" />
+            <element signature="e#3392#3393#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -2392,13 +2404,6 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/FlightPlansActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="27" column="11" selection-start-line="27" selection-start-column="11" selection-end-line="27" selection-end-column="11" />
         </state>
       </provider>
     </entry>
@@ -2590,22 +2595,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/PilotInfoActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.3611898">
-          <caret line="17" column="48" selection-start-line="17" selection-start-column="48" selection-end-line="17" selection-end-column="48" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/NewPilotActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.15722379">
-          <caret line="50" column="89" selection-start-line="50" selection-start-column="89" selection-end-line="50" selection-end-column="89" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_flight_log.xml">
       <provider selected="true" editor-type-id="android-designer">
         <state />
@@ -2657,14 +2646,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/NewFlightLogActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="202" column="58" selection-start-line="202" selection-start-column="58" selection-end-line="202" selection-end-column="58" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/PilotsAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.5787172">
@@ -2673,18 +2654,53 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/PilotsActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/FlightLogsActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.1297376">
-          <caret line="74" column="0" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="19" column="0" selection-start-line="19" selection-start-column="0" selection-end-line="19" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/FlightLogsActivity.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/FlightPlansActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.24781342">
-          <caret line="40" column="109" selection-start-line="40" selection-start-column="109" selection-end-line="40" selection-end-column="109" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="14" column="29" selection-start-line="14" selection-start-column="29" selection-end-line="14" selection-end-column="29" />
+          <folding>
+            <element signature="e#798#1066#0" expanded="true" />
+            <element signature="e#1065#1066#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/NewFlightLogActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="31" column="42" selection-start-line="31" selection-start-column="42" selection-end-line="31" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/NewPilotActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="50" column="89" selection-start-line="50" selection-start-column="89" selection-end-line="50" selection-end-column="89" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/PilotInfoActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="6" column="53" selection-start-line="6" selection-start-column="53" selection-end-line="6" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/PilotsActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.5419463">
+          <caret line="32" column="42" selection-start-line="32" selection-start-column="42" selection-end-line="32" selection-end-column="42" />
           <folding />
         </state>
       </provider>
@@ -2699,11 +2715,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/ca/lakeland/plantsd/flightlogger/HomeScreen.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.0306122">
-          <caret line="127" column="24" selection-start-line="127" selection-start-column="24" selection-end-line="127" selection-end-column="24" />
+        <state vertical-scroll-proportion="0.6454446">
+          <caret line="142" column="0" selection-start-line="142" selection-start-column="0" selection-end-line="142" selection-end-column="0" />
           <folding>
-            <element signature="e#3409#3410#0" expanded="true" />
-            <element signature="e#3438#3439#0" expanded="true" />
+            <element signature="e#3363#3364#0" expanded="true" />
+            <element signature="e#3392#3393#0" expanded="true" />
           </folding>
         </state>
       </provider>

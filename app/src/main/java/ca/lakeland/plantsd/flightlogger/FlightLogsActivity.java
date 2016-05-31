@@ -13,7 +13,7 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-public class FlightLogsActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class FlightLogsActivity extends HomeScreen implements AdapterView.OnItemClickListener {
 
     private ListView lvFlightLogs;
     private FlightLogsAdapter customAdapter;
