@@ -5,7 +5,7 @@ package ca.lakeland.plantsd.flightlogger;
  */
 public class FlightNum {
 
-    private static int flightNum;
+    private int flightNum;
 
     public FlightNum() {
         this.flightNum = 1;

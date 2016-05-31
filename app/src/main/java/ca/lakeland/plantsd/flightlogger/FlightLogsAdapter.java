@@ -53,7 +53,7 @@ public class FlightLogsAdapter  extends ArrayAdapter<FlightLog> {
 
             TextView txt3 = (TextView) v.findViewById(R.id.lvtxtLogPilotSpotter);
             if (txt3 != null) {
-                txt3.setText("Pilot: " + fl.getPilot().getName() + "  |  Spotter: " + fl.getSpotter());
+                txt3.setText("Pilot: " + fl.getPilot().getName() + "   Spotter: " + fl.getSpotter());
             }
 
             TextView txt4 = (TextView) v.findViewById(R.id.lvtxtLogNum);
