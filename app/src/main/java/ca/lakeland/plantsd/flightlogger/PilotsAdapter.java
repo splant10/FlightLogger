@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by plantsd on 5/20/2016.
@@ -15,14 +16,14 @@ import java.util.ArrayList;
  */
 public class PilotsAdapter extends ArrayAdapter<Pilot> {
 
-    ArrayList pilots;
+    List pilots;
     LayoutInflater vi;
 
     public PilotsAdapter(Context context, int textViewResourceId) {
         super(context, textViewResourceId);
     }
 
-    public PilotsAdapter(Context context, int resource, ArrayList<Pilot> pilots) {
+    public PilotsAdapter(Context context, int resource, List<Pilot> pilots) {
         super(context, resource, pilots);
         this.pilots = pilots;
     }

@@ -49,7 +49,7 @@ public class NewFlightLogActivity extends AppCompatActivity implements AdapterVi
         Spinner pilotSpinner = (Spinner) findViewById(R.id.spinLogPilot);
         pilotSpinner.setOnItemSelectedListener(this);
         List<String> pilotNames = new ArrayList<String>();
-        ArrayList<Pilot> pilotList = HomeScreen.getPilotList();
+        List<Pilot> pilotList = HomeScreen.getPilotList();
 
         // Iterate over pilots and add to spinner
         for (int i = 0; i < pilotList.size(); ++i) {
@@ -65,7 +65,7 @@ public class NewFlightLogActivity extends AppCompatActivity implements AdapterVi
         // ***********  Spinner for spotter selection ************ //
         Spinner spotterSpinner = (Spinner) findViewById(R.id.spinLogSpotter);
         spotterSpinner.setOnItemSelectedListener(this);
-        ArrayList<String> spotterList = HomeScreen.getSpotterList();
+        List<String> spotterList = HomeScreen.getSpotterList();
 
         // Create adapter for the spinner
         ArrayAdapter<String> spotterNameAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, spotterList);
@@ -204,7 +204,7 @@ public class NewFlightLogActivity extends AppCompatActivity implements AdapterVi
             String date = etDate.getText().toString();
             String location = etLoc.getText().toString();
             String pilotName = ((Spinner) findViewById(R.id.spinLogPilot)).getSelectedItem().toString();
-            ArrayList<Pilot> pilots = HomeScreen.getPilotList();
+            List<Pilot> pilots = HomeScreen.getPilotList();
             Pilot pilot = new Pilot("Colonel Sanders"); // This is necessary for Android to see pilot
                                             // isn't empty. Will be overwritten immediately below.
             for (int i = 0; i < pilots.size(); ++i) {

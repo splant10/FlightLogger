@@ -8,20 +8,21 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by plantsd on 5/27/2016.
  */
 public class FlightLogsAdapter  extends ArrayAdapter<FlightLog> {
 
-    ArrayList flightLogs;
+    List flightLogs;
     LayoutInflater vi;
 
     public FlightLogsAdapter(Context context, int textViewResourceId) {
         super(context, textViewResourceId);
     }
 
-    public FlightLogsAdapter(Context context, int resource, ArrayList<FlightLog> flightLogs) {
+    public FlightLogsAdapter(Context context, int resource, List<FlightLog> flightLogs) {
         super(context, resource, flightLogs);
         this.flightLogs = flightLogs;
     }

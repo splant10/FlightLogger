@@ -12,17 +12,17 @@ import com.google.gson.reflect.TypeToken;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
 
 public class HomeScreen extends AppCompatActivity {
 
-    String fileFlightNum = "flightnum.txt";
-    String filePilots = "pilots.txt";
-    String fileSpotters = "spotters.txt";
-    String fileFlightLogs = "flightLogs.txt";
+    String fileSavedData = "saved_data.txt";
+
     Gson gson = new Gson();
 
     private static List<String> payloads = Arrays.asList("QX10","QX100","NEX5r","RX100","RX100M2",
@@ -40,24 +40,24 @@ public class HomeScreen extends AppCompatActivity {
         return flightNum;
     }
 
-    private static ArrayList<Pilot> pilots = null;
-    static public ArrayList<Pilot> getPilotList() {
+    private static List<Pilot> pilots = null;
+    static public List<Pilot> getPilotList() {
         if (pilots == null) {
             pilots = new ArrayList<Pilot>();
         }
         return pilots;
     }
 
-    private static ArrayList<String> spotters = null;
-    static public ArrayList<String> getSpotterList() {
+    private static List<String> spotters = null;
+    static public List<String> getSpotterList() {
         if (spotters == null) {
             spotters = new ArrayList<String>();
         }
         return spotters;
     }
 
-    private static ArrayList<FlightLog> flightLogs = null;
-    static public ArrayList<FlightLog> getFlightLogs() {
+    private static List<FlightLog> flightLogs = null;
+    static public List<FlightLog> getFlightLogs() {
         if (flightLogs == null) {
             flightLogs = new ArrayList<FlightLog>();
         }
@@ -76,6 +76,7 @@ public class HomeScreen extends AppCompatActivity {
         // flightNum.setFlightNum(42);
 
         try {
+            /*
             // Import flightnum from file
             FileInputStream fis = this.openFileInput("flightnum.txt");
             InputStreamReader isr = new InputStreamReader(fis);
@@ -87,41 +88,7 @@ public class HomeScreen extends AppCompatActivity {
             }
             String json = sb.toString();
             flightNum.setFlightNum(gson.fromJson(json, Integer.class));
-
-            // import pilots list from file
-            fis = this.openFileInput("pilots.txt");
-            isr = new InputStreamReader(fis);
-            buffreader = new BufferedReader(isr);
-            sb = new StringBuilder();
-            while ((line = buffreader.readLine()) != null) {
-                sb.append(line);
-            }
-            json = sb.toString();
-            // http://stackoverflow.com/questions/12384064/gson-convert-from-json-to-a-typed-arraylistt
-            pilots = gson.fromJson(json, new TypeToken<ArrayList<Pilot>>(){}.getType());
-
-            // import spotters list from file
-            fis = this.openFileInput("spotters.txt");
-            isr = new InputStreamReader(fis);
-            buffreader = new BufferedReader(isr);
-            sb = new StringBuilder();
-            while ((line = buffreader.readLine()) != null) {
-                sb.append(line);
-            }
-            json = sb.toString();
-            spotters = gson.fromJson(json, new TypeToken<ArrayList<String>>(){}.getType());
-
-            // import flightlogs from file
-            fis = this.openFileInput("flightlogs.txt");
-            isr = new InputStreamReader(fis);
-            buffreader = new BufferedReader(isr);
-            sb = new StringBuilder();
-            while ((line = buffreader.readLine()) != null) {
-                sb.append(line);
-            }
-            json = sb.toString();
-            flightLogs = gson.fromJson(json, new TypeToken<ArrayList<FlightLog>>(){}.getType());
-
+            */
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -148,34 +115,19 @@ public class HomeScreen extends AppCompatActivity {
     @Override
     public void onPause() {
         super.onPause();
-        // Store things on pause; onStop() is not guaranteed to be called
-        String jsonFlightNum = gson.toJson(getFlightNum().getFlightNumber());
-        String jsonPilots = gson.toJson(getPilotList());
-        String jsonSpotters = gson.toJson(getSpotterList());
-        String jsonFlightLogs = gson.toJson(getFlightLogs());
 
-        FileOutputStream outputStream;
+        FileOutputStream fos = null;
 
         try {
-            outputStream = openFileOutput(fileFlightNum, Context.MODE_PRIVATE);
-            outputStream.write(jsonFlightNum.getBytes());
-            outputStream.close();
-
-            outputStream = openFileOutput(filePilots, Context.MODE_PRIVATE);
-            outputStream.write(jsonPilots.getBytes());
-            outputStream.close();
-
-            outputStream = openFileOutput(fileSpotters, Context.MODE_PRIVATE);
-            outputStream.write(jsonSpotters.getBytes());
-            outputStream.close();
-
-            outputStream = openFileOutput(fileFlightLogs, Context.MODE_PRIVATE);
-            outputStream.write(jsonFlightLogs.getBytes());
-            outputStream.close();
-
-        } catch (Exception e) {
+            Context appContext = this.getApplicationContext();
+            System.out.println(appContext);
+            fos = appContext.openFileOutput("datastore-json.txt", Context.MODE_PRIVATE);
+            String jsonData = gson.toJson(getPilotList());
+            System.out.println(jsonData);
+            fos.write(jsonData.getBytes());
+            fos.close();
+        } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 }
