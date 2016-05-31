@@ -55,6 +55,21 @@ public class FlightLogsAdapter  extends ArrayAdapter<FlightLog> {
             if (txt3 != null) {
                 txt3.setText("Pilot: " + fl.getPilot().getName() + "  |  Spotter: " + fl.getSpotter());
             }
+
+            TextView txt4 = (TextView) v.findViewById(R.id.lvtxtLogNum);
+            if (txt4 != null) {
+                txt4.setText(String.valueOf(fl.getFlightLogNum()));
+            }
+
+            TextView txt5 = (TextView) v.findViewById(R.id.lvtxtLogLocation);
+            if (txt5 != null) {
+                txt5.setText(fl.getLocation());
+            }
+
+            TextView txt6 = (TextView) v.findViewById(R.id.lvtxtLogFlights);
+            if (txt6 != null) {
+                txt6.setText("Flights: " + fl.getFlights().size());
+            }
         }
         return v;
     }

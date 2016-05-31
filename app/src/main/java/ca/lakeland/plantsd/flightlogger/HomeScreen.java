@@ -38,6 +38,7 @@ public class HomeScreen extends AppCompatActivity {
     }
 
     // Lazy Singletons for flight plan/log number and all pilots/spotters
+
     private static FlightNum flightNum = null;
     static public FlightNum getFlightNum() {
         if (flightNum == null) {
@@ -169,28 +170,28 @@ public class HomeScreen extends AppCompatActivity {
             // Saving Flightnum
             fos = appContext.openFileOutput(fileFlightNum, Context.MODE_PRIVATE);
             String jsonData = gson.toJson(getFlightNum());
-            //System.out.println(jsonData);
+            System.out.println(jsonData);
             fos.write(jsonData.getBytes());
             fos.close();
 
             // Saving Pilots
             fos = appContext.openFileOutput(filePilots, Context.MODE_PRIVATE);
             jsonData = gson.toJson(getPilotList());
-            //System.out.println(jsonData);
+            System.out.println(jsonData);
             fos.write(jsonData.getBytes());
             fos.close();
 
             // Saving Spotters
             fos = appContext.openFileOutput(fileSpotters, Context.MODE_PRIVATE);
             jsonData = gson.toJson(getSpotterList());
-            //System.out.println(jsonData);
+            System.out.println(jsonData);
             fos.write(jsonData.getBytes());
             fos.close();
 
             // Saving FlightLogs
             fos = appContext.openFileOutput(fileFlightLogs, Context.MODE_PRIVATE);
             jsonData = gson.toJson(getFlightLogs());
-            //System.out.println(jsonData);
+            System.out.println(jsonData);
             fos.write(jsonData.getBytes());
             fos.close();
 

@@ -8,15 +8,15 @@ public class FlightNum {
     private static int flightNum;
 
     public FlightNum() {
-        this.flightNum = 0;
+        this.flightNum = 1;
     }
 
     public int getFlightNumber() {
         return this.flightNum;
     }
 
-    public void setFlightNum(int num) {
-        this.flightNum = num;
+    public void incrementFlightNum() {
+        this.flightNum += 1;
     }
 
 }

@@ -27,14 +27,16 @@ import android.widget.Toast;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class NewFlightLogActivity extends FlightLogsActivity implements AdapterView.OnItemSelectedListener {
 
     FlightLog fl;
+    SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a");
 
     Calendar myCalendar = Calendar.getInstance();
-    SimpleDateFormat df = new SimpleDateFormat(("MMM-dd-yyyy"));
+    SimpleDateFormat df = new SimpleDateFormat(("MMM dd, yyyy"));
     String today = df.format(myCalendar.getTime());
 
     @Override
@@ -88,10 +90,33 @@ public class NewFlightLogActivity extends FlightLogsActivity implements AdapterV
 
         // Set time picker listeners on the time fields in the first info box
         LinearLayout llLogFlightInfos = (LinearLayout) findViewById(R.id.llLogFlightInfos);
-        EditText et2 = (EditText) llLogFlightInfos.getChildAt(0).findViewById(R.id.etInfoTakeoff);
+        final EditText et2 = (EditText) llLogFlightInfos.getChildAt(0).findViewById(R.id.etInfoTakeoff);
         et2.setOnTouchListener(timePickerListener);
-        EditText et3 = (EditText) llLogFlightInfos.getChildAt(0).findViewById(R.id.etInfoLand);
+        final EditText et3 = (EditText) llLogFlightInfos.getChildAt(0).findViewById(R.id.etInfoLand);
         et3.setOnTouchListener(timePickerListener);
+
+        View.OnFocusChangeListener ofcl = new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    // code to execute when something loses focus
+                    try {
+                        // http://stackoverflow.com/questions/4927856/how-to-calculate-time-difference-in-java
+                        System.out.println("---------------------yoooooo");
+                        String time1 = et2.getText().toString();
+                        String time2 = et3.getText().toString();
+                        Date date1 = timeFormat.parse(time1);
+                        Date date2 = timeFormat.parse(time2);
+                        long diff = date2.getTime() - date1.getTime();
+                        long diffMinutes = diff / (60 * 1000) % 60;
+                        System.out.println("---------------------" + String.valueOf(diffMinutes));
+                    } catch (Exception e) {
+                    }
+                }
+            }
+        };
+        et2.setOnFocusChangeListener(ofcl);
+        et3.setOnFocusChangeListener(ofcl);
     }
 
     @Override
@@ -199,28 +224,95 @@ public class NewFlightLogActivity extends FlightLogsActivity implements AdapterV
             LinearLayout llFlightInfos = (LinearLayout) findViewById(R.id.llLogFlightInfos);
             EditText etComments = (EditText) findViewById(R.id.etLogComments);
 
+            String serial;
+            try {
+                serial = etSerial.getText().toString();
+            } catch (Exception e) {
+                Toast.makeText(this, "Need to provide a serial!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            String date;
+            try {
+                date = etDate.getText().toString();
+            } catch (Exception e) {
+                Toast.makeText(this, "Need to provide a date!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            String location;
+            try {
+                location = etLoc.getText().toString();
+            } catch (Exception e) {
+                Toast.makeText(this, "Need to provide a location!", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
-            String serial = etSerial.getText().toString();
-            String date = etDate.getText().toString();
-            String location = etLoc.getText().toString();
-            String pilotName = ((Spinner) findViewById(R.id.spinLogPilot)).getSelectedItem().toString();
             List<Pilot> pilots = HomeScreen.getPilotList();
             Pilot pilot = new Pilot("Colonel Sanders"); // This is necessary for Android to see pilot
-                                            // isn't empty. Will be overwritten immediately below.
-            for (int i = 0; i < pilots.size(); ++i) {
-                Pilot p = pilots.get(i);
-                if (p.getName().equals(pilotName)) {
-                    pilot = p;
-                    break;
+            // isn't empty. Will be overwritten immediately below.
+            if (pilots.size() != 0) {
+                String pilotName = ((Spinner) findViewById(R.id.spinLogPilot)).getSelectedItem().toString();
+                for (int i = 0; i < pilots.size(); ++i) {
+                    Pilot p = pilots.get(i);
+                    if (p.getName().equals(pilotName)) {
+                        pilot = p;
+                        p.incrementTakeoffsAndLandings();
+                        break;
+                    }
                 }
+            } else {
+                Toast.makeText(this, "To add pilots, navigate to 'Pilots & Spotters' on the main screen", Toast.LENGTH_LONG).show();
+                return;
             }
-            String spotter = ((Spinner) findViewById(R.id.spinLogSpotter)).getSelectedItem().toString();
-            float windSpeed = Float.parseFloat(etWindSpeed.getText().toString());
-            float temperature = Float.parseFloat(etTemp.getText().toString());
-            String weatherConditions = etWCond.getText().toString();
-            String purpose = etPurp.getText().toString();
-            String payload = ((Spinner) findViewById(R.id.spinLogPayload)).getSelectedItem().toString();
-            float altitude = Float.parseFloat(etAltitude.getText().toString());
+
+            String spotter;
+            if (HomeScreen.getSpotterList().size() != 0) {
+                spotter = ((Spinner) findViewById(R.id.spinLogSpotter)).getSelectedItem().toString();
+            } else {
+                Toast.makeText(this, "To add spotters, navigate to 'Pilots & Spotters' on the main screen", Toast.LENGTH_LONG).show();
+                return;
+            }
+
+            float windSpeed;
+            try {
+                windSpeed = Float.parseFloat(etWindSpeed.getText().toString());
+            } catch (Exception e) {
+                windSpeed = 0;
+            }
+
+            float temperature;
+            try {
+                temperature = Float.parseFloat(etTemp.getText().toString());
+            } catch (Exception e) {
+                temperature = 0;
+            }
+
+            String weatherConditions;
+            try {
+                weatherConditions = etWCond.getText().toString();
+            } catch (Exception e) {
+                weatherConditions = "";
+            }
+
+            String purpose;
+            try {
+                purpose = etPurp.getText().toString();
+            } catch (Exception e) {
+                purpose = "";
+            }
+
+            String payload;
+            try {
+                payload = ((Spinner) findViewById(R.id.spinLogPayload)).getSelectedItem().toString();
+            } catch (Exception e) {
+                payload = "";
+            }
+
+            float altitude;
+            try {
+                altitude = Float.parseFloat(etAltitude.getText().toString());
+            } catch (Exception e) {
+                altitude = 0;
+            }
 
             ArrayList<Flight> flights = new ArrayList<Flight>();
             int flightCount = llFlightInfos.getChildCount();
@@ -233,22 +325,31 @@ public class NewFlightLogActivity extends FlightLogsActivity implements AdapterV
                     EditText etStartVolt = (EditText) llFlightInfos.getChildAt(i).findViewById(R.id.etInfoStartVolt);
                     EditText etEndVolt = (EditText) llFlightInfos.getChildAt(i).findViewById(R.id.etInfoEndVolt);
 
+                    // times below are in format "4:32 PM" => "h:mm a"
                     String takeoff = etTakeoff.getText().toString();
                     String land = etLand.getText().toString();
                     int time = Integer.parseInt(etTime.getText().toString());
                     String battNum = etBattNum.getText().toString();
                     Float startVolt = Float.parseFloat(etStartVolt.getText().toString());
                     Float endVolt = Float.parseFloat(etEndVolt.getText().toString());
+                    if (endVolt > startVolt) {
+                        Toast.makeText(this, "End voltage cannot be higher than start voltage!", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
 
                     Flight flight = new Flight(takeoff, land, time, battNum, startVolt, endVolt);
+                    pilot.addToFlightTime(time);
                     flights.add(flight);
                 } catch (Exception e) {
                     e.printStackTrace();
+                    Toast.makeText(this, "Flight info not complete, or not proper!", Toast.LENGTH_SHORT).show();
+                    return;
                 }
             }
 
             String comments = etComments.getText().toString();
             int flightLogNum = HomeScreen.getFlightNum().getFlightNumber();
+            HomeScreen.getFlightNum().incrementFlightNum();
 
             FlightLog fl = new FlightLog(serial, date, location, pilot, spotter, windSpeed, temperature, weatherConditions,
                     purpose, payload, flights, comments, flightLogNum, altitude);

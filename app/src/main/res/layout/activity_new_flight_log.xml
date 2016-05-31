@@ -200,7 +200,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Altitude:"
+                android:text="Altitude (ft):"
                 android:id="@+id/txtLogAltitude" />
 
             <EditText
@@ -228,14 +228,15 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:gravity="center"
                 android:id="@+id/llLogInfoButtons">
 
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Add Another Flight"
+                    android:text="Add A Flight"
                     android:id="@+id/btnLogOneMoreFlight"
-                    android:layout_gravity="center_horizontal"
+                    android:layout_gravity="center"
                     android:onClick="btnOneMoreFlight" />
             </LinearLayout>
 

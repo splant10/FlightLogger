@@ -35,7 +35,7 @@ public class Pilot {
         return flightTime;
     }
 
-    public void setFlightTime(int flightTime) {
-        this.flightTime = flightTime;
+    public void addToFlightTime(int flightTime) {
+        this.flightTime += flightTime;
     }
 }
