@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RadioButton;
@@ -40,6 +41,11 @@ public class NewPilotActivity extends PilotsActivity {
         if (creatingPilot) {
             Pilot p = new Pilot(name);
             HomeScreen.getPilotList().add(p);
+            PilotsAdapter pa = super.getCustomAdapter();
+            ArrayAdapter<String> aa = super.getSpotAdapter();
+            pa.notifyDataSetChanged();
+            aa.notifyDataSetChanged();
+
         } else { // creating a spotter
             HomeScreen.getSpotterList().add(name);
         }

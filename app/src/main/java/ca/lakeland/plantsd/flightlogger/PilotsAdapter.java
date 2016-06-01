@@ -49,4 +49,8 @@ public class PilotsAdapter extends ArrayAdapter<Pilot> {
         }
         return v;
     }
+
+    public void updateList() {
+        notifyDataSetChanged();
+    }
 }

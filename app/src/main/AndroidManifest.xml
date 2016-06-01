@@ -35,6 +35,7 @@
         </activity>
         <activity android:name=".NewPilotActivity" />
         <activity android:name=".PilotInfoActivity" />
+        <activity android:name=".FlightLogInfoActivity"></activity>
     </application>
 
 </manifest>

@@ -19,7 +19,7 @@ public class PilotsActivity extends HomeScreen implements AdapterView.OnItemClic
 
     private ListView lvPilots;
     private PilotsAdapter customAdapter;
-
+    ArrayAdapter<String> spotAdapter;
     private ListView lvSpotters;
 
     @Override
@@ -46,7 +46,7 @@ public class PilotsActivity extends HomeScreen implements AdapterView.OnItemClic
         lvPilots.setOnItemClickListener(this);
 
         lvSpotters = (ListView) findViewById(R.id.lvSpotters);
-        ArrayAdapter<String> spotAdapter = new ArrayAdapter<String>(this, R.layout.adapter_pilot_row, R.id.txtPilotName, HomeScreen.getSpotterList());
+        spotAdapter = new ArrayAdapter<String>(this, R.layout.adapter_pilot_row, R.id.txtPilotName, HomeScreen.getSpotterList());
         lvSpotters.setAdapter(spotAdapter);
 
     }
@@ -73,4 +73,11 @@ public class PilotsActivity extends HomeScreen implements AdapterView.OnItemClic
         return true;
     }
 
+    public PilotsAdapter getCustomAdapter() {
+        return customAdapter;
+    }
+
+    public ArrayAdapter<String> getSpotAdapter() {
+        return spotAdapter;
+    }
 }

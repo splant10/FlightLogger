@@ -24,8 +24,12 @@ public class PilotInfoActivity extends PilotsActivity {
         TextView textFlights = (TextView) findViewById(R.id.txtPilotFlights);
         TextView textTime = (TextView)  findViewById(R.id.txtPilotTime);
 
+        // convert minutes to 00:00 (hours:minutes)
+        int time = Integer.parseInt(pilotTime);
+        String output = String.valueOf(time/60) + ":"+ String.valueOf(time%60);
+
         textName.setText(pilotName);
         textFlights.setText(pilotFlights);
-        textTime.setText(pilotTime);
+        textTime.setText(output);
     }
 }

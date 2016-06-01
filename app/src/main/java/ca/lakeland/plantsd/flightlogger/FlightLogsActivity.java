@@ -69,5 +69,7 @@ public class FlightLogsActivity extends HomeScreen implements AdapterView.OnItem
         Log.i("Hello THERE", "you clicked item: " + id + " at position: " + position);
         FlightLog fl = HomeScreen.getFlightLogs().get(position);
         Log.i("-----------------|", "that would be " + fl.getDate());
+        Intent intent = new Intent(v.getContext(), FlightLogInfoActivity.class);
+        startActivity(intent);
     }
 }
