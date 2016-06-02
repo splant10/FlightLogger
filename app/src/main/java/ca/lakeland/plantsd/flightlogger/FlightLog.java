@@ -1,12 +1,13 @@
 package ca.lakeland.plantsd.flightlogger;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
 /**
  * Created by plantsd on 5/19/2016.
  */
-public class FlightLog {
+public class FlightLog implements Serializable {
 
     // weird order for declaration of variables to keep in sync with design of New Flight Log Activity
     private String serialNum;

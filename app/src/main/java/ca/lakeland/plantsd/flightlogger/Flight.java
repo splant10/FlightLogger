@@ -1,9 +1,11 @@
 package ca.lakeland.plantsd.flightlogger;
 
+import java.io.Serializable;
+
 /**
  * Created by plantsd on 5/25/2016.
  */
-public class Flight {
+public class Flight implements Serializable {
 
     private String takeoffTime;
     private String landTime;

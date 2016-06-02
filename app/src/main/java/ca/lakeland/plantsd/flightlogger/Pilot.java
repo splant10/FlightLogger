@@ -1,9 +1,11 @@
 package ca.lakeland.plantsd.flightlogger;
 
+import java.io.Serializable;
+
 /**
  * Created by plantsd on 5/20/2016.
  */
-public class Pilot {
+public class Pilot implements Serializable {
 
     String name;
     int takeoffsAndLandings;

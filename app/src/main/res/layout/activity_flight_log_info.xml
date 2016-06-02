@@ -17,7 +17,8 @@
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:id="@+id/llFLInfo">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -126,7 +127,7 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="10/20/1994"
-                        android:id="@+id/textView4"
+                        android:id="@+id/txtFLDate2"
                         android:layout_marginLeft="15dp"
                         android:layout_marginTop="5dp"/>
 
@@ -135,7 +136,7 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="Location"
-                        android:id="@+id/txtLocation2"
+                        android:id="@+id/txtFLLocation2"
                         android:layout_gravity="left"
                         android:layout_marginLeft="15dp"
                         android:layout_marginTop="5dp"/>
@@ -340,20 +341,11 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Flight #1:"
-                android:id="@+id/txtFLFlightNumber1"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp" />
-            <include
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                layout="@layout/layout_flight_info_form"
-                android:layout_margin="3dp"
-                android:id="@+id/include1" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/llFLInfoFlights"></LinearLayout>
 
             <Button
                 android:layout_width="wrap_content"
