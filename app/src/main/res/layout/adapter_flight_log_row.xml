@@ -10,16 +10,15 @@
         android:text="@string/question_mark"
         android:id="@+id/lvtxtLogNum"
         android:layout_marginRight="15dp"
-        android:layout_alignBottom="@+id/lvtxtLogPilotSpotter"
+        android:layout_marginStart="24dp"
+        android:layout_alignTop="@+id/lvtxtLogPayload"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="22dp"
-        android:layout_alignTop="@+id/lvtxtLogDate"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="7dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Date"
         android:id="@+id/lvtxtLogDate"
         android:layout_marginLeft="15dp"
@@ -30,39 +29,40 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Payload"
         android:id="@+id/lvtxtLogPayload"
         android:layout_marginLeft="20dp"
         android:layout_toEndOf="@+id/lvtxtLogDate"
         android:layout_marginStart="20dp"
-        android:layout_alignBaseline="@+id/lvtxtLogDate" />
+        android:layout_alignBaseline="@+id/lvtxtLogDate"
+        android:layout_alignBottom="@+id/lvtxtLogDate" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Pilot and Spotter"
         android:id="@+id/lvtxtLogPilotSpotter"
         android:layout_below="@+id/lvtxtLogDate"
         android:layout_alignStart="@+id/lvtxtLogDate"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="15dp" />
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="5dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Location"
         android:id="@+id/lvtxtLogLocation"
-        android:layout_alignTop="@+id/lvtxtLogPayload"
         android:layout_toEndOf="@+id/lvtxtLogPayload"
-        android:layout_marginStart="20dp" />
+        android:layout_marginStart="20dp"
+        android:layout_alignBaseline="@+id/lvtxtLogPayload" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="Flights: 0"
         android:id="@+id/lvtxtLogFlights"
         android:layout_alignTop="@+id/lvtxtLogPilotSpotter"
