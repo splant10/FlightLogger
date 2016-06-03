@@ -1,6 +1,7 @@
 package ca.lakeland.plantsd.flightlogger;
 
 import android.content.Context;
+import android.graphics.PorterDuff;
 import android.util.AttributeSet;
 import android.view.View;
 import android.graphics.Bitmap;
@@ -13,6 +14,7 @@ import android.view.MotionEvent;
  * Created by plantsd on 6/3/2016.
  * Almost entirely from here:
  * http://code.tutsplus.com/tutorials/android-sdk-create-a-drawing-app-touch-interaction--mobile-19202
+ * All credit to Sue Smith, 26 Aug 2013
  */
 public class DrawingView extends View {
 
@@ -21,7 +23,7 @@ public class DrawingView extends View {
     //drawing and canvas paint
     private Paint drawPaint, canvasPaint;
     //initial color
-    private int paintColor = 0xFF660000;
+    private int paintColor = 0xFF000000;
     //canvas
     private Canvas drawCanvas;
     //canvas bitmap
@@ -48,7 +50,7 @@ public class DrawingView extends View {
         drawPaint = new Paint();
         drawPaint.setColor(paintColor);
         drawPaint.setAntiAlias(true);
-        drawPaint.setStrokeWidth(10);
+        drawPaint.setStrokeWidth(5);
         drawPaint.setStyle(Paint.Style.STROKE);
         drawPaint.setStrokeJoin(Paint.Join.ROUND);
         drawPaint.setStrokeCap(Paint.Cap.ROUND);
@@ -92,5 +94,10 @@ public class DrawingView extends View {
         }
         invalidate();
         return true;
+    }
+
+    public void startNew(){
+        drawCanvas.drawColor(0, PorterDuff.Mode.CLEAR);
+        invalidate();
     }
 }

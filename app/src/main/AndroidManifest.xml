@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ca.lakeland.plantsd.flightlogger">
 
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -36,7 +38,11 @@
         <activity android:name=".NewPilotActivity" />
         <activity android:name=".PilotInfoActivity" />
         <activity android:name=".FlightLogInfoActivity" />
-        <activity android:name=".TestActivity"></activity>
+        <activity android:name=".TestActivity" />
+        <activity
+            android:name=".AddPreflightChecklistActivity"
+            android:label="@string/title_activity_add_preflight_checklist"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

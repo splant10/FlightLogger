@@ -4,38 +4,53 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Signature/Initial:"
-        android:id="@+id/txtCanvasSignature"
-        android:layout_marginLeft="6dp"
-        android:layout_marginTop="6dp" />
-
-    <LinearLayout
+    <RelativeLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp">
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Signature/Initial:"
+                android:id="@+id/txtCanvasSignature"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="6dp"/>
 
-        <ca.lakeland.plantsd.flightlogger.DrawingView
-            android:id="@+id/drawing"
-            android:layout_width="0dp"
-            android:layout_height="110dp"
-            android:layout_weight="1"
-            android:background="@drawable/back_rect"
-            android:layout_marginLeft="6dp"
-            android:layout_marginTop="3dp"
-            android:layout_marginBottom="6dp"
-            android:layout_marginRight="3dp" />
-
-        <Button
-            android:layout_width="50dp"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="c"
-            android:id="@+id/btnCanvasClear"
-            android:layout_marginRight="3dp" />
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="CLEAR"
+            android:id="@+id/txtbtnCanvasClear"
+            android:layout_marginTop="6dp"
+            android:textColor="#fb618d"
+            android:textStyle="bold"
+            android:layout_alignParentRight="true"
+            android:layout_marginEnd="6dp"/>
 
-    </LinearLayout>
+
+    </RelativeLayout>
+
+    <ca.lakeland.plantsd.flightlogger.DrawingView
+        android:id="@+id/canvas"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_weight="1"
+        android:background="@drawable/signature_rect"
+        android:layout_marginLeft="6dp"
+        android:layout_marginBottom="3dp"
+        android:layout_marginRight="3dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Begin Flying"
+        android:id="@+id/btnPreSubmit"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="15dp"
+        android:layout_gravity="center"
+        android:padding="20dp" />
 
 </LinearLayout>
