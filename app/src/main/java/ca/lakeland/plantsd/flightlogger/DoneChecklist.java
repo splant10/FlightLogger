@@ -3,17 +3,16 @@ package ca.lakeland.plantsd.flightlogger;
 import android.graphics.Bitmap;
 
 import java.io.Serializable;
-import java.util.Date;
 
 /**
  * Created by plantsd on 6/3/2016.
  */
 public class DoneChecklist implements Serializable {
     private String date;
-    private Pilot pilot;
+    private String pilot;
     private Bitmap signature;
 
-    public DoneChecklist(String date, Pilot pilot, Bitmap bmp) {
+    public DoneChecklist(String date, String pilot, Bitmap bmp) {
         this.date = date;
         this.pilot = pilot;
         this.signature = bmp;
@@ -23,7 +22,7 @@ public class DoneChecklist implements Serializable {
         return date;
     }
 
-    public Pilot getPilot() {
+    public String getPilot() {
         return pilot;
     }
 

@@ -9,8 +9,12 @@ import android.support.design.widget.Snackbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,15 +22,18 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.UUID;
 
-public class ChecklistActivity extends HomeScreen implements View.OnClickListener {
+public class ChecklistActivity extends HomeScreen implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     private TextView clearButton;
     private CheckBox chkNOTAM, chkEnviro, chkEye, chkSideArms, chkLanding,
             chkMotors, chkRotors, chkBatt, chkControl, chkInertial, chkCamera, chkCell;
     DrawingView dv;
+    Spinner spinPilots;
     Button btnSubmit;
 
     @Override
@@ -53,6 +60,23 @@ public class ChecklistActivity extends HomeScreen implements View.OnClickListene
         chkCell = (CheckBox) findViewById(R.id.chkPreCell);
 
         dv = (DrawingView) findViewById(R.id.include1).findViewById(R.id.canvas);
+
+        // ***********  Spinner for pilot selection ************ //
+        spinPilots = (Spinner) findViewById(R.id.include1).findViewById(R.id.spinChecklistPilot);
+        spinPilots.setOnItemSelectedListener(this);
+        List<String> pilotNames = new ArrayList<String>();
+        List<Pilot> pilotList = HomeScreen.getPilotList();
+
+        // Iterate over pilots and add to spinner
+        for (int i = 0; i < pilotList.size(); ++i) {
+            pilotNames.add(pilotList.get(i).getName());
+        }
+        // Create adapter for the spinner
+        ArrayAdapter<String> pilotNameAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, pilotNames);
+
+        // Attach data adapter to spinner
+        spinPilots.setAdapter(pilotNameAdapter);
+        // End spinner for pilot selection
 
         btnSubmit = (Button) findViewById(R.id.include1).findViewById(R.id.btnPreSubmit);
         btnSubmit.setOnClickListener(this);
@@ -90,6 +114,16 @@ public class ChecklistActivity extends HomeScreen implements View.OnClickListene
         }
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> arg0) {
+
+    }
+
     // What happens when you hit the submit button.
     public void btnSubmit(View v) {
         // if all are checked
@@ -106,7 +140,8 @@ public class ChecklistActivity extends HomeScreen implements View.OnClickListene
             String today = df.format(myCalendar.getTime());
 
             // make a new completed checklist with the pilot and signature for today.
-            DoneChecklist doneChecklist = new DoneChecklist(today, new Pilot("jim"), dv.getDrawingCache());
+            String pilotName = spinPilots.getSelectedItem().toString();
+            DoneChecklist doneChecklist = new DoneChecklist(today, pilotName, dv.getDrawingCache());
             HomeScreen.getCheckLists().add(doneChecklist);
 
             /*

@@ -43,14 +43,31 @@
         android:layout_marginBottom="3dp"
         android:layout_marginRight="3dp" />
 
-    <Button
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Begin Flying"
-        android:id="@+id/btnPreSubmit"
-        android:layout_marginTop="15dp"
-        android:layout_marginBottom="15dp"
-        android:layout_gravity="center"
-        android:padding="20dp" />
+        android:weightSum="5">
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/spinChecklistPilot"
+            android:layout_weight="4"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="3dp" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Begin Flying"
+            android:id="@+id/btnPreSubmit"
+            android:layout_gravity="center"
+            android:padding="20dp"
+            android:layout_weight="1"
+            android:layout_marginBottom="3dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="3dp" />
+    </LinearLayout>
 
 </LinearLayout>
