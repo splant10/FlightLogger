@@ -20,7 +20,7 @@
         </activity>
         <activity android:name=".FlightLogsActivity" />
         <activity
-            android:name=".FlightPlansActivity"
+            android:name=".ChecklistActivity"
             android:label="@string/title_activity_flight_plan"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".NewFlightLogActivity" />

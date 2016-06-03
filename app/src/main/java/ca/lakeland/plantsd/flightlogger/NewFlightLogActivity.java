@@ -1,9 +1,11 @@
 package ca.lakeland.plantsd.flightlogger;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.TimePickerDialog;
+import android.content.DialogInterface;
 import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
@@ -208,6 +210,31 @@ public class NewFlightLogActivity extends FlightLogsActivity implements AdapterV
     };
 
     public void btnSubmit(View view) {
+        final View v = view;
+        // http://stackoverflow.com/questions/2478517/how-to-display-a-yes-no-dialog-box-on-android
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which){
+                    case DialogInterface.BUTTON_POSITIVE:
+                        //Yes button clicked
+                        submitFlightLog(v);
+                        break;
+
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        //No button clicked
+                        break;
+                }
+            }
+        };
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Please verify the information in this form is correct. It cannot be changed after submission")
+                .setPositiveButton("Yes", dialogClickListener)
+                .setNegativeButton("No", dialogClickListener).show();
+    }
+
+    public void submitFlightLog(View view) {
         try {
             // FlightLog(String serialNum, String date, String location, Pilot pilot, String spotter,
             //          float windSpeed, float temperature, String weatherConditions, String purposeOfFlight,
@@ -360,5 +387,6 @@ public class NewFlightLogActivity extends FlightLogsActivity implements AdapterV
             Toast.makeText(this, "Something went wrong; couldn't save the flight log", Toast.LENGTH_SHORT).show();
             e.printStackTrace();
         }
+
     }
 }

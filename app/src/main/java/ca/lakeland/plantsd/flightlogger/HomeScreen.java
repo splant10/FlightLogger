@@ -20,7 +20,6 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.List;
 
 public class HomeScreen extends AppCompatActivity {
@@ -144,7 +143,7 @@ public class HomeScreen extends AppCompatActivity {
         startActivity(intent);
     }
     public void openFlightPlanner(View view) {
-        Intent intent = new Intent(this, FlightPlansActivity.class);
+        Intent intent = new Intent(this, ChecklistActivity.class);
         startActivity(intent);
     }
 
@@ -170,28 +169,28 @@ public class HomeScreen extends AppCompatActivity {
             // Saving Flightnum
             fos = appContext.openFileOutput(fileFlightNum, Context.MODE_PRIVATE);
             String jsonData = gson.toJson(getFlightNum());
-            System.out.println(jsonData);
+            //System.out.println(jsonData);
             fos.write(jsonData.getBytes());
             fos.close();
 
             // Saving Pilots
             fos = appContext.openFileOutput(filePilots, Context.MODE_PRIVATE);
             jsonData = gson.toJson(getPilotList());
-            System.out.println(jsonData);
+            //System.out.println(jsonData);
             fos.write(jsonData.getBytes());
             fos.close();
 
             // Saving Spotters
             fos = appContext.openFileOutput(fileSpotters, Context.MODE_PRIVATE);
             jsonData = gson.toJson(getSpotterList());
-            System.out.println(jsonData);
+            //System.out.println(jsonData);
             fos.write(jsonData.getBytes());
             fos.close();
 
             // Saving FlightLogs
             fos = appContext.openFileOutput(fileFlightLogs, Context.MODE_PRIVATE);
             jsonData = gson.toJson(getFlightLogs());
-            System.out.println(jsonData);
+            //System.out.println(jsonData);
             fos.write(jsonData.getBytes());
             fos.close();
 
