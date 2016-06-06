@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -132,6 +133,17 @@ public class ChecklistActivity extends HomeScreen implements View.OnClickListene
     public void onNothingSelected(AdapterView<?> arg0) {
 
     }
+
+
+    public void clickArea(View view) {
+        // when clicking anywhere in a linear layout child in the scrollview (that has a checkbox
+        // and textview explanation children), check the checkbox
+
+        LinearLayout thisLL = (LinearLayout) view;
+        CheckBox checkBox = (CheckBox) thisLL.getChildAt(0);
+        checkBox.setChecked(!checkBox.isChecked());
+    }
+
 
     // What happens when you hit the submit button.
     public void btnSubmit(View v) {
