@@ -74,6 +74,9 @@ public class DrawingView extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        // stop scrolling if in a scrolling view
+        getParent().requestDisallowInterceptTouchEvent(true);
+
         //detect user touch
         float touchX = event.getX();
         float touchY = event.getY();
