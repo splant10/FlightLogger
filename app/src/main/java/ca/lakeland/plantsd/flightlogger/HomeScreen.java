@@ -70,6 +70,14 @@ public class HomeScreen extends AppCompatActivity {
         return flightLogs;
     }
 
+    private static List<DoneChecklist> checkLists = null;
+    static public List<DoneChecklist> getCheckLists() {
+        if (checkLists == null) {
+            checkLists = new ArrayList<DoneChecklist>();
+        }
+        return checkLists;
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -143,7 +151,7 @@ public class HomeScreen extends AppCompatActivity {
         startActivity(intent);
     }
     public void openFlightPlanner(View view) {
-        Intent intent = new Intent(this, ChecklistActivity.class);
+        Intent intent = new Intent(this, AddPreflightChecklistActivity.class);
         startActivity(intent);
     }
 
@@ -252,5 +260,10 @@ public class HomeScreen extends AppCompatActivity {
         builder.setMessage("Do you wish to delete all locally stored data?")
                 .setPositiveButton("Yes", dialogClickListener)
                 .setNegativeButton("No", dialogClickListener).show();
+    }
+
+    public void onLogoClick(View view) {
+        Intent intent = new Intent(this, TestActivity.class);
+        startActivity(intent);
     }
 }

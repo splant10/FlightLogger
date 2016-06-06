@@ -5,4 +5,6 @@
     <string name="title_activity_flight_plan">FlightPlanActivity</string>
     <string name="title_activity_add_pilots">AddPilotsActivity</string>
     <string name="question_mark">\?</string>
+    <string name="title_activity_add_preflight_checklist">AddPreflightChecklistActivity</string>
+    <string name="checklist_disclaimer">By seeing this page, one can be certain that the checklist was completed on the given date by the author above. A completed checklist page like this one will not be generated unless each check in the checklist has been marked as complete.</string>
 </resources>

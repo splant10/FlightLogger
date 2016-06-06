@@ -61,6 +61,7 @@ public class NewFlightLogActivity extends FlightLogsActivity implements AdapterV
         }
         // Create adapter for the spinner
         ArrayAdapter<String> pilotNameAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, pilotNames);
+        pilotNameAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         // Attach data adapter to spinner
         pilotSpinner.setAdapter(pilotNameAdapter);
@@ -73,6 +74,7 @@ public class NewFlightLogActivity extends FlightLogsActivity implements AdapterV
 
         // Create adapter for the spinner
         ArrayAdapter<String> spotterNameAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, spotterList);
+        spotterNameAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
 
         // Attach data adapter to spinner
         spotterSpinner.setAdapter(spotterNameAdapter);
@@ -83,6 +85,7 @@ public class NewFlightLogActivity extends FlightLogsActivity implements AdapterV
         payloadSpinner.setOnItemSelectedListener(this);
         List<String> payloadList = HomeScreen.getPayloads();
         ArrayAdapter<String> payloadAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, payloadList);
+        payloadAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         payloadSpinner.setAdapter(payloadAdapter);
         // *********** End spinner for payload selection ************ //
 
