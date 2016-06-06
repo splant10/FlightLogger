@@ -73,4 +73,14 @@ public class FlightLogsActivity extends HomeScreen implements AdapterView.OnItem
         intent.putExtra("FLIGHT_LOG", fl);
         startActivity(intent);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // this reeaally doesn't seem proper to me. Would much rather do a
+        //      adapter.notifyDataSetChanged()
+        // type of call, but that just doesn't want to work here. or anywhere for that matter
+        customAdapter = new FlightLogsAdapter(this, R.layout.adapter_flight_log_row, HomeScreen.getFlightLogs());
+        lvFlightLogs.setAdapter(customAdapter);
+    }
 }

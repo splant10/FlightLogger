@@ -47,4 +47,14 @@ public class AddPreflightChecklistActivity extends HomeScreen implements Adapter
         startActivity(intent);
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // this reeaally doesn't seem proper to me. Would much rather do a
+        //      adapter.notifyDataSetChanged()
+        // type of call, but that just doesn't want to work here. or anywhere for that matter
+        customAdapter = new ChecklistAdapter(this, R.layout.adapter_checklist_row, HomeScreen.getCheckLists());
+        lvPreflightChecklists.setAdapter(customAdapter);
+    }
+
 }

@@ -1,26 +1,22 @@
 package ca.lakeland.plantsd.flightlogger;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import java.util.ArrayList;
-
 public class PilotsActivity extends HomeScreen implements AdapterView.OnItemClickListener {
 
     private ListView lvPilots;
-    private PilotsAdapter customAdapter;
-    ArrayAdapter<String> spotAdapter;
+    private PilotsAdapter pilotsAdapter;
+
     private ListView lvSpotters;
+    ArrayAdapter<String> spotAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +37,8 @@ public class PilotsActivity extends HomeScreen implements AdapterView.OnItemClic
 
         // Set up the pilots and spotters list views
         lvPilots = (ListView) findViewById(R.id.lvPilots);
-        customAdapter = new PilotsAdapter(this, R.layout.adapter_pilot_row, HomeScreen.getPilotList());
-        lvPilots.setAdapter(customAdapter);
+        pilotsAdapter = new PilotsAdapter(this, R.layout.adapter_pilot_row, HomeScreen.getPilotList());
+        lvPilots.setAdapter(pilotsAdapter);
         lvPilots.setOnItemClickListener(this);
 
         lvSpotters = (ListView) findViewById(R.id.lvSpotters);
@@ -73,11 +69,15 @@ public class PilotsActivity extends HomeScreen implements AdapterView.OnItemClic
         return true;
     }
 
-    public PilotsAdapter getCustomAdapter() {
-        return customAdapter;
-    }
-
-    public ArrayAdapter<String> getSpotAdapter() {
-        return spotAdapter;
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // this reeaally doesn't seem proper to me. Would much rather do a
+        //      adapter.notifyDataSetChanged()
+        // type of call, but that just doesn't want to work here. or anywhere for that matter
+        pilotsAdapter = new PilotsAdapter(this, R.layout.adapter_pilot_row, HomeScreen.getPilotList());
+        lvPilots.setAdapter(pilotsAdapter);
+        spotAdapter = new ArrayAdapter<String>(this, R.layout.adapter_pilot_row, R.id.txtPilotName, HomeScreen.getSpotterList());
+        lvSpotters.setAdapter(spotAdapter);
     }
 }
