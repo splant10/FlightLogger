@@ -68,8 +68,8 @@
         android:id="@+id/imgLogo"
         android:src="@drawable/csi_logo"
         android:layout_weight="1"
-        tools:ignore="ContentDescription"
-        android:onClick="onLogoClick" />
+        tools:ignore="ContentDescription" />
+    <!-- android:onClick="onLogoClick" /> -->
     <Space
         android:layout_width="1dp"
         android:layout_height="0dp"
