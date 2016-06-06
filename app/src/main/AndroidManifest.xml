@@ -42,7 +42,8 @@
         <activity
             android:name=".AddPreflightChecklistActivity"
             android:label="@string/title_activity_add_preflight_checklist"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".ChecklistInfoActivity"></activity>
     </application>
 
 </manifest>

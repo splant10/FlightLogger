@@ -40,6 +40,11 @@ public class AddPreflightChecklistActivity extends HomeScreen implements Adapter
 
     public void onItemClick(AdapterView<?> l, View v, int position, long id) {
         Log.i("Hello THERE", "you clicked item: " + id + " at position: " + position);
+        DoneChecklist dl = HomeScreen.getCheckLists().get(position);
+        // Log.i("-----------------|", "that would be " + fl.getDate());
+        Intent intent = new Intent(v.getContext(), ChecklistInfoActivity.class);
+        intent.putExtra("DONE_CHECKLIST", dl);
+        startActivity(intent);
     }
 
 }

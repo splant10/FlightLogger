@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Pilot Name"
-            android:id="@+id/txtChecklistPilot"
+            android:id="@+id/txtChecklistAuthor"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@+id/txtChecklistDate"
             android:layout_marginLeft="40dp" />

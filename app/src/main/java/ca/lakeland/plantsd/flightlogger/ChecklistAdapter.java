@@ -45,9 +45,9 @@ public class ChecklistAdapter extends ArrayAdapter<DoneChecklist> {
                 txt1.setText(dc.getDate());
             }
 
-            TextView txt2 = (TextView) v.findViewById(R.id.txtChecklistPilot);
+            TextView txt2 = (TextView) v.findViewById(R.id.txtChecklistAuthor);
             if (txt2 != null) {
-                txt2.setText(dc.getPilot());
+                txt2.setText(dc.getAuthor());
             }
         }
         return v;

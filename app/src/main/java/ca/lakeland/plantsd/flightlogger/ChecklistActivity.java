@@ -3,9 +3,6 @@ package ca.lakeland.plantsd.flightlogger;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,7 +10,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,8 +20,9 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashSet;
 import java.util.List;
-import java.util.UUID;
+import java.util.Set;
 
 public class ChecklistActivity extends HomeScreen implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
@@ -33,7 +30,7 @@ public class ChecklistActivity extends HomeScreen implements View.OnClickListene
     private CheckBox chkNOTAM, chkEnviro, chkEye, chkSideArms, chkLanding,
             chkMotors, chkRotors, chkBatt, chkControl, chkInertial, chkCamera, chkCell;
     DrawingView dv;
-    Spinner spinPilots;
+    Spinner spinAuthors;
     Button btnSubmit;
 
     @Override
@@ -61,22 +58,34 @@ public class ChecklistActivity extends HomeScreen implements View.OnClickListene
 
         dv = (DrawingView) findViewById(R.id.include1).findViewById(R.id.canvas);
 
-        // ***********  Spinner for pilot selection ************ //
-        spinPilots = (Spinner) findViewById(R.id.include1).findViewById(R.id.spinChecklistPilot);
-        spinPilots.setOnItemSelectedListener(this);
-        List<String> pilotNames = new ArrayList<String>();
+        // ***********  Spinner for author selection ************ //
+        spinAuthors = (Spinner) findViewById(R.id.include1).findViewById(R.id.spinChecklistAuthor);
+
+        spinAuthors.setOnItemSelectedListener(this);
+        List<String> authorNames = new ArrayList<String>();
         List<Pilot> pilotList = HomeScreen.getPilotList();
 
         // Iterate over pilots and add to spinner
         for (int i = 0; i < pilotList.size(); ++i) {
-            pilotNames.add(pilotList.get(i).getName());
+            authorNames.add(pilotList.get(i).getName());
         }
+
+        // add all the spotters to the list too
+        authorNames.addAll(HomeScreen.getSpotterList());
+
+        // http://stackoverflow.com/questions/203984/how-do-i-remove-repeated-elements-from-arraylist
+        Set<String> hs = new HashSet<>();
+        hs.addAll(authorNames);
+        authorNames.clear();
+        authorNames.addAll(hs);
+
         // Create adapter for the spinner
-        ArrayAdapter<String> pilotNameAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, pilotNames);
+        ArrayAdapter<String> pilotNameAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, authorNames);
+        pilotNameAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item); // make options bigger
 
         // Attach data adapter to spinner
-        spinPilots.setAdapter(pilotNameAdapter);
-        // End spinner for pilot selection
+        spinAuthors.setAdapter(pilotNameAdapter);
+        // End spinner for author selection
 
         btnSubmit = (Button) findViewById(R.id.include1).findViewById(R.id.btnPreSubmit);
         btnSubmit.setOnClickListener(this);
@@ -140,16 +149,15 @@ public class ChecklistActivity extends HomeScreen implements View.OnClickListene
             String today = df.format(myCalendar.getTime());
 
             // make a new completed checklist with the pilot and signature for today.
-            String pilotName = spinPilots.getSelectedItem().toString();
-            DoneChecklist doneChecklist = new DoneChecklist(today, pilotName, dv.getDrawingCache());
+            String author = spinAuthors.getSelectedItem().toString();
+            DoneChecklist doneChecklist = new DoneChecklist(today, author);
             HomeScreen.getCheckLists().add(doneChecklist);
 
-            /*
             // http://stackoverflow.com/questions/649154/save-bitmap-to-location
             // Thanks to Ulrich Scheller for this. Retrieved June 3 2016
             String path = Environment.getExternalStorageDirectory().toString();
             FileOutputStream out = null;
-            File signatureImg = new File(path, UUID.randomUUID().toString()+".png");
+            File signatureImg = new File(path, today+author+".png");
             try {
                 out = new FileOutputStream(signatureImg);
                 dv.getDrawingCache().compress(Bitmap.CompressFormat.PNG, 100, out);
@@ -168,7 +176,6 @@ public class ChecklistActivity extends HomeScreen implements View.OnClickListene
                 }
             }
             Toast.makeText(getApplicationContext(),"Signature saved", Toast.LENGTH_SHORT).show();
-            */
 
             dv.destroyDrawingCache();
             finish();
