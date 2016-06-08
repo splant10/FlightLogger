@@ -19,4 +19,8 @@ public class FlightNum {
         this.flightNum += 1;
     }
 
+    public void setFlightNum(int i) {
+        this.flightNum = i;
+    }
+
 }
