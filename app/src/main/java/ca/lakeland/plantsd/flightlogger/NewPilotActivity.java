@@ -21,12 +21,16 @@ public class NewPilotActivity extends PilotsActivity {
     TextView title;
     TextView header;
 
+    Storage stor;
+
     private boolean creatingPilot = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_pilot);
+
+        stor = Storage.getInstance();
 
         title = (TextView) findViewById(R.id.tvTitleAddPilot);
         header = (TextView) findViewById(R.id.txtTitleName);
@@ -44,18 +48,12 @@ public class NewPilotActivity extends PilotsActivity {
 
         if (creatingPilot) {
             Pilot p = new Pilot(name);
-            HomeScreen.getPilotList().add(p);
+            stor.getPilots().add(p);
 
         } else { // creating a spotter
-            HomeScreen.getSpotterList().add(name);
+            stor.getSpotters().add(name);
         }
         finish();
-    }
-
-    public void updatePilotList(ArrayList<Pilot> pilots) {
-        ListView lvPilots = (ListView) findViewById(R.id.lvPilots);
-        PilotsAdapter customAdapter = new PilotsAdapter(this, R.layout.adapter_pilot_row, pilots);
-        lvPilots.setAdapter(customAdapter);
     }
 
     public void onRadioButtonClicked(View view) {

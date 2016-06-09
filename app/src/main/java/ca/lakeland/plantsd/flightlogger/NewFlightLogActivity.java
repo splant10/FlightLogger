@@ -35,6 +35,8 @@ import java.util.List;
 public class NewFlightLogActivity extends FlightLogsActivity implements AdapterView.OnItemSelectedListener {
 
     FlightLog fl;
+
+    Storage stor;
     SimpleDateFormat timeFormat = new SimpleDateFormat("h:mm a");
 
     Calendar myCalendar = Calendar.getInstance();
@@ -46,6 +48,8 @@ public class NewFlightLogActivity extends FlightLogsActivity implements AdapterV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_flight_log);
 
+        stor = Storage.getInstance();
+
         EditText etLogDate = (EditText) findViewById(R.id.etLogDate);
         etLogDate.setText(today);
 
@@ -53,7 +57,7 @@ public class NewFlightLogActivity extends FlightLogsActivity implements AdapterV
         Spinner pilotSpinner = (Spinner) findViewById(R.id.spinLogPilot);
         pilotSpinner.setOnItemSelectedListener(this);
         List<String> pilotNames = new ArrayList<String>();
-        List<Pilot> pilotList = HomeScreen.getPilotList();
+        List<Pilot> pilotList = stor.getPilots();
 
         // Iterate over pilots and add to spinner
         for (int i = 0; i < pilotList.size(); ++i) {
@@ -70,7 +74,7 @@ public class NewFlightLogActivity extends FlightLogsActivity implements AdapterV
         // ***********  Spinner for spotter selection ************ //
         Spinner spotterSpinner = (Spinner) findViewById(R.id.spinLogSpotter);
         spotterSpinner.setOnItemSelectedListener(this);
-        List<String> spotterList = HomeScreen.getSpotterList();
+        List<String> spotterList = stor.getSpotters();
 
         // Create adapter for the spinner
         ArrayAdapter<String> spotterNameAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, spotterList);
@@ -83,7 +87,7 @@ public class NewFlightLogActivity extends FlightLogsActivity implements AdapterV
         // ***********  Spinner for Payload selection ************ //
         Spinner payloadSpinner = (Spinner) findViewById(R.id.spinLogPayload);
         payloadSpinner.setOnItemSelectedListener(this);
-        List<String> payloadList = HomeScreen.getPayloads();
+        List<String> payloadList = stor.getPayloads();
         ArrayAdapter<String> payloadAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, payloadList);
         payloadAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         payloadSpinner.setAdapter(payloadAdapter);
@@ -276,7 +280,7 @@ public class NewFlightLogActivity extends FlightLogsActivity implements AdapterV
                 return;
             }
 
-            List<Pilot> pilots = HomeScreen.getPilotList();
+            List<Pilot> pilots = stor.getPilots();
             Pilot pilot = new Pilot("Colonel Sanders"); // This is necessary for Android to see pilot
             // isn't empty. Will be overwritten immediately below.
             if (pilots.size() != 0) {
@@ -295,7 +299,7 @@ public class NewFlightLogActivity extends FlightLogsActivity implements AdapterV
             }
 
             String spotter;
-            if (HomeScreen.getSpotterList().size() != 0) {
+            if (stor.getSpotters().size() != 0) {
                 spotter = ((Spinner) findViewById(R.id.spinLogSpotter)).getSelectedItem().toString();
             } else {
                 Toast.makeText(this, "To add spotters, navigate to 'Pilots & Spotters' on the main screen", Toast.LENGTH_LONG).show();
@@ -378,13 +382,13 @@ public class NewFlightLogActivity extends FlightLogsActivity implements AdapterV
             }
 
             String comments = etComments.getText().toString();
-            int flightLogNum = HomeScreen.getFlightNum().getFlightNumber();
-            HomeScreen.getFlightNum().incrementFlightNum();
+            int flightLogNum = stor.getFlightNum().getFlightNumber();
+            stor.getFlightNum().incrementFlightNum();
 
             FlightLog fl = new FlightLog(serial, date, location, pilot, spotter, windSpeed, temperature, weatherConditions,
                     purpose, payload, flights, comments, flightLogNum, altitude);
 
-            HomeScreen.getFlightLogs().add(fl);
+            stor.getFlightLogs().add(fl);
             finish();
         } catch (Exception e) {
             Toast.makeText(this, "Something went wrong; couldn't save the flight log", Toast.LENGTH_SHORT).show();

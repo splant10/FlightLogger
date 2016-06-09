@@ -1,62 +1,109 @@
 package ca.lakeland.plantsd.flightlogger;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
  * Created by plantsd on 6/8/2016.
+ *
+ * some code structure from
+ * http://stackoverflow.com/questions/15792186/singleton-pattern-with-combination-of-lazy-loading-and-thread-safety
  */
 public class Storage {
-    FlightNum flightNum;
-    List<Pilot> pilots;
-    List<String> spotters;
-    List<DoneChecklist> doneChecklists;
-    List<FlightLog> flightLogs;
 
-    public Storage() {
-        flightNum = HomeScreen.getFlightNum();
-        pilots = HomeScreen.getPilotList();
-        spotters = HomeScreen.getSpotterList();
-        doneChecklists = HomeScreen.getCheckLists();
-        flightLogs = HomeScreen.getFlightLogs();
+    private FlightNum flightNum;
+    private List<Pilot> pilots;
+    private List<String> spotters;
+    private List<DoneChecklist> doneChecklists;
+    private List<FlightLog> flightLogs;
+
+    private List<String> payloads = Arrays.asList("QX100","RX100","ADC-Micro");
+    public List<String> getPayloads() {
+        return payloads;
     }
 
+    private Storage() {
+        flightNum = getFlightNum();
+        pilots = getPilots();
+        spotters = getSpotters();
+        doneChecklists = getDoneChecklists();
+        flightLogs = getFlightLogs();
+    }
+
+    private static class LazyHolder {
+        private static final Storage INSTANCE = new Storage();
+    }
+
+    public static Storage getInstance() {
+        return LazyHolder.INSTANCE;
+    }
+
+    // Lazy singleton structure for global objects
     public FlightNum getFlightNum() {
+        if (flightNum == null) {
+            flightNum = new FlightNum();
+        }
         return flightNum;
     }
 
-    public void setFlightNum(FlightNum flightnum) {
-        this.flightNum = flightnum;
-    }
 
     public List<Pilot> getPilots() {
+        if (pilots == null) {
+            pilots = new ArrayList<Pilot>();
+        }
         return pilots;
+    }
+
+    public List<String> getSpotters() {
+        if (spotters == null) {
+            spotters = new ArrayList<String>();
+        }
+        return spotters;
+    }
+
+
+    public List<DoneChecklist> getDoneChecklists() {
+        if (doneChecklists == null) {
+            doneChecklists = new ArrayList<DoneChecklist>();
+        }
+        return doneChecklists;
+    }
+
+
+    public List<FlightLog> getFlightLogs() {
+        if (flightLogs == null) {
+            flightLogs = new ArrayList<FlightLog>();
+        }
+        return flightLogs;
+    }
+
+    // Setters
+    public void setFlightNum(FlightNum flightnum) {
+        this.flightNum = flightnum;
     }
 
     public void setPilots(List<Pilot> pilots) {
         this.pilots = pilots;
     }
 
-    public List<String> getSpotters() {
-        return spotters;
-    }
-
     public void setSpotters(List<String> spotters) {
         this.spotters = spotters;
-    }
-
-    public List<DoneChecklist> getDoneChecklists() {
-        return doneChecklists;
     }
 
     public void setDoneChecklists(List<DoneChecklist> doneChecklists) {
         this.doneChecklists = doneChecklists;
     }
 
-    public List<FlightLog> getFlightLogs() {
-        return flightLogs;
-    }
-
     public void setFlightLogs(List<FlightLog> flightLogs) {
         this.flightLogs = flightLogs;
+    }
+
+    public void clearAllData() {
+        this.flightNum = null;
+        this.pilots = null;
+        this.spotters = null;
+        this.doneChecklists = null;
+        this.flightLogs = null;
     }
 }

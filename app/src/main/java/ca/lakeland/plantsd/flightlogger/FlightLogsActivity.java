@@ -18,12 +18,16 @@ public class FlightLogsActivity extends HomeScreen implements AdapterView.OnItem
     private ListView lvFlightLogs;
     private FlightLogsAdapter customAdapter;
 
+    Storage stor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flight_log);
         // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         // setSupportActionBar(toolbar);
+
+        stor = Storage.getInstance();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabFL);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -38,7 +42,7 @@ public class FlightLogsActivity extends HomeScreen implements AdapterView.OnItem
 
         // Set up the pilots and spotters list views
         lvFlightLogs = (ListView) findViewById(R.id.lvFlightLogs);
-        customAdapter = new FlightLogsAdapter(this, R.layout.adapter_flight_log_row, HomeScreen.getFlightLogs());
+        customAdapter = new FlightLogsAdapter(this, R.layout.adapter_flight_log_row, stor.getFlightLogs());
         lvFlightLogs.setAdapter(customAdapter);
         lvFlightLogs.setOnItemClickListener(this);
     }
@@ -67,7 +71,7 @@ public class FlightLogsActivity extends HomeScreen implements AdapterView.OnItem
 
     public void onItemClick(AdapterView<?> l, View v, int position, long id) {
         // Log.i("Hello THERE", "you clicked item: " + id + " at position: " + position);
-        FlightLog fl = HomeScreen.getFlightLogs().get(position);
+        FlightLog fl = stor.getFlightLogs().get(position);
         // Log.i("-----------------|", "that would be " + fl.getDate());
         Intent intent = new Intent(v.getContext(), FlightLogInfoActivity.class);
         intent.putExtra("FLIGHT_LOG", fl);
@@ -80,7 +84,7 @@ public class FlightLogsActivity extends HomeScreen implements AdapterView.OnItem
         // this reeaally doesn't seem proper to me. Would much rather do a
         //      adapter.notifyDataSetChanged()
         // type of call, but that just doesn't want to work here. or anywhere for that matter
-        customAdapter = new FlightLogsAdapter(this, R.layout.adapter_flight_log_row, HomeScreen.getFlightLogs());
+        customAdapter = new FlightLogsAdapter(this, R.layout.adapter_flight_log_row, stor.getFlightLogs());
         lvFlightLogs.setAdapter(customAdapter);
     }
 }

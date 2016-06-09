@@ -18,10 +18,14 @@ public class PilotsActivity extends HomeScreen implements AdapterView.OnItemClic
     private ListView lvSpotters;
     ArrayAdapter<String> spotAdapter;
 
+    Storage stor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pilots);
+
+        stor = Storage.getInstance();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabP);
 
@@ -37,19 +41,19 @@ public class PilotsActivity extends HomeScreen implements AdapterView.OnItemClic
 
         // Set up the pilots and spotters list views
         lvPilots = (ListView) findViewById(R.id.lvPilots);
-        pilotsAdapter = new PilotsAdapter(this, R.layout.adapter_pilot_row, HomeScreen.getPilotList());
+        pilotsAdapter = new PilotsAdapter(this, R.layout.adapter_pilot_row, stor.getPilots());
         lvPilots.setAdapter(pilotsAdapter);
         lvPilots.setOnItemClickListener(this);
 
         lvSpotters = (ListView) findViewById(R.id.lvSpotters);
-        spotAdapter = new ArrayAdapter<String>(this, R.layout.adapter_pilot_row, R.id.txtPilotName, HomeScreen.getSpotterList());
+        spotAdapter = new ArrayAdapter<String>(this, R.layout.adapter_pilot_row, R.id.txtPilotName, stor.getSpotters());
         lvSpotters.setAdapter(spotAdapter);
 
     }
 
     public void onItemClick(AdapterView<?> l, View v, int position, long id) {
         //Log.i("Hello THERE", "you clicked item: " + id + " at position: " + position);
-        Pilot pilot = HomeScreen.getPilotList().get(position);
+        Pilot pilot = stor.getPilots().get(position);
         //Log.i("-----------------|", "that would be " + pilot.getName());
         Intent intent = new Intent(this, PilotInfoActivity.class);
         String pilotName = pilot.getName();
@@ -75,9 +79,9 @@ public class PilotsActivity extends HomeScreen implements AdapterView.OnItemClic
         // this reeaally doesn't seem proper to me. Would much rather do a
         //      adapter.notifyDataSetChanged()
         // type of call, but that just doesn't want to work here. or anywhere for that matter
-        pilotsAdapter = new PilotsAdapter(this, R.layout.adapter_pilot_row, HomeScreen.getPilotList());
+        pilotsAdapter = new PilotsAdapter(this, R.layout.adapter_pilot_row, stor.getPilots());
         lvPilots.setAdapter(pilotsAdapter);
-        spotAdapter = new ArrayAdapter<String>(this, R.layout.adapter_pilot_row, R.id.txtPilotName, HomeScreen.getSpotterList());
+        spotAdapter = new ArrayAdapter<String>(this, R.layout.adapter_pilot_row, R.id.txtPilotName, stor.getSpotters());
         lvSpotters.setAdapter(spotAdapter);
     }
 }

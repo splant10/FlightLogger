@@ -32,65 +32,25 @@ public class HomeScreen extends AppCompatActivity {
 
     Gson gson = new Gson();
 
-    String storageFileName = "storage-json.txt";
-    Storage storage;
+    private String storageFileName = "storage-json.txt";
+
+    // lazy singleton for getting stored data
+    private Storage stor;
+
+    private FlightNum flightNum;
+    private List<Pilot> pilots;
+    private List<String> spotters;
+    private List<DoneChecklist> checkLists;
+    private List<FlightLog> flightLogs;
 
     Context context = this;
-
-    private static List<String> payloads = Arrays.asList("QX100","RX100","ADC-Micro");
-    static public List<String> getPayloads() {
-        return payloads;
-    }
-
-    // Lazy Singletons for flight plan/log number and all pilots/spotters
-
-    private static FlightNum flightNum = null;
-    static public FlightNum getFlightNum() {
-        if (flightNum == null) {
-            flightNum = new FlightNum();
-        }
-        return flightNum;
-    }
-
-    private static List<Pilot> pilots = null;
-    static public List<Pilot> getPilotList() {
-        if (pilots == null) {
-            pilots = new ArrayList<Pilot>();
-        }
-        return pilots;
-    }
-
-    private static List<String> spotters = null;
-    static public List<String> getSpotterList() {
-        if (spotters == null) {
-            spotters = new ArrayList<String>();
-        }
-        return spotters;
-    }
-
-    private static List<FlightLog> flightLogs = null;
-    static public List<FlightLog> getFlightLogs() {
-        if (flightLogs == null) {
-            flightLogs = new ArrayList<FlightLog>();
-        }
-        return flightLogs;
-    }
-
-    private static List<DoneChecklist> checkLists = null;
-    static public List<DoneChecklist> getCheckLists() {
-        if (checkLists == null) {
-            checkLists = new ArrayList<DoneChecklist>();
-        }
-        return checkLists;
-    }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
 
-        storage = new Storage();
+        stor = Storage.getInstance();
 
         // try to access data about previous flight plans and logs
 
@@ -108,14 +68,15 @@ public class HomeScreen extends AppCompatActivity {
                 sb.append(line);
             }
             String json = sb.toString();
+            System.out.println("Loading: " + json);
 
-            storage = gson.fromJson(json, Storage.class);
+            Storage storageTemp = gson.fromJson(json, Storage.class);
 
-            flightNum = storage.getFlightNum();
-            pilots = storage.getPilots();
-            spotters = storage.getSpotters();
-            checkLists = storage.getDoneChecklists();
-            flightLogs = storage.getFlightLogs();
+            stor.setFlightNum(storageTemp.getFlightNum());
+            stor.setPilots(storageTemp.getPilots());
+            stor.setSpotters(storageTemp.getSpotters());
+            stor.setDoneChecklists(storageTemp.getDoneChecklists());
+            stor.setFlightLogs(storageTemp.getFlightLogs());
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -137,10 +98,6 @@ public class HomeScreen extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public static void addPilot(Pilot p) {
-        pilots.add(p);
-    }
-
     @Override
     public void onPause() {
         super.onPause();
@@ -148,24 +105,11 @@ public class HomeScreen extends AppCompatActivity {
         Context appContext = this.getApplicationContext();
         FileOutputStream fos = null;
 
-        // assign all the data.
         try {
-            storage.setFlightNum(flightNum);
-            storage.setPilots(pilots);
-            storage.setSpotters(spotters);
-            storage.setDoneChecklists(checkLists);
-            storage.setFlightLogs(flightLogs);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-
-        try {
-            // Saving all objects
+            // Saving
             fos = appContext.openFileOutput(storageFileName, Context.MODE_PRIVATE);
-            String jsonData = gson.toJson(storage);
-            //System.out.println(jsonData);
+            String jsonData = gson.toJson(stor);
+            //System.out.println("Saving:  " + jsonData);
             fos.write(jsonData.getBytes());
             fos.close();
 
@@ -183,24 +127,23 @@ public class HomeScreen extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 switch (which){
                     case DialogInterface.BUTTON_POSITIVE:
-                        //Yes button clicked
+                        // Yes button clicked
                         File dir = getFilesDir();
                         File fileToDelete = new File(dir, storageFileName);
 
-                        fileToDelete.delete();
+                        Boolean deleted = fileToDelete.delete();
 
-                        flightNum = null;
-                        pilots = null;
-                        spotters = null;
-                        checkLists = null;
-                        flightLogs = null;
-
-                        Toast.makeText(context, "All local data deleted", Toast.LENGTH_SHORT).show();
+                        if (deleted) {
+                            stor.clearAllData();
+                            Toast.makeText(context, "All local data deleted", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(context, "Local storage could not be deleted", Toast.LENGTH_SHORT).show();
+                        }
 
                         break;
 
                     case DialogInterface.BUTTON_NEGATIVE:
-                        //No button clicked
+                        // No button clicked
                         break;
                 }
             }

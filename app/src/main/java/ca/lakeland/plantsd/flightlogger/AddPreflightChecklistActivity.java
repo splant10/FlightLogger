@@ -15,6 +15,7 @@ public class AddPreflightChecklistActivity extends HomeScreen implements Adapter
 
     private ListView lvPreflightChecklists;
     private ChecklistAdapter customAdapter;
+    Storage stor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +23,8 @@ public class AddPreflightChecklistActivity extends HomeScreen implements Adapter
         setContentView(R.layout.activity_add_preflight_checklist);
         //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         //setSupportActionBar(toolbar);
+
+        stor = Storage.getInstance();
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fabChecklist);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -33,14 +36,14 @@ public class AddPreflightChecklistActivity extends HomeScreen implements Adapter
         });
 
         lvPreflightChecklists = (ListView) findViewById(R.id.lvPreflightChecklists);
-        customAdapter = new ChecklistAdapter(this, R.layout.adapter_checklist_row, HomeScreen.getCheckLists());
+        customAdapter = new ChecklistAdapter(this, R.layout.adapter_checklist_row, stor.getDoneChecklists());
         lvPreflightChecklists.setAdapter(customAdapter);
         lvPreflightChecklists.setOnItemClickListener(this);
     }
 
     public void onItemClick(AdapterView<?> l, View v, int position, long id) {
         Log.i("Hello THERE", "you clicked item: " + id + " at position: " + position);
-        DoneChecklist dl = HomeScreen.getCheckLists().get(position);
+        DoneChecklist dl = stor.getDoneChecklists().get(position);
         // Log.i("-----------------|", "that would be " + fl.getDate());
         Intent intent = new Intent(v.getContext(), ChecklistInfoActivity.class);
         intent.putExtra("DONE_CHECKLIST", dl);
@@ -53,7 +56,7 @@ public class AddPreflightChecklistActivity extends HomeScreen implements Adapter
         // this reeaally doesn't seem proper to me. Would much rather do a
         //      adapter.notifyDataSetChanged()
         // type of call, but that just doesn't want to work here. or anywhere for that matter
-        customAdapter = new ChecklistAdapter(this, R.layout.adapter_checklist_row, HomeScreen.getCheckLists());
+        customAdapter = new ChecklistAdapter(this, R.layout.adapter_checklist_row, stor.getDoneChecklists());
         lvPreflightChecklists.setAdapter(customAdapter);
     }
 

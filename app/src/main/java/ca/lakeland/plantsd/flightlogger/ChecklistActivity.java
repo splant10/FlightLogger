@@ -33,6 +33,7 @@ public class ChecklistActivity extends HomeScreen implements View.OnClickListene
     DrawingView dv;
     Spinner spinAuthors;
     Button btnSubmit;
+    Storage stor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +41,8 @@ public class ChecklistActivity extends HomeScreen implements View.OnClickListene
         setContentView(R.layout.activity_checklist);
         // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         // setSupportActionBar(toolbar);
+
+        stor = Storage.getInstance();
 
         clearButton = (TextView) findViewById(R.id.include1).findViewById(R.id.txtbtnCanvasClear);
         clearButton.setOnClickListener(this);
@@ -64,7 +67,7 @@ public class ChecklistActivity extends HomeScreen implements View.OnClickListene
 
         spinAuthors.setOnItemSelectedListener(this);
         List<String> authorNames = new ArrayList<String>();
-        List<Pilot> pilotList = HomeScreen.getPilotList();
+        List<Pilot> pilotList = stor.getPilots();
 
         // Iterate over pilots and add to spinner
         for (int i = 0; i < pilotList.size(); ++i) {
@@ -72,7 +75,7 @@ public class ChecklistActivity extends HomeScreen implements View.OnClickListene
         }
 
         // add all the spotters to the list too
-        authorNames.addAll(HomeScreen.getSpotterList());
+        authorNames.addAll(stor.getSpotters());
 
         // http://stackoverflow.com/questions/203984/how-do-i-remove-repeated-elements-from-arraylist
         Set<String> hs = new HashSet<>();
@@ -163,7 +166,7 @@ public class ChecklistActivity extends HomeScreen implements View.OnClickListene
             // make a new completed checklist with the pilot and signature for today.
             String author = spinAuthors.getSelectedItem().toString();
             DoneChecklist doneChecklist = new DoneChecklist(today, author);
-            HomeScreen.getCheckLists().add(doneChecklist);
+            stor.getDoneChecklists().add(doneChecklist);
 
             // http://stackoverflow.com/questions/649154/save-bitmap-to-location
             // Thanks to Ulrich Scheller for this. Retrieved June 3 2016
