@@ -24,8 +24,8 @@ public class FlightLogsActivity extends HomeScreen implements AdapterView.OnItem
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flight_log);
-        // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        // setSupportActionBar(toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         stor = Storage.getInstance();
 

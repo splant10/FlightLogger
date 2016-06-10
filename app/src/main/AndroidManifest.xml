@@ -6,10 +6,10 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/logo2"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
             android:name=".HomeScreen"
             android:label="@string/app_name"
@@ -20,17 +20,25 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".FlightLogsActivity" />
         <activity
-            android:name=".ChecklistActivity"
-            android:label="@string/title_activity_flight_plan"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:name=".FlightLogsActivity"
+            android:label="@string/title_flightlogs_activity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ca.lakeland.plantsd.flightlogger.HomeScreen" />
+        </activity>
+        <activity
+            android:name=".NewChecklistActivity"
+            android:label="@string/title_checklists_activity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="ca.lakeland.plantsd.flightlogger.HomeScreen" />
+        </activity>
         <activity android:name=".NewFlightLogActivity" />
         <activity
             android:name=".PilotsActivity"
-            android:label="@string/title_activity_add_pilots"
-            android:parentActivityName=".HomeScreen"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:label="@string/title_pilots_activity"
+            android:parentActivityName=".HomeScreen">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ca.lakeland.plantsd.flightlogger.HomeScreen" />
@@ -40,10 +48,13 @@
         <activity android:name=".FlightLogInfoActivity" />
         <activity android:name=".TestActivity" />
         <activity
-            android:name=".AddPreflightChecklistActivity"
-            android:label="@string/title_activity_add_preflight_checklist"
+            android:name=".ChecklistsActivity"
+            android:label="@string/title_checklists_activity"
             android:theme="@style/AppTheme" />
-        <activity android:name=".ChecklistInfoActivity"></activity>
+        <activity android:name=".ChecklistInfoActivity" />
+        <activity
+            android:name=".SettingsActivity"
+            android:label="Settings"/>
     </application>
 
 </manifest>

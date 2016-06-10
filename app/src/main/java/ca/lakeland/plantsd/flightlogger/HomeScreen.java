@@ -6,14 +6,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.google.gson.reflect.TypeToken;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -21,12 +20,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class HomeScreen extends AppCompatActivity {
 
@@ -37,18 +31,15 @@ public class HomeScreen extends AppCompatActivity {
     // lazy singleton for getting stored data
     private Storage stor;
 
-    private FlightNum flightNum;
-    private List<Pilot> pilots;
-    private List<String> spotters;
-    private List<DoneChecklist> checkLists;
-    private List<FlightLog> flightLogs;
-
+    boolean adminLoggedIn = false;
     Context context = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
+        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(myToolbar);
 
         stor = Storage.getInstance();
 
@@ -68,7 +59,7 @@ public class HomeScreen extends AppCompatActivity {
                 sb.append(line);
             }
             String json = sb.toString();
-            System.out.println("Loading: " + json);
+            //System.out.println("Loading: " + json);
 
             Storage storageTemp = gson.fromJson(json, Storage.class);
 
@@ -83,13 +74,46 @@ public class HomeScreen extends AppCompatActivity {
         }
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        if (adminLoggedIn) {
+            getMenuInflater().inflate(R.menu.menu_admin, menu);
+        }
+        else {
+            getMenuInflater().inflate(R.menu.menu_main, menu);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                // User chose the "Settings" item, show the app settings UI...
+                Intent intent = new Intent(this, SettingsActivity.class);
+                startActivity(intent);
+                return true;
+
+            case R.id.action_search:
+                // User chose the "search" action
+                return true;
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
+
 
     public void openFlightLogger(View view) {
         Intent intent = new Intent(this, FlightLogsActivity.class);
         startActivity(intent);
     }
     public void openFlightPlanner(View view) {
-        Intent intent = new Intent(this, AddPreflightChecklistActivity.class);
+        Intent intent = new Intent(this, ChecklistsActivity.class);
         startActivity(intent);
     }
 

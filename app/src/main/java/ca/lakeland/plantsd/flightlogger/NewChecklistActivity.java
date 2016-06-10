@@ -25,7 +25,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class ChecklistActivity extends HomeScreen implements View.OnClickListener, AdapterView.OnItemSelectedListener {
+public class NewChecklistActivity extends HomeScreen implements View.OnClickListener, AdapterView.OnItemSelectedListener {
 
     private TextView clearButton;
     private CheckBox chkNOTAM, chkEnviro, chkEye, chkSideArms, chkLanding,
@@ -38,9 +38,9 @@ public class ChecklistActivity extends HomeScreen implements View.OnClickListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_checklist);
-        // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        // setSupportActionBar(toolbar);
+        setContentView(R.layout.activity_new_checklist);
+        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
 
         stor = Storage.getInstance();
 

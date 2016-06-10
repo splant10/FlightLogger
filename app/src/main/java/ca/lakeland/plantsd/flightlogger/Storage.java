@@ -2,6 +2,7 @@ package ca.lakeland.plantsd.flightlogger;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -17,6 +18,7 @@ public class Storage {
     private List<String> spotters;
     private List<DoneChecklist> doneChecklists;
     private List<FlightLog> flightLogs;
+    private HashSet<String> emails;
 
     private List<String> payloads = Arrays.asList("QX100","RX100","ADC-Micro");
     public List<String> getPayloads() {
@@ -78,6 +80,13 @@ public class Storage {
         return flightLogs;
     }
 
+    public HashSet<String> getEmails() {
+        if (emails == null) {
+            emails = new HashSet<>();
+        }
+        return emails;
+    }
+
     // Setters
     public void setFlightNum(FlightNum flightnum) {
         this.flightNum = flightnum;
@@ -99,11 +108,16 @@ public class Storage {
         this.flightLogs = flightLogs;
     }
 
+    public void setEmails(HashSet<String> emails) {
+        this.emails = emails;
+    }
+
     public void clearAllData() {
         this.flightNum = null;
         this.pilots = null;
         this.spotters = null;
         this.doneChecklists = null;
         this.flightLogs = null;
+        this.emails = null;
     }
 }

@@ -3,15 +3,14 @@ package ca.lakeland.plantsd.flightlogger;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-public class AddPreflightChecklistActivity extends HomeScreen implements AdapterView.OnItemClickListener {
+public class ChecklistsActivity extends HomeScreen implements AdapterView.OnItemClickListener {
 
     private ListView lvPreflightChecklists;
     private ChecklistAdapter customAdapter;
@@ -20,9 +19,9 @@ public class AddPreflightChecklistActivity extends HomeScreen implements Adapter
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_preflight_checklist);
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
+        setContentView(R.layout.activity_checklists);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         stor = Storage.getInstance();
 
@@ -30,7 +29,7 @@ public class AddPreflightChecklistActivity extends HomeScreen implements Adapter
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(AddPreflightChecklistActivity.this, ChecklistActivity.class);
+                Intent intent = new Intent(ChecklistsActivity.this, NewChecklistActivity.class);
                 startActivity(intent);
             }
         });
@@ -48,6 +47,13 @@ public class AddPreflightChecklistActivity extends HomeScreen implements Adapter
         Intent intent = new Intent(v.getContext(), ChecklistInfoActivity.class);
         intent.putExtra("DONE_CHECKLIST", dl);
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
     }
 
     @Override

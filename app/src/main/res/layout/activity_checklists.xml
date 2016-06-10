@@ -5,7 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="ca.lakeland.plantsd.flightlogger.AddPreflightChecklistActivity">
+    tools:context=".ChecklistsActivity">
+
+    <include layout="@layout/app_bar"/>
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabChecklist"
@@ -18,26 +20,13 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Completed Preflight Checklists"
-            android:id="@+id/txtPreflightChecklists"
-            android:layout_marginStart="25dp"
-            android:layout_marginTop="25dp"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginBottom="10dp"
-            android:textSize="25sp" />
+        android:layout_height="match_parent"
+        android:layout_marginTop="60dp">
 
         <ListView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/lvPreflightChecklists"
-            android:layout_below="@+id/txtPreflightChecklists"
             android:layout_alignParentStart="true" />
 
     </RelativeLayout>
