@@ -111,11 +111,13 @@ public class HomeScreen extends AppCompatActivity {
                 Toast.makeText(this, "Logged in as admin", Toast.LENGTH_SHORT).show();
                 return true;
             case MENU_ADD_EMAIL:
-                Toast.makeText(this, "add email", Toast.LENGTH_SHORT).show();
+                SettingsMenu.addEmailAddress(this);
                 return true;
             case MENU_VIEW_EMAILS:
                 Toast.makeText(this, "view emails", Toast.LENGTH_SHORT).show();
                 return true;
+            case MENU_LOGIN:
+                SettingsMenu.adminLoginLogoutButton(this);
 
             default:
                 // If we got here, the user's action was not recognized.
