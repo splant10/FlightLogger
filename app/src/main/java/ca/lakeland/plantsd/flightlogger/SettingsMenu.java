@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -15,7 +16,7 @@ import android.widget.Toast;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsMenu extends AppCompatActivity {
 
     private Storage stor;
     private Pattern emailPattern = Pattern.compile("^[a-zA-Z]+[@][a-zA-Z]+\\.[a-zA-Z]+$");
@@ -45,22 +46,23 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
 
-    public void changeAdminLoggedInStatus(View view) {
+    public void adminLoginLogoutButton(View view) {
 
         Boolean adminLoggedIn = HomeScreen.getAdminLoggedIn();
 
         if (!adminLoggedIn) { // not logged in as admin
 
             // popup alertdialog with edittext
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(SettingsActivity.this)
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(SettingsMenu.this)
                     .setTitle("Admin Login")
                     .setMessage("Enter the password:");
 
-            final EditText input = new EditText(SettingsActivity.this);
+            final EditText input = new EditText(SettingsMenu.this);
             LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                     LinearLayout.LayoutParams.MATCH_PARENT,
                     LinearLayout.LayoutParams.MATCH_PARENT
             );
+            input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
             input.setLayoutParams(lp);
             alertDialog.setView(input)
                     .setPositiveButton("YES",
@@ -93,7 +95,7 @@ public class SettingsActivity extends AppCompatActivity {
             alertDialog.show();
 
         } else  { // logged in as admin
-            AlertDialog.Builder alertDialog = new AlertDialog.Builder(SettingsActivity.this)
+            AlertDialog.Builder alertDialog = new AlertDialog.Builder(SettingsMenu.this)
                     .setTitle("Logout")
                     .setMessage("Do you wish to log out of the admin account?");
             alertDialog.setPositiveButton("YES",
@@ -121,11 +123,11 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public void addEmailAddress(View view) {
-        AlertDialog.Builder alertDialog = new AlertDialog.Builder(SettingsActivity.this)
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(SettingsMenu.this)
                 .setTitle("Email Address")
                 .setMessage("Enter an email address to save");
 
-        final EditText input = new EditText(SettingsActivity.this);
+        final EditText input = new EditText(SettingsMenu.this);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT

@@ -33,7 +33,7 @@ public class Storage {
         doneChecklists = getDoneChecklists();
         flightLogs = getFlightLogs();
         emails = getEmails();
-        adminPassword = "SuperDialogPassword";
+        adminPassword = "password"; // beaut
     }
 
     private static class LazyHolder {

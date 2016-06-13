@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="ca.lakeland.plantsd.flightlogger.SettingsActivity"
+    tools:context=".SettingsMenu"
     android:orientation="vertical"
     android:weightSum="1">
     <android.support.v7.widget.Toolbar
@@ -101,7 +101,7 @@
                     android:text="Login"
                     android:id="@+id/btnSettingsAdminLogin"
                     android:layout_margin="6dp"
-                    android:onClick="changeAdminLoggedInStatus" />
+                    android:onClick="adminLoginLogoutButton" />
 
 
             </LinearLayout>

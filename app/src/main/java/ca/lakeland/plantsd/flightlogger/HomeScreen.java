@@ -20,7 +20,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.List;
 
 public class HomeScreen extends AppCompatActivity {
 
@@ -33,6 +32,12 @@ public class HomeScreen extends AppCompatActivity {
 
     static boolean adminLoggedIn = false;
     Context context = this;
+
+    private static final int MENU_SETTINGS = Menu.FIRST;
+    private static final int MENU_ADMIN = MENU_SETTINGS + 1;
+    private static final int MENU_ADD_EMAIL = MENU_SETTINGS + 2;
+    private static final int MENU_VIEW_EMAILS = MENU_SETTINGS + 3;
+    private static final int MENU_LOGIN = MENU_SETTINGS + 4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,20 +79,42 @@ public class HomeScreen extends AppCompatActivity {
         }
     }
 
+    /**
+     * Gets called every time the user presses the menu button.
+     * Use if your menu is dynamic.
+     */
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        menu.clear();
+        menu.add(0, MENU_SETTINGS, Menu.NONE, "Settings");
+        menu.add(0, MENU_ADD_EMAIL, Menu.NONE, "Add an email address");
+        menu.add(0, MENU_VIEW_EMAILS, Menu.NONE, "View email addresses");
+        if(adminLoggedIn) {
+            menu.add(0, MENU_ADMIN, Menu.NONE, "Admin Logged In").setIcon(R.drawable.ic_lock_open_black_24dp).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+            menu.add(0, MENU_LOGIN, Menu.NONE, "Administrator Logout");
+        } else {
+            menu.add(0, MENU_LOGIN, Menu.NONE, "Login as Administrator");
+        }
+        supportInvalidateOptionsMenu();
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_settings:
+            case MENU_SETTINGS:
                 // User chose the "Settings" item, show the app settings UI...
-                Intent intent = new Intent(this, SettingsActivity.class);
+                Intent intent = new Intent(this, SettingsMenu.class);
                 startActivity(intent);
+                return true;
+            case MENU_ADMIN:
+                Toast.makeText(this, "Logged in as admin", Toast.LENGTH_SHORT).show();
+                return true;
+            case MENU_ADD_EMAIL:
+                Toast.makeText(this, "add email", Toast.LENGTH_SHORT).show();
+                return true;
+            case MENU_VIEW_EMAILS:
+                Toast.makeText(this, "view emails", Toast.LENGTH_SHORT).show();
                 return true;
 
             default:
