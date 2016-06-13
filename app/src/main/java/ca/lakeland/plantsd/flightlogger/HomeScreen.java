@@ -31,7 +31,7 @@ public class HomeScreen extends AppCompatActivity {
     // lazy singleton for getting stored data
     private Storage stor;
 
-    boolean adminLoggedIn = false;
+    static boolean adminLoggedIn = false;
     Context context = this;
 
     @Override
@@ -77,12 +77,7 @@ public class HomeScreen extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        if (adminLoggedIn) {
-            getMenuInflater().inflate(R.menu.menu_admin, menu);
-        }
-        else {
-            getMenuInflater().inflate(R.menu.menu_main, menu);
-        }
+        getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
 
@@ -93,10 +88,6 @@ public class HomeScreen extends AppCompatActivity {
                 // User chose the "Settings" item, show the app settings UI...
                 Intent intent = new Intent(this, SettingsActivity.class);
                 startActivity(intent);
-                return true;
-
-            case R.id.action_search:
-                // User chose the "search" action
                 return true;
 
             default:
@@ -142,42 +133,51 @@ public class HomeScreen extends AppCompatActivity {
         }
     }
 
+    public static Boolean getAdminLoggedIn() {
+        return adminLoggedIn;
+    }
+    public static void setAdminLoggedIn(Boolean bool) {
+        adminLoggedIn = bool;
+    }
+
     // To be called on click of FlightLogger text on home screen.
     // Verifies the user wishes to clear all data.
     public void clearStoredData(View view) {
+        if (adminLoggedIn) {
 
-        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (which){
-                    case DialogInterface.BUTTON_POSITIVE:
-                        // Yes button clicked
-                        File dir = getFilesDir();
-                        File fileToDelete = new File(dir, storageFileName);
+            DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    switch (which) {
+                        case DialogInterface.BUTTON_POSITIVE:
+                            // Yes button clicked
+                            File dir = getFilesDir();
+                            File fileToDelete = new File(dir, storageFileName);
 
-                        Boolean deleted = fileToDelete.delete();
+                            Boolean deleted = fileToDelete.delete();
 
-                        if (deleted) {
-                            stor.clearAllData();
-                            Toast.makeText(context, "All local data deleted", Toast.LENGTH_SHORT).show();
-                        } else {
-                            Toast.makeText(context, "Local storage could not be deleted", Toast.LENGTH_SHORT).show();
-                        }
+                            if (deleted) {
+                                stor.clearAllData();
+                                Toast.makeText(context, "All local data deleted", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Toast.makeText(context, "Local storage could not be deleted", Toast.LENGTH_SHORT).show();
+                            }
 
-                        break;
+                            break;
 
-                    case DialogInterface.BUTTON_NEGATIVE:
-                        // No button clicked
-                        break;
+                        case DialogInterface.BUTTON_NEGATIVE:
+                            // No button clicked
+                            break;
+                    }
                 }
-            }
-        };
+            };
 
-        Context appContext = HomeScreen.this;
-        AlertDialog.Builder builder = new AlertDialog.Builder(appContext);
-        builder.setMessage("Do you wish to delete all locally stored data?")
-                .setPositiveButton("Yes", dialogClickListener)
-                .setNegativeButton("No", dialogClickListener).show();
+            Context appContext = HomeScreen.this;
+            AlertDialog.Builder builder = new AlertDialog.Builder(appContext);
+            builder.setMessage("Do you wish to delete all locally stored data?")
+                    .setPositiveButton("Yes", dialogClickListener)
+                    .setNegativeButton("No", dialogClickListener).show();
+        }
     }
 
     public void onLogoClick(View view) {

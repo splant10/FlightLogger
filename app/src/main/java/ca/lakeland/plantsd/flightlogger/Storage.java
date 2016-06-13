@@ -19,6 +19,7 @@ public class Storage {
     private List<DoneChecklist> doneChecklists;
     private List<FlightLog> flightLogs;
     private HashSet<String> emails;
+    private String adminPassword;
 
     private List<String> payloads = Arrays.asList("QX100","RX100","ADC-Micro");
     public List<String> getPayloads() {
@@ -31,6 +32,8 @@ public class Storage {
         spotters = getSpotters();
         doneChecklists = getDoneChecklists();
         flightLogs = getFlightLogs();
+        emails = getEmails();
+        adminPassword = "SuperDialogPassword";
     }
 
     private static class LazyHolder {
@@ -87,6 +90,11 @@ public class Storage {
         return emails;
     }
 
+    // Only the best security for us.
+    public String getAdminPassword() {
+        return this.adminPassword;
+    }
+
     // Setters
     public void setFlightNum(FlightNum flightnum) {
         this.flightNum = flightnum;
@@ -110,6 +118,10 @@ public class Storage {
 
     public void setEmails(HashSet<String> emails) {
         this.emails = emails;
+    }
+
+    public void setAdminPassword(String pw) {
+        this.adminPassword = pw;
     }
 
     public void clearAllData() {
