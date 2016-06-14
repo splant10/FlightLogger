@@ -52,7 +52,7 @@
             android:label="@string/title_checklists_activity"
             android:theme="@style/AppTheme" />
         <activity android:name=".ChecklistInfoActivity" />
-
+        <activity android:name=".EmailsActivity"></activity>
     </application>
 
 </manifest>

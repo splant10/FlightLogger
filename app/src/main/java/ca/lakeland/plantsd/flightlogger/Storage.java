@@ -18,7 +18,7 @@ public class Storage {
     private List<String> spotters;
     private List<DoneChecklist> doneChecklists;
     private List<FlightLog> flightLogs;
-    private HashSet<String> emails;
+    private List<String> emails;
     private String adminPassword;
 
     private List<String> payloads = Arrays.asList("QX100","RX100","ADC-Micro");
@@ -83,9 +83,9 @@ public class Storage {
         return flightLogs;
     }
 
-    public HashSet<String> getEmails() {
+    public List<String> getEmails() {
         if (emails == null) {
-            emails = new HashSet<>();
+            emails = new ArrayList<>();
         }
         return emails;
     }
@@ -116,7 +116,7 @@ public class Storage {
         this.flightLogs = flightLogs;
     }
 
-    public void setEmails(HashSet<String> emails) {
+    public void setEmails(List<String> emails) {
         this.emails = emails;
     }
 

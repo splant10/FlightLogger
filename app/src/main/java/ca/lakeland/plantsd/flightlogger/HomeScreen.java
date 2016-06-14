@@ -108,7 +108,8 @@ public class HomeScreen extends AppCompatActivity {
                 SettingsMenu.addEmailAddress(this);
                 return true;
             case MENU_VIEW_EMAILS:
-                Toast.makeText(this, "view emails", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, EmailsActivity.class);
+                startActivity(intent);
                 return true;
             case MENU_LOGIN:
                 SettingsMenu.adminLoginLogoutButton(this);
