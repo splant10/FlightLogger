@@ -72,6 +72,8 @@ public class HomeScreen extends AppCompatActivity {
             stor.setSpotters(storageTemp.getSpotters());
             stor.setDoneChecklists(storageTemp.getDoneChecklists());
             stor.setFlightLogs(storageTemp.getFlightLogs());
+            stor.setEmails(storageTemp.getEmails());
+
 
         } catch (Exception e) {
             e.printStackTrace();

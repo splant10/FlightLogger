@@ -1,6 +1,7 @@
 package ca.lakeland.plantsd.flightlogger;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,11 +23,16 @@ import java.util.List;
 
 public class FlightLogInfoActivity extends FlightLogsActivity {
 
+    Storage stor;
+    public String selectedEmail;
+    private FlightLog fl;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flight_log_info);
-        FlightLog fl = (FlightLog) getIntent().getSerializableExtra("FLIGHT_LOG");
+        fl = (FlightLog) getIntent().getSerializableExtra("FLIGHT_LOG");
+        stor = Storage.getInstance();
 
         // Fill out form with flightlog info
         TextView txtNumber = (TextView) findViewById(R.id.txtFLInfoNumber);
@@ -95,23 +101,49 @@ public class FlightLogInfoActivity extends FlightLogsActivity {
     }
 
     public void onEmailClick(View view) {
-        //String filename="contacts_sid.vcf"; // this file is a dummy one to hold a place here
-        //File filelocation = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), filename);
-        //Uri path = Uri.fromFile(filelocation);
+        // http://www.learn-android-easily.com/2013/01/adding-radio-buttons-in-dialog.html
+        final CharSequence[] emails = stor.getEmails().toArray(new CharSequence[0]);
+        System.out.println("-------------- emails.length = " + emails.length);
+        if (emails.length == 0) {
+            Toast.makeText(FlightLogInfoActivity.this, "There aren't any email addresses stored. User the menubar to add emails", Toast.LENGTH_LONG);
+        } else {
+            // popup alertdialog with edittext
+            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(context)
+                    .setTitle("Choose Recipient");
 
-        Intent i = new Intent(Intent.ACTION_SEND);
-        // set intent type to email
-        i.setType("vnd.android.cursor.dir/email");
+            alertDialog.setSingleChoiceItems(emails, -1, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int item) {
+                    selectedEmail = emails[item].toString();
+                }
+            });
+            alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
 
-        String recipient[] = {"splant.10@gmail.com"};
-        i.putExtra(Intent.EXTRA_EMAIL, recipient);
-        i.putExtra(Intent.EXTRA_SUBJECT, "Subject");
-        i.putExtra(Intent.EXTRA_TEXT, "BOOODDDYYY bois");
-        // i.putExtra(Intent.EXTRA_STREAM, path);
-        try {
-            startActivity(Intent.createChooser(i, "Send mail..."));
-        } catch (android.content.ActivityNotFoundException ex) {
-            Toast.makeText(this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+                    Intent i = new Intent(Intent.ACTION_SEND);
+                    // set intent type to email
+                    i.setType("vnd.android.cursor.dir/email");
+
+                    String recipient[] = {selectedEmail};
+                    i.putExtra(Intent.EXTRA_EMAIL, recipient);
+                    i.putExtra(Intent.EXTRA_SUBJECT, "Flight Log #" + fl.getFlightLogNum() + ", " + fl.getDate());
+                    i.putExtra(Intent.EXTRA_TEXT, "BOOODDDYYY bois");
+                    // i.putExtra(Intent.EXTRA_STREAM, path);
+                    try {
+                        startActivity(Intent.createChooser(i, "Send mail..."));
+                    } catch (android.content.ActivityNotFoundException ex) {
+                        Toast.makeText(FlightLogInfoActivity.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            });
+            alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+
+            alertDialog.show();
         }
     }
 }

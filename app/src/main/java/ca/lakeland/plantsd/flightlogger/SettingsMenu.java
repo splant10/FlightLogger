@@ -91,6 +91,7 @@ public class SettingsMenu {
                 .setMessage("Enter an email address to save");
 
         final EditText input = new EditText(context);
+        input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS);
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.MATCH_PARENT,
                 LinearLayout.LayoutParams.MATCH_PARENT
@@ -104,9 +105,9 @@ public class SettingsMenu {
                                 String email = input.getText().toString();
                                 if (isValidEmail(email)) {
                                     stor.getEmails().add(email);
-                                    Toast.makeText(context, "added the email address: "+email, Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(context, "Email address added", Toast.LENGTH_SHORT).show();
                                 } else {
-                                    Toast.makeText(context, "please enter a valid email address", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(context, "Please enter a valid email address", Toast.LENGTH_SHORT).show();
                                 }
                             }
 
