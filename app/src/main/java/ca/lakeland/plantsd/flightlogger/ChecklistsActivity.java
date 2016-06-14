@@ -41,7 +41,7 @@ public class ChecklistsActivity extends HomeScreen implements AdapterView.OnItem
     }
 
     public void onItemClick(AdapterView<?> l, View v, int position, long id) {
-        Log.i("Hello THERE", "you clicked item: " + id + " at position: " + position);
+        //Log.i("Hello THERE", "you clicked item: " + id + " at position: " + position);
         DoneChecklist dl = stor.getDoneChecklists().get(position);
         // Log.i("-----------------|", "that would be " + fl.getDate());
         Intent intent = new Intent(v.getContext(), ChecklistInfoActivity.class);

@@ -47,7 +47,8 @@ public class ChecklistAdapter extends ArrayAdapter<DoneChecklist> {
 
             TextView txt2 = (TextView) v.findViewById(R.id.txtChecklistAuthor);
             if (txt2 != null) {
-                txt2.setText(dc.getAuthor());
+                String auth = "Completed by " + dc.getAuthor();
+                txt2.setText(auth);
             }
         }
         return v;

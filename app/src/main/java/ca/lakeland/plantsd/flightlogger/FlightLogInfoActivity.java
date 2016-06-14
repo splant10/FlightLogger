@@ -10,7 +10,10 @@ import android.net.Uri;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
@@ -26,6 +29,14 @@ import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+A flea and a fly in a flue
+Were imprisoned, so what could they do?
+Said the fly, "let us flee!"
+"Let us fly!" said the flea.
+So they flew through a flaw in the flue.
+ */
+
 public class FlightLogInfoActivity extends FlightLogsActivity {
 
     Storage stor;
@@ -34,7 +45,7 @@ public class FlightLogInfoActivity extends FlightLogsActivity {
 
     String root = Environment.getExternalStorageDirectory().toString();
     File myDir;
-    int EMAIL = 101;
+    int EMAIL = 101; // result code
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +58,6 @@ public class FlightLogInfoActivity extends FlightLogsActivity {
         myDir.mkdirs();
 
         // Fill out form with flightlog info
-        TextView txtNumber = (TextView) findViewById(R.id.txtFLInfoNumber);
         TextView txtSerial = (TextView) findViewById(R.id.txtFLSerial2);
         TextView txtDate = (TextView) findViewById(R.id.txtFLDate2);
         TextView txtLocation = (TextView) findViewById(R.id.txtFLLocation2);
@@ -61,7 +71,6 @@ public class FlightLogInfoActivity extends FlightLogsActivity {
         TextView txtAltitude = (TextView) findViewById(R.id.txtFLAltitude2);
         TextView txtComments = (TextView) findViewById(R.id.txtFLComments2);
 
-        txtNumber.setText("Flight Log #" + fl.getFlightLogNum());
         txtSerial.setText(fl.getSerialNum());
         txtDate.setText(fl.getDate());
         txtLocation.setText(fl.getLocation());
@@ -106,11 +115,20 @@ public class FlightLogInfoActivity extends FlightLogsActivity {
 
             newView.setLayoutParams(lp);
             infoLayout.addView(newView);
+
+            Toolbar mActionBarToolbar = (Toolbar) findViewById(R.id.toolbar);
+            setSupportActionBar(mActionBarToolbar);
+            getSupportActionBar().setTitle("Flight Log #" + fl.getFlightLogNum());
         }
-
-
-
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
 
     public void onEmailClick(View view) {
         // Hold on to your butts
@@ -182,10 +200,13 @@ public class FlightLogInfoActivity extends FlightLogsActivity {
         }
     }
 
+
+
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
         if(requestCode==EMAIL){
             try {
+                // http://stackoverflow.com/questions/4943629/how-to-delete-a-whole-folder-and-content
                 if (myDir.isDirectory()) {
                     // clear 'myDir'
                     String[] children = myDir.list();

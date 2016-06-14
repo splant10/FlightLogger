@@ -5,6 +5,8 @@ import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -27,10 +29,8 @@ public class ChecklistInfoActivity extends AppCompatActivity {
             day = dc.getDate();
             authorName = dc.getAuthor();
 
-            TextView txtTitle = (TextView) findViewById(R.id.txtChkInfoTitle);
             TextView txtAuthor = (TextView) findViewById(R.id.txtChkInfoAuthor);
 
-            txtTitle.setText("Checklist for " + day);
             txtAuthor.setText(authorName);
 
         } catch (NullPointerException e) {
@@ -55,5 +55,16 @@ public class ChecklistInfoActivity extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        Toolbar mActionBarToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mActionBarToolbar);
+        getSupportActionBar().setTitle("Checklist for " + day);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
     }
 }
