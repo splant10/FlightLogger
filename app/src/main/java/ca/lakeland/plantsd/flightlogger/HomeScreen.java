@@ -93,7 +93,6 @@ public class HomeScreen extends AppCompatActivity {
         } else {
             menu.add(0, MENU_LOGIN, Menu.NONE, "Login as Administrator");
         }
-        supportInvalidateOptionsMenu();
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -153,6 +152,12 @@ public class HomeScreen extends AppCompatActivity {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        invalidateOptionsMenu();
     }
 
     public static Boolean getAdminLoggedIn() {

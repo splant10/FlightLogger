@@ -1,5 +1,6 @@
 package ca.lakeland.plantsd.flightlogger;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
@@ -15,10 +16,9 @@ import java.util.regex.Pattern;
 public class SettingsMenu {
 
     private static Storage stor;
-    private static Pattern emailPattern = Pattern.compile("^[a-zA-Z]+[@][a-zA-Z]+\\.[a-zA-Z]+$");
 
     public static void adminLoginLogoutButton(Context ctxt) {
-        final Context context = ctxt;
+        final Activity context = (Activity) ctxt;
         stor = Storage.getInstance();
 
         Boolean adminLoggedIn = HomeScreen.getAdminLoggedIn();
@@ -45,6 +45,7 @@ public class SettingsMenu {
                                     if (password.equals(stor.getAdminPassword())) {
                                         HomeScreen.setAdminLoggedIn(true);
                                         Toast.makeText(context, "Logged in as administrator", Toast.LENGTH_SHORT).show();
+                                        context.invalidateOptionsMenu();
                                     } else {
                                         Toast.makeText(context, "Incorrect password", Toast.LENGTH_SHORT).show();
                                     }
@@ -67,6 +68,7 @@ public class SettingsMenu {
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             HomeScreen.setAdminLoggedIn(false);
+                            context.invalidateOptionsMenu();
                             Toast.makeText(context, "Logged out of administrator account", Toast.LENGTH_SHORT).show();
                         }
                     });
