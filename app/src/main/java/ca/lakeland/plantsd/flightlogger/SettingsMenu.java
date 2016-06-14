@@ -3,15 +3,10 @@ package ca.lakeland.plantsd.flightlogger;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.InputType;
-import android.view.Menu;
-import android.view.View;
-import android.widget.Button;
+import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.regex.Matcher;
@@ -87,6 +82,8 @@ public class SettingsMenu {
 
     public static void addEmailAddress(Context ctxt) {
         final Context context = ctxt;
+        stor = Storage.getInstance();
+
         AlertDialog.Builder alertDialog = new AlertDialog.Builder(context)
                 .setTitle("Email Address")
                 .setMessage("Enter an email address to save");
@@ -101,18 +98,16 @@ public class SettingsMenu {
                 .setPositiveButton("YES",
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                // do regex to verify it's an email format
-                                // [a-zA-Z]+[@][a-zA-Z]+\.[a-zA-Z]+
 
-                                Matcher matcher = emailPattern.matcher(input.getText().toString());
-                                if (!matcher.matches()) { // if it doesn't match the format of an email
-                                    Toast.makeText(context, "Please enter a valid email", Toast.LENGTH_SHORT);
+                                String email = input.getText().toString();
+                                if (isValidEmail(email)) {
+                                    stor.getEmails().add(email);
+                                    Toast.makeText(context, "added the email address: "+email, Toast.LENGTH_SHORT).show();
                                 } else {
-                                    // add email to list of emails
-                                    stor.getEmails().add(input.getText().toString());
-                                    Toast.makeText(context, "address added", Toast.LENGTH_SHORT);
+                                    Toast.makeText(context, "please enter a valid email address", Toast.LENGTH_SHORT).show();
                                 }
                             }
+
                         });
         alertDialog.setNegativeButton("NO",
                 new DialogInterface.OnClickListener() {
@@ -122,5 +117,14 @@ public class SettingsMenu {
                 });
 
         alertDialog.show();
+    }
+
+    // http://stackoverflow.com/questions/1819142/how-should-i-validate-an-e-mail-address
+    public final static boolean isValidEmail(CharSequence target) {
+        if (TextUtils.isEmpty(target)) {
+            return false;
+        } else {
+            return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
+        }
     }
 }

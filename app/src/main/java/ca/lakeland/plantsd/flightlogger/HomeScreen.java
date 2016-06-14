@@ -33,11 +33,10 @@ public class HomeScreen extends AppCompatActivity {
     static boolean adminLoggedIn = false;
     Context context = this;
 
-    private static final int MENU_SETTINGS = Menu.FIRST;
-    private static final int MENU_ADMIN = MENU_SETTINGS + 1;
-    private static final int MENU_ADD_EMAIL = MENU_SETTINGS + 2;
-    private static final int MENU_VIEW_EMAILS = MENU_SETTINGS + 3;
-    private static final int MENU_LOGIN = MENU_SETTINGS + 4;
+    private static final int MENU_ADMIN = Menu.FIRST;
+    private static final int MENU_ADD_EMAIL = MENU_ADMIN + 1;
+    private static final int MENU_VIEW_EMAILS = MENU_ADMIN + 2;
+    private static final int MENU_LOGIN = MENU_ADMIN + 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +85,6 @@ public class HomeScreen extends AppCompatActivity {
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         menu.clear();
-        menu.add(0, MENU_SETTINGS, Menu.NONE, "Settings");
         menu.add(0, MENU_ADD_EMAIL, Menu.NONE, "Add an email address");
         menu.add(0, MENU_VIEW_EMAILS, Menu.NONE, "View email addresses");
         if(adminLoggedIn) {
@@ -102,13 +100,8 @@ public class HomeScreen extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case MENU_SETTINGS:
-                // User chose the "Settings" item, show the app settings UI...
-                Intent intent = new Intent(this, SettingsMenu.class);
-                startActivity(intent);
-                return true;
             case MENU_ADMIN:
-                Toast.makeText(this, "Logged in as admin", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Logged in as administrator", Toast.LENGTH_SHORT).show();
                 return true;
             case MENU_ADD_EMAIL:
                 SettingsMenu.addEmailAddress(this);
