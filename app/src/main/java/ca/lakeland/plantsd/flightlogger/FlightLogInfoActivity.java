@@ -1,5 +1,6 @@
 package ca.lakeland.plantsd.flightlogger;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -17,7 +18,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,12 +32,19 @@ public class FlightLogInfoActivity extends FlightLogsActivity {
     public String selectedEmail;
     private FlightLog fl;
 
+    String root = Environment.getExternalStorageDirectory().toString();
+    File myDir;
+    int EMAIL = 101;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flight_log_info);
         fl = (FlightLog) getIntent().getSerializableExtra("FLIGHT_LOG");
         stor = Storage.getInstance();
+
+        myDir = new File(root + "/FL_temp");
+        myDir.mkdirs();
 
         // Fill out form with flightlog info
         TextView txtNumber = (TextView) findViewById(R.id.txtFLInfoNumber);
@@ -101,9 +113,11 @@ public class FlightLogInfoActivity extends FlightLogsActivity {
     }
 
     public void onEmailClick(View view) {
+        // Hold on to your butts
+
         // http://www.learn-android-easily.com/2013/01/adding-radio-buttons-in-dialog.html
         final CharSequence[] emails = stor.getEmails().toArray(new CharSequence[0]);
-        System.out.println("-------------- emails.length = " + emails.length);
+
         if (emails.length == 0) {
             Toast.makeText(FlightLogInfoActivity.this, "There aren't any email addresses stored. User the menubar to add emails", Toast.LENGTH_LONG);
         } else {
@@ -120,6 +134,23 @@ public class FlightLogInfoActivity extends FlightLogsActivity {
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
 
+                    // http://stackoverflow.com/questions/9974987/how-to-send-an-email-with-a-file-attachment-in-android
+                    String outfileName = "flightLogFile.txt";
+                    File outfile = new File(myDir, outfileName);
+
+                    try {
+                        FileOutputStream fos = new FileOutputStream(outfile);
+                        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                        String jsonData = gson.toJson(fl);
+                        //System.out.println("Saving:  " + jsonData);
+                        fos.write(jsonData.getBytes());
+                        fos.close();
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    Uri path = Uri.fromFile(outfile);
+
                     Intent i = new Intent(Intent.ACTION_SEND);
                     // set intent type to email
                     i.setType("vnd.android.cursor.dir/email");
@@ -127,14 +158,18 @@ public class FlightLogInfoActivity extends FlightLogsActivity {
                     String recipient[] = {selectedEmail};
                     i.putExtra(Intent.EXTRA_EMAIL, recipient);
                     i.putExtra(Intent.EXTRA_SUBJECT, "Flight Log #" + fl.getFlightLogNum() + ", " + fl.getDate());
-                    i.putExtra(Intent.EXTRA_TEXT, "BOOODDDYYY bois");
-                    // i.putExtra(Intent.EXTRA_STREAM, path);
+                    i.putExtra(Intent.EXTRA_TEXT, "Please find attached the file for this flight log");
+                    i.putExtra(Intent.EXTRA_STREAM, path);
+
                     try {
-                        startActivity(Intent.createChooser(i, "Send mail..."));
+                        // http://stackoverflow.com/questions/13872569/how-to-delete-file-from-sd-card-after-mail-send-successfully
+                        startActivityForResult(Intent.createChooser(i, "Send mail..."), EMAIL);
                     } catch (android.content.ActivityNotFoundException ex) {
                         Toast.makeText(FlightLogInfoActivity.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
                     }
 
+                    myDir.deleteOnExit();
+                    //System.out.println("Deleted .../FL_temp: " + deleted);
                 }
             });
             alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
@@ -144,6 +179,25 @@ public class FlightLogInfoActivity extends FlightLogsActivity {
             });
 
             alertDialog.show();
+        }
+    }
+
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if(requestCode==EMAIL){
+            try {
+                if (myDir.isDirectory()) {
+                    // clear 'myDir'
+                    String[] children = myDir.list();
+                    for (int i = 0; i < children.length; i++)
+                    {
+                        boolean deleted = new File(myDir, children[i]).delete();
+                        // System.out.println("myDir["+i+"] deleted: " + deleted);
+                    }
+                }
+            } catch (Exception e) {
+
+            }
         }
     }
 }
