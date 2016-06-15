@@ -3,6 +3,7 @@ package ca.lakeland.plantsd.flightlogger;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 /**
  * Created by plantsd on 5/19/2016.
@@ -24,6 +25,7 @@ public class FlightLog implements Serializable {
     private String comments;
     private int flightLogNum, agencyNum;
     private float accumFlightTime, maxAltitude;
+    private List<AdminComment> adminComments;
 
 
     public FlightLog() {
@@ -180,4 +182,13 @@ public class FlightLog implements Serializable {
     public void setAccumFlightTime(float accumFlightTime) {
         this.accumFlightTime = accumFlightTime;
     }
+
+    public List<AdminComment> getAdminComments() {
+        return this.adminComments;
+    }
+
+    public void setAdminComments(List<AdminComment> comments) {
+        this.adminComments = comments;
+    }
+
 }

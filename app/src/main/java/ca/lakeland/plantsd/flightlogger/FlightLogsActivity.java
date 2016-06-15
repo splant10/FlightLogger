@@ -1,5 +1,7 @@
 package ca.lakeland.plantsd.flightlogger;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -12,8 +14,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
-public class FlightLogsActivity extends HomeScreen implements AdapterView.OnItemClickListener {
+public class FlightLogsActivity extends HomeScreen implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
 
     private ListView lvFlightLogs;
     private FlightLogsAdapter customAdapter;
@@ -45,6 +48,7 @@ public class FlightLogsActivity extends HomeScreen implements AdapterView.OnItem
         customAdapter = new FlightLogsAdapter(this, R.layout.adapter_flight_log_row, stor.getFlightLogs());
         lvFlightLogs.setAdapter(customAdapter);
         lvFlightLogs.setOnItemClickListener(this);
+        lvFlightLogs.setOnItemLongClickListener(this);
     }
 
     @Override
@@ -52,16 +56,6 @@ public class FlightLogsActivity extends HomeScreen implements AdapterView.OnItem
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
-    }
-
-
-    public void onItemClick(AdapterView<?> l, View v, int position, long id) {
-        // Log.i("Hello THERE", "you clicked item: " + id + " at position: " + position);
-        FlightLog fl = stor.getFlightLogs().get(position);
-        // Log.i("-----------------|", "that would be " + fl.getDate());
-        Intent intent = new Intent(v.getContext(), FlightLogInfoActivity.class);
-        intent.putExtra("FLIGHT_LOG", fl);
-        startActivity(intent);
     }
 
     @Override
@@ -72,5 +66,53 @@ public class FlightLogsActivity extends HomeScreen implements AdapterView.OnItem
         // type of call, but that just doesn't want to work here. or anywhere for that matter
         customAdapter = new FlightLogsAdapter(this, R.layout.adapter_flight_log_row, stor.getFlightLogs());
         lvFlightLogs.setAdapter(customAdapter);
+    }
+
+
+    public void onItemClick(AdapterView<?> l, View v, int position, long id) {
+        // Log.i("Hello THERE", "you clicked item: " + id + " at position: " + position);
+        FlightLog fl = stor.getFlightLogs().get(position);
+        // Log.i("-----------------|", "that would be " + fl.getDate());
+        Intent intent = new Intent(v.getContext(), FlightLogInfoActivity.class);
+        intent.putExtra("FLIGHT_LOG", fl);
+        intent.putExtra("ADMIN", false);
+        startActivity(intent);
+    }
+
+    public boolean onItemLongClick(AdapterView<?> l, View v, int position, long id) {
+        final int pos = position;
+        final View view = v;
+
+        // check if admin
+        if (HomeScreen.getAdminLoggedIn()) {
+            // pop up a dialog asking if user wishes to delete the pilot
+
+            DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    switch (which) {
+                        case DialogInterface.BUTTON_POSITIVE:
+                            // Yes button clicked
+                            FlightLog fl = stor.getFlightLogs().get(pos);
+                            Intent intent = new Intent(view.getContext(), FlightLogInfoActivity.class);
+                            intent.putExtra("FLIGHT_LOG", fl);
+                            intent.putExtra("ADMIN", true);
+                            startActivity(intent);
+                            break;
+
+                        case DialogInterface.BUTTON_NEGATIVE:
+                            // No button clicked
+                            break;
+                    }
+                }
+            };
+            AlertDialog.Builder builder = new AlertDialog.Builder(FlightLogsActivity.this);
+            builder.setMessage("Do you wish to add Admin comments to this flight log?")
+                    .setPositiveButton("Yes", dialogClickListener)
+                    .setNegativeButton("No", dialogClickListener).show();
+
+        }
+
+        return true;
     }
 }

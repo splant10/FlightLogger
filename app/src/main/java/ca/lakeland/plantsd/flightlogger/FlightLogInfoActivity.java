@@ -15,7 +15,10 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -26,7 +29,10 @@ import com.google.gson.GsonBuilder;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 /*
@@ -42,6 +48,8 @@ public class FlightLogInfoActivity extends FlightLogsActivity {
     Storage stor;
     public String selectedEmail;
     private FlightLog fl;
+    private boolean adminMode;
+    private EditText etAdminComment;
 
     String root = Environment.getExternalStorageDirectory().toString();
     File myDir;
@@ -51,7 +59,10 @@ public class FlightLogInfoActivity extends FlightLogsActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flight_log_info);
+
         fl = (FlightLog) getIntent().getSerializableExtra("FLIGHT_LOG");
+        adminMode = (Boolean) getIntent().getSerializableExtra("ADMIN");
+
         stor = Storage.getInstance();
 
         myDir = new File(root + "/FL_temp");
@@ -115,10 +126,67 @@ public class FlightLogInfoActivity extends FlightLogsActivity {
 
             newView.setLayoutParams(lp);
             infoLayout.addView(newView);
+        }
 
-            Toolbar mActionBarToolbar = (Toolbar) findViewById(R.id.toolbar);
-            setSupportActionBar(mActionBarToolbar);
-            getSupportActionBar().setTitle("Flight Log #" + fl.getFlightLogNum());
+        // Add each admin comment box to the info layout
+        List<AdminComment> adminComments = fl.getAdminComments();
+        if (adminComments != null) {
+            for (int i = 0; i < adminComments.size(); ++i) {
+                AdminComment aComment = adminComments.get(i);
+
+                View adminCommentsView = inflater.inflate(R.layout.layout_admin_comments, null);
+                TextView txtAdminComments = (TextView) adminCommentsView.findViewById(R.id.txtAdminComments);
+                EditText etAdminComment = (EditText) adminCommentsView.findViewById(R.id.etAdminComment);
+
+                String myString = "Admin Comments - " + aComment.getDate();
+                txtAdminComments.setText(myString);
+                etAdminComment.setText(aComment.getComment());
+                etAdminComment.setEnabled(false);
+
+                Button btnSubmitAdminComment = (Button) adminCommentsView.findViewById(R.id.btnSaveAdminComments);
+
+                // http://stackoverflow.com/questions/3805599/add-delete-view-from-layout
+                ((ViewGroup) btnSubmitAdminComment.getParent()).removeView(btnSubmitAdminComment);
+
+                adminCommentsView.setLayoutParams(lp);
+                infoLayout.addView(adminCommentsView);
+
+            }
+        }
+
+        Toolbar mActionBarToolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(mActionBarToolbar);
+        getSupportActionBar().setTitle("Flight Log #" + fl.getFlightLogNum());
+
+        if (adminMode) { // if we long clicked as an admin and find ourselves here
+            View newAdminCommentsView = inflater.inflate(R.layout.layout_admin_comments, null);
+            etAdminComment = (EditText) newAdminCommentsView.findViewById(R.id.etAdminComment);
+            etAdminComment.setEnabled(true);
+
+            Button btnSubmitAdminComment = (Button) newAdminCommentsView.findViewById(R.id.btnSaveAdminComments);
+            btnSubmitAdminComment.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View v) {
+
+                    Calendar myCalendar = Calendar.getInstance();
+                    SimpleDateFormat df = new SimpleDateFormat(("MMM dd, yyyy"));
+                    String today = df.format(myCalendar.getTime());
+
+                    AdminComment ac = new AdminComment(etAdminComment.getText().toString(), today);
+                    if (fl.getAdminComments() == null) {
+                        List<AdminComment> comments = Arrays.asList(ac);
+                        fl.setAdminComments(comments);
+                    } else {
+                        fl.getAdminComments().add(ac);
+                    }
+                    int index = fl.getFlightLogNum() - 1;
+                    stor.getFlightLogs().remove(index);
+                    stor.getFlightLogs().add(index, fl);
+                    finish();
+                }
+            });
+
+            infoLayout.addView(newAdminCommentsView);
+
         }
     }
 

@@ -21,7 +21,7 @@ public class PilotsActivity extends HomeScreen implements AdapterView.OnItemClic
     private PilotsAdapter pilotsAdapter;
 
     private ListView lvSpotters;
-    ArrayAdapter<String> spotAdapter;
+    private ArrayAdapter<String> spotAdapter;
 
     Storage stor;
 
