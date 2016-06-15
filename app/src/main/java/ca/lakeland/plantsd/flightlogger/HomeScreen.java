@@ -37,7 +37,8 @@ public class HomeScreen extends AppCompatActivity {
     private static final int MENU_ADD_EMAIL = MENU_ADMIN + 1;
     private static final int MENU_VIEW_EMAILS = MENU_ADMIN + 2;
     private static final int MENU_LOGIN = MENU_ADMIN + 3;
-    private static final int MENU_CHANGE_ADMIN_PASS = MENU_ADMIN + 4;
+    private static final int MENU_ABOUT = MENU_ADMIN + 4;
+    private static final int MENU_CHANGE_ADMIN_PASS = MENU_ADMIN + 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +75,7 @@ public class HomeScreen extends AppCompatActivity {
             stor.setDoneChecklists(storageTemp.getDoneChecklists());
             stor.setFlightLogs(storageTemp.getFlightLogs());
             stor.setEmails(storageTemp.getEmails());
+            stor.setAdminPassword(storageTemp.getAdminPassword());
 
 
         } catch (Exception e) {
@@ -93,8 +95,10 @@ public class HomeScreen extends AppCompatActivity {
         if(adminLoggedIn) {
             menu.add(0, MENU_ADMIN, Menu.NONE, "Admin Logged In").setIcon(R.drawable.ic_lock_open_black_24dp).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
             menu.add(0, MENU_CHANGE_ADMIN_PASS, Menu.NONE, "Change Admin Password");
+            menu.add(0, MENU_ABOUT, Menu.NONE, "About");
             menu.add(0, MENU_LOGIN, Menu.NONE, "Administrator Logout");
         } else {
+            menu.add(0, MENU_ABOUT, Menu.NONE, "About");
             menu.add(0, MENU_LOGIN, Menu.NONE, "Login as Administrator");
         }
         return super.onPrepareOptionsMenu(menu);
@@ -110,11 +114,15 @@ public class HomeScreen extends AppCompatActivity {
                 SettingsMenu.addEmailAddress(this);
                 return true;
             case MENU_VIEW_EMAILS:
-                Intent intent = new Intent(this, EmailsActivity.class);
-                startActivity(intent);
+                Intent emailIntent = new Intent(this, EmailsActivity.class);
+                startActivity(emailIntent);
                 return true;
             case MENU_CHANGE_ADMIN_PASS:
-                Toast.makeText(HomeScreen.this, "Change password button", Toast.LENGTH_SHORT).show();
+                SettingsMenu.changeAdminPassword(this);
+                return true;
+            case MENU_ABOUT:
+                Intent aboutIntent = new Intent(this, AboutActivity.class);
+                startActivity(aboutIntent);
                 return true;
             case MENU_LOGIN:
                 SettingsMenu.adminLoginLogoutButton(this);

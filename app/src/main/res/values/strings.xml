@@ -8,4 +8,5 @@
     <string name="checklist_disclaimer">By seeing this page, one can be certain that the checklist was completed on the given date by the author above. A completed checklist page like this one will not be generated unless each check in the checklist has been marked as complete.</string>
     <string name="title_flightlogs_activity">Flight Logs</string>
     <string name="title_pilots_activity">Pilots &amp; Spotters</string>
+    <string name="my_email"><u>splant.10@gmail.com</u></string>
 </resources>

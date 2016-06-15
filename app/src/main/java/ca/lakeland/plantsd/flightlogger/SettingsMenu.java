@@ -130,4 +130,58 @@ public class SettingsMenu {
             return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
         }
     }
+
+    public static void changeAdminPassword(Context ctxt) {
+        final Context context = ctxt;
+        stor = Storage.getInstance();
+
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(context)
+                .setTitle("Change Admin Password")
+                .setMessage("Please enter a new password");
+
+        LinearLayout layout = new LinearLayout(context);
+        layout.setOrientation(LinearLayout.VERTICAL);
+
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                LinearLayout.LayoutParams.MATCH_PARENT
+        );
+        final EditText inputP1 = new EditText(context);
+        inputP1.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        inputP1.setHint("Enter new password");
+        inputP1.setLayoutParams(lp);
+        layout.addView(inputP1);
+
+        final EditText inputP2 = new EditText(context);
+        inputP2.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        inputP2.setHint("Re-enter new password");
+        inputP2.setLayoutParams(lp);
+        layout.addView(inputP2);
+
+        alertDialog.setView(layout);
+
+        alertDialog.setPositiveButton("YES",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                String p1 = inputP1.getText().toString();
+                                String p2 = inputP2.getText().toString();
+                                if (p1.equals(p2)) {
+                                    stor.setAdminPassword(p1);
+                                    Toast.makeText(context, "Password changed", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(context, "Passwords do not match", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+
+                        });
+        alertDialog.setNegativeButton("NO",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                });
+
+        alertDialog.show();
+
+    }
 }
