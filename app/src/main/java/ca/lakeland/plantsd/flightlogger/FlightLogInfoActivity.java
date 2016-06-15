@@ -6,8 +6,12 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Rect;
+import android.graphics.pdf.PdfDocument;
 import android.net.Uri;
 import android.os.Environment;
+import android.print.PrintAttributes;
+import android.print.pdf.PrintedPdfDocument;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -220,6 +224,46 @@ public class FlightLogInfoActivity extends FlightLogsActivity {
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
 
+                    /*
+                    // create a new document
+                    PdfDocument document = new PdfDocument();
+
+                    // create a page description
+                    // Builder takes (int pageWidth, int pageHeight, int pageNumber)
+                    // width and height are in PostScript (1/72th of an inch)
+                    // 8.5"x11" = 612x792 PS
+                    PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(612, 792, 1)
+                            .setContentRect(new Rect(0,0,100,100))
+                            .create();
+
+                    // start a page
+                    PdfDocument.Page page = document.startPage(pageInfo);
+
+                    // draw something on the page
+                    View content = findViewById(R.id.llFLInfo1);
+                    content.draw(page.getCanvas());
+
+                    // finish the page
+                    document.finishPage(page);
+                    //. . .
+                    // add more pages
+                    //. . .
+                    // write the document content
+                    // http://stackoverflow.com/questions/9974987/how-to-send-an-email-with-a-file-attachment-in-android
+                    String outfileName = "flightLogFile.pdf";
+                    File outfile = new File(myDir, outfileName);
+
+                    try {
+                        FileOutputStream fos = new FileOutputStream(outfile);
+                        document.writeTo(fos);
+                        fos.close();
+                        document.close();
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    */
+
                     // http://stackoverflow.com/questions/9974987/how-to-send-an-email-with-a-file-attachment-in-android
                     String outfileName = "flightLogFile.txt";
                     File outfile = new File(myDir, outfileName);
@@ -235,6 +279,7 @@ public class FlightLogInfoActivity extends FlightLogsActivity {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+
                     Uri path = Uri.fromFile(outfile);
 
                     Intent i = new Intent(Intent.ACTION_SEND);
@@ -256,6 +301,7 @@ public class FlightLogInfoActivity extends FlightLogsActivity {
 
                     myDir.deleteOnExit();
                     //System.out.println("Deleted .../FL_temp: " + deleted);
+
                 }
             });
             alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
