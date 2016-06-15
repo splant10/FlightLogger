@@ -37,6 +37,7 @@ public class HomeScreen extends AppCompatActivity {
     private static final int MENU_ADD_EMAIL = MENU_ADMIN + 1;
     private static final int MENU_VIEW_EMAILS = MENU_ADMIN + 2;
     private static final int MENU_LOGIN = MENU_ADMIN + 3;
+    private static final int MENU_CHANGE_ADMIN_PASS = MENU_ADMIN + 4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +92,7 @@ public class HomeScreen extends AppCompatActivity {
         menu.add(0, MENU_VIEW_EMAILS, Menu.NONE, "View email addresses");
         if(adminLoggedIn) {
             menu.add(0, MENU_ADMIN, Menu.NONE, "Admin Logged In").setIcon(R.drawable.ic_lock_open_black_24dp).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+            menu.add(0, MENU_CHANGE_ADMIN_PASS, Menu.NONE, "Change Admin Password");
             menu.add(0, MENU_LOGIN, Menu.NONE, "Administrator Logout");
         } else {
             menu.add(0, MENU_LOGIN, Menu.NONE, "Login as Administrator");
@@ -110,6 +112,9 @@ public class HomeScreen extends AppCompatActivity {
             case MENU_VIEW_EMAILS:
                 Intent intent = new Intent(this, EmailsActivity.class);
                 startActivity(intent);
+                return true;
+            case MENU_CHANGE_ADMIN_PASS:
+                Toast.makeText(HomeScreen.this, "Change password button", Toast.LENGTH_SHORT).show();
                 return true;
             case MENU_LOGIN:
                 SettingsMenu.adminLoginLogoutButton(this);
