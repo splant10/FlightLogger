@@ -30,6 +30,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.print.PrintAttributes;
 import android.print.pdf.PrintedPdfDocument;
+import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -84,6 +85,12 @@ public class FlightLogInfoActivity extends FlightLogsActivity {
 
         fl = (FlightLog) getIntent().getSerializableExtra("FLIGHT_LOG");
         adminMode = (Boolean) getIntent().getSerializableExtra("ADMIN");
+
+        SelfNoteFragment noteFragment = SelfNoteFragment.newInstance();
+
+        android.support.v4.app.FragmentTransaction fragTransaction= this.getSupportFragmentManager().beginTransaction();
+        fragTransaction.replace(R.id.llFLInfo, noteFragment);
+        fragTransaction.commit();
 
         stor = Storage.getInstance();
 
