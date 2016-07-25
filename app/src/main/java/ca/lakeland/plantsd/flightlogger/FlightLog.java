@@ -25,7 +25,7 @@ public class FlightLog implements Serializable {
     private String comments;
     private int flightLogNum, agencyNum;
     private float accumFlightTime, maxAltitude;
-    private List<AdminComment> adminComments;
+    private ArrayList<AdminComment> adminComments;
 
 
     public FlightLog() {
@@ -187,7 +187,7 @@ public class FlightLog implements Serializable {
         return this.adminComments;
     }
 
-    public void setAdminComments(List<AdminComment> comments) {
+    public void setAdminComments(ArrayList<AdminComment> comments) {
         this.adminComments = comments;
     }
 

@@ -76,6 +76,7 @@ public class HomeScreen extends AppCompatActivity {
             stor.setFlightLogs(storageTemp.getFlightLogs());
             stor.setEmails(storageTemp.getEmails());
             stor.setAdminPassword(storageTemp.getAdminPassword());
+            stor.setCsvFile(storageTemp.getCsvFile());
 
 
         } catch (Exception e) {

@@ -55,10 +55,6 @@ public class FlightLogInfoActivity extends FlightLogsActivity {
     private boolean adminMode;
     private EditText etAdminComment;
 
-    String root = Environment.getExternalStorageDirectory().toString();
-    File myDir;
-    int EMAIL = 101; // result code
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,9 +64,6 @@ public class FlightLogInfoActivity extends FlightLogsActivity {
         adminMode = (Boolean) getIntent().getSerializableExtra("ADMIN");
 
         stor = Storage.getInstance();
-
-        myDir = new File(root + "/FL_temp");
-        myDir.mkdirs();
 
         // Fill out form with flightlog info
         TextView txtSerial = (TextView) findViewById(R.id.txtFLSerial2);
@@ -177,7 +170,8 @@ public class FlightLogInfoActivity extends FlightLogsActivity {
 
                     AdminComment ac = new AdminComment(etAdminComment.getText().toString(), today);
                     if (fl.getAdminComments() == null) {
-                        List<AdminComment> comments = Arrays.asList(ac);
+                        ArrayList<AdminComment> comments = new ArrayList<>();
+                        comments.add(ac);
                         fl.setAdminComments(comments);
                     } else {
                         fl.getAdminComments().add(ac);
@@ -209,7 +203,7 @@ public class FlightLogInfoActivity extends FlightLogsActivity {
         final CharSequence[] emails = stor.getEmails().toArray(new CharSequence[0]);
 
         if (emails.length == 0) {
-            Toast.makeText(FlightLogInfoActivity.this, "There aren't any email addresses stored. User the menubar to add emails", Toast.LENGTH_LONG);
+            Toast.makeText(FlightLogInfoActivity.this, "There aren't any email addresses stored. User the menubar to add emails", Toast.LENGTH_LONG).show();
         } else {
             // popup alertdialog with edittext
             android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(context)
@@ -224,62 +218,9 @@ public class FlightLogInfoActivity extends FlightLogsActivity {
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
 
-                    /*
-                    // create a new document
-                    PdfDocument document = new PdfDocument();
-
-                    // create a page description
-                    // Builder takes (int pageWidth, int pageHeight, int pageNumber)
-                    // width and height are in PostScript (1/72th of an inch)
-                    // 8.5"x11" = 612x792 PS
-                    PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(612, 792, 1)
-                            .setContentRect(new Rect(0,0,100,100))
-                            .create();
-
-                    // start a page
-                    PdfDocument.Page page = document.startPage(pageInfo);
-
-                    // draw something on the page
-                    View content = findViewById(R.id.llFLInfo1);
-                    content.draw(page.getCanvas());
-
-                    // finish the page
-                    document.finishPage(page);
-                    //. . .
-                    // add more pages
-                    //. . .
-                    // write the document content
-                    // http://stackoverflow.com/questions/9974987/how-to-send-an-email-with-a-file-attachment-in-android
-                    String outfileName = "flightLogFile.pdf";
-                    File outfile = new File(myDir, outfileName);
-
-                    try {
-                        FileOutputStream fos = new FileOutputStream(outfile);
-                        document.writeTo(fos);
-                        fos.close();
-                        document.close();
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    */
+                    File outfile = stor.getCsvFile();
 
                     // http://stackoverflow.com/questions/9974987/how-to-send-an-email-with-a-file-attachment-in-android
-                    String outfileName = "flightLogFile.txt";
-                    File outfile = new File(myDir, outfileName);
-
-                    try {
-                        FileOutputStream fos = new FileOutputStream(outfile);
-                        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-                        String jsonData = gson.toJson(fl);
-                        //System.out.println("Saving:  " + jsonData);
-                        fos.write(jsonData.getBytes());
-                        fos.close();
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-
                     Uri path = Uri.fromFile(outfile);
 
                     Intent i = new Intent(Intent.ACTION_SEND);
@@ -294,13 +235,10 @@ public class FlightLogInfoActivity extends FlightLogsActivity {
 
                     try {
                         // http://stackoverflow.com/questions/13872569/how-to-delete-file-from-sd-card-after-mail-send-successfully
-                        startActivityForResult(Intent.createChooser(i, "Send mail..."), EMAIL);
+                        startActivity(Intent.createChooser(i, "Send mail..."));
                     } catch (android.content.ActivityNotFoundException ex) {
                         Toast.makeText(FlightLogInfoActivity.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
                     }
-
-                    myDir.deleteOnExit();
-                    //System.out.println("Deleted .../FL_temp: " + deleted);
 
                 }
             });
@@ -311,28 +249,6 @@ public class FlightLogInfoActivity extends FlightLogsActivity {
             });
 
             alertDialog.show();
-        }
-    }
-
-
-
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        if(requestCode==EMAIL){
-            try {
-                // http://stackoverflow.com/questions/4943629/how-to-delete-a-whole-folder-and-content
-                if (myDir.isDirectory()) {
-                    // clear 'myDir'
-                    String[] children = myDir.list();
-                    for (int i = 0; i < children.length; i++)
-                    {
-                        boolean deleted = new File(myDir, children[i]).delete();
-                        // System.out.println("myDir["+i+"] deleted: " + deleted);
-                    }
-                }
-            } catch (Exception e) {
-
-            }
         }
     }
 }

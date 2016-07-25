@@ -6,6 +6,7 @@ import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
@@ -26,6 +27,11 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -43,12 +49,61 @@ public class NewFlightLogActivity extends FlightLogsActivity implements AdapterV
     SimpleDateFormat df = new SimpleDateFormat(("MMM dd, yyyy"));
     String today = df.format(myCalendar.getTime());
 
+    File csvFile;
+    FlightLogToCSV flToCSV;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_flight_log);
 
         stor = Storage.getInstance();
+
+        csvFile = stor.getCsvFile();
+        try {
+            if (!csvFile.exists()) {
+                System.out.println("We had to make a new file.");
+                csvFile.createNewFile();
+                PrintWriter out = new PrintWriter(csvFile);
+                flToCSV = new FlightLogToCSV("\",\"", csvFile);
+
+            }
+            PrintWriter out = new PrintWriter(csvFile);
+
+        } catch (IOException e) {
+            System.out.println("couldn't log");
+        }
+
+        /*
+        // http://stackoverflow.com/a/10281409
+        boolean csvEmpty = !csvFile.exists() || csvFile.length() == 0 || csvFile.equals(null);
+        System.out.println("csvFile is empty:  " + csvEmpty);
+
+
+        //Read text from file
+        StringBuilder text = new StringBuilder();
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader(csvFile));
+            String line;
+
+            while ((line = br.readLine()) != null) {
+                text.append(line);
+                text.append('\n');
+            }
+            br.close();
+            System.out.println(line);
+        }
+        catch (IOException e) {
+            //You'll need to add proper error handling here
+            System.out.println("error reading csv file from stor");
+        }
+
+        flToCSV = new FlightLogToCSV("\",\"", csvFile);
+        if (csvEmpty) { // there isn't a csv file yet or it's empty
+            flToCSV.writeHeaderToCSV();
+        }
+*/
 
         EditText etLogDate = (EditText) findViewById(R.id.etLogDate);
         etLogDate.setText(today);
@@ -389,6 +444,11 @@ public class NewFlightLogActivity extends FlightLogsActivity implements AdapterV
                     purpose, payload, flights, comments, flightLogNum, altitude);
 
             stor.getFlightLogs().add(fl);
+
+            // add flight log to csv file containing all here
+            flToCSV.addFlightToCSV(fl);
+            stor.setCsvFile(flToCSV.getFile());
+
             finish();
         } catch (Exception e) {
             Toast.makeText(this, "Something went wrong; couldn't save the flight log", Toast.LENGTH_SHORT).show();

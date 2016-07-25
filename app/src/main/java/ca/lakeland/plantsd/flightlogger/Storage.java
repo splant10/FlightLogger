@@ -1,5 +1,8 @@
 package ca.lakeland.plantsd.flightlogger;
 
+import android.os.Environment;
+
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -20,6 +23,7 @@ public class Storage {
     private List<FlightLog> flightLogs;
     private List<String> emails;
     private String adminPassword;
+    private File csvFile;
 
     private List<String> payloads = Arrays.asList("QX100","RX100","ADC-Micro");
     public List<String> getPayloads() {
@@ -34,6 +38,7 @@ public class Storage {
         flightLogs = getFlightLogs();
         emails = getEmails();
         adminPassword = "admin"; // beaut
+        csvFile = getCsvFile();
     }
 
     private static class LazyHolder {
@@ -95,6 +100,14 @@ public class Storage {
         return this.adminPassword;
     }
 
+    public File getCsvFile() {
+        if (csvFile == null) {
+            String root = Environment.getExternalStorageDirectory().toString();
+            csvFile = new File(root, "flightlogs.csv");
+        }
+        return csvFile;
+    }
+
     // Setters
     public void setFlightNum(FlightNum flightnum) {
         this.flightNum = flightnum;
@@ -124,6 +137,10 @@ public class Storage {
         this.adminPassword = pw;
     }
 
+    public void setCsvFile(File file) {
+        this.csvFile = file;
+    }
+
     public void clearAllData() {
         this.flightNum = null;
         this.pilots = null;
@@ -131,5 +148,6 @@ public class Storage {
         this.doneChecklists = null;
         this.flightLogs = null;
         this.emails = null;
+        this.csvFile = null;
     }
 }
