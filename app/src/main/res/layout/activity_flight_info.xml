@@ -81,7 +81,7 @@
             android:layout_alignStart="@+id/txtInfoTime"
             android:layout_toEndOf="@+id/txtInfoTime"
             android:layout_below="@+id/txtInfoTime"
-            android:inputType="none" />
+            android:inputType="none|numberDecimal" />
 
         <TextView
             android:layout_width="wrap_content"

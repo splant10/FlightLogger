@@ -23,11 +23,17 @@
             android:id="@+id/llFLInfo">
 
             <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/llFLAdmin" />
+
+            <LinearLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:weightSum="2"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="5dp">
 
                 <LinearLayout
                     android:orientation="vertical"
@@ -341,15 +347,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:id="@+id/llFLInfoFlights"></LinearLayout>
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Convert to CSV and Email"
-                android:id="@+id/btnFLInfoEmail"
-                android:layout_marginTop="10dp"
-                android:layout_gravity="center_horizontal"
-                android:onClick="onEmailClick" />
 
         </LinearLayout>
 

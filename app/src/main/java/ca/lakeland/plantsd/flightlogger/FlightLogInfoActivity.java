@@ -104,6 +104,7 @@ public class FlightLogInfoActivity extends FlightLogsActivity {
         int margin = 6;
         lp.setMargins(margin, margin, margin, margin);
 
+        LinearLayout adminLayout = (LinearLayout) findViewById(R.id.llFLAdmin);
         LinearLayout infoLayout = (LinearLayout) findViewById(R.id.llFLInfoFlights);
         LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -189,7 +190,7 @@ public class FlightLogInfoActivity extends FlightLogsActivity {
                 }
             });
 
-            infoLayout.addView(newAdminCommentsView);
+            adminLayout.addView(newAdminCommentsView);
 
         }
     }
@@ -200,67 +201,6 @@ public class FlightLogInfoActivity extends FlightLogsActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
     }
-
-
-    public void onEmailClick(View view) {
-        // Hold on to your butts
-
-        // http://www.learn-android-easily.com/2013/01/adding-radio-buttons-in-dialog.html
-        final CharSequence[] emails = stor.getEmails().toArray(new CharSequence[0]);
-
-        if (emails.length == 0) {
-            Toast.makeText(FlightLogInfoActivity.this, "There aren't any email addresses stored. User the menubar to add emails", Toast.LENGTH_LONG).show();
-        } else {
-            // popup alertdialog with edittext
-            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(context)
-                    .setTitle("Choose Recipient");
-
-            alertDialog.setSingleChoiceItems(emails, -1, new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int item) {
-                    selectedEmail = emails[item].toString();
-                }
-            });
-            alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-
-                    File outfile = stor.getCsvFile();
-
-                    Uri path = Uri.fromFile(outfile);
-                    String externalPath = Environment.getExternalStorageDirectory().getAbsolutePath();
-
-                    Intent i = new Intent(Intent.ACTION_SEND);
-                    // set intent type to email
-                    i.setType("vnd.android.cursor.dir/email");
-
-                    String recipient[] = {selectedEmail};
-                    i.putExtra(Intent.EXTRA_EMAIL, recipient);
-                    i.putExtra(Intent.EXTRA_SUBJECT, "Flight Log #" + fl.getFlightLogNum() + ", " + fl.getDate());
-                    i.putExtra(Intent.EXTRA_TEXT, "Please find attached the file for this flight log");
-                    i.putExtra(Intent.EXTRA_STREAM, path);
-
-                    try {
-                        // http://stackoverflow.com/questions/13872569/how-to-delete-file-from-sd-card-after-mail-send-successfully
-                        startActivityForResult(Intent.createChooser(i, "Send mail..."), EMAIL);
-                    } catch (android.content.ActivityNotFoundException ex) {
-                        Toast.makeText(FlightLogInfoActivity.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
-                    }
-
-                    myDir.deleteOnExit();
-                    //System.out.println("Deleted .../FL_temp: " + deleted);
-
-                }
-            });
-            alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
-
-            alertDialog.show();
-        }
-    }
-
 
 
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

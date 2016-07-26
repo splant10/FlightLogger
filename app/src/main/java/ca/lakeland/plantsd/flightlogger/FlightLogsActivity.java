@@ -3,7 +3,9 @@ package ca.lakeland.plantsd.flightlogger;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -13,15 +15,23 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
+
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 public class FlightLogsActivity extends HomeScreen implements AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
 
     private ListView lvFlightLogs;
     private FlightLogsAdapter customAdapter;
+    private Button emailButton;
 
     Storage stor;
+    public String selectedEmail;
+    int EMAIL = 101; // result code
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +59,14 @@ public class FlightLogsActivity extends HomeScreen implements AdapterView.OnItem
         lvFlightLogs.setAdapter(customAdapter);
         lvFlightLogs.setOnItemClickListener(this);
         lvFlightLogs.setOnItemLongClickListener(this);
+
+        // hide email button if no flight logs to email
+        emailButton = (Button) findViewById(R.id.btnEmailCsv);
+        if (stor.getFlightLogs().size() <= 0) {
+            emailButton.setVisibility(View.GONE);
+        } //else {
+           // emailButton.setVisibility(View.VISIBLE);
+       // }
     }
 
     @Override
@@ -66,6 +84,14 @@ public class FlightLogsActivity extends HomeScreen implements AdapterView.OnItem
         // type of call, but that just doesn't want to work here. or anywhere for that matter
         customAdapter = new FlightLogsAdapter(this, R.layout.adapter_flight_log_row, stor.getFlightLogs());
         lvFlightLogs.setAdapter(customAdapter);
+
+        if (stor.getFlightLogs().size() > 0) {
+            try {
+                emailButton.setVisibility(View.VISIBLE);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
 
@@ -114,5 +140,65 @@ public class FlightLogsActivity extends HomeScreen implements AdapterView.OnItem
         }
 
         return true;
+    }
+
+    public void onEmailClick(View view) {
+        // Hold on to your butts
+
+        // http://www.learn-android-easily.com/2013/01/adding-radio-buttons-in-dialog.html
+        final CharSequence[] emails = stor.getEmails().toArray(new CharSequence[0]);
+
+        if (emails.length == 0) {
+            Toast.makeText(this, "There aren't any email addresses stored. User the menubar to add emails", Toast.LENGTH_LONG).show();
+        } else {
+            // popup alertdialog with edittext
+            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(context)
+                    .setTitle("Choose Recipient");
+
+            alertDialog.setSingleChoiceItems(emails, -1, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int item) {
+                    selectedEmail = emails[item].toString();
+                }
+            });
+            alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+
+                    File outfile = stor.getCsvFile();
+
+                    Uri path = Uri.fromFile(outfile);
+                    String externalPath = Environment.getExternalStorageDirectory().getAbsolutePath();
+
+                    Intent i = new Intent(Intent.ACTION_SEND);
+                    // set intent type to email
+                    i.setType("vnd.android.cursor.dir/email");
+
+                    String recipient[] = {selectedEmail};
+                    Calendar myCalendar = Calendar.getInstance();
+                    SimpleDateFormat df = new SimpleDateFormat(("MMM dd, yyyy"));
+                    String today = df.format(myCalendar.getTime());
+
+                    i.putExtra(Intent.EXTRA_EMAIL, recipient);
+                    i.putExtra(Intent.EXTRA_SUBJECT, "Flight Logs - " + today);
+                    i.putExtra(Intent.EXTRA_TEXT, "Please find attached the file for the stored flight logs");
+                    i.putExtra(Intent.EXTRA_STREAM, path);
+
+                    try {
+                        // http://stackoverflow.com/questions/13872569/how-to-delete-file-from-sd-card-after-mail-send-successfully
+                        startActivityForResult(Intent.createChooser(i, "Send mail..."), EMAIL);
+                    } catch (android.content.ActivityNotFoundException ex) {
+                        Toast.makeText(FlightLogsActivity.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            });
+            alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+
+            alertDialog.show();
+        }
     }
 }
