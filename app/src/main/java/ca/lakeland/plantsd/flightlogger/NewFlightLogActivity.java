@@ -26,6 +26,10 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -389,6 +393,40 @@ public class NewFlightLogActivity extends FlightLogsActivity implements AdapterV
                     purpose, payload, flights, comments, flightLogNum, altitude);
 
             stor.getFlightLogs().add(fl);
+
+            // ****************** add flight to csv file ************************ //
+            // http://stackoverflow.com/questions/9961292/write-to-text-file-without-overwriting-in-java
+            FlightLogToCSV fltcsv = new FlightLogToCSV("\",\"");
+            File logsFile = stor.getCsvFile();
+
+            try {
+                Boolean firstLine = false;
+                if (!logsFile.exists()) {
+                    System.out.println("We had to make a new file.");
+                    logsFile.createNewFile();
+                    stor.setCsvFile(logsFile);
+                    firstLine = true;
+                }
+
+                PrintWriter out = new PrintWriter(new FileWriter(logsFile, true));
+                if (firstLine) {
+                    // do csv header
+                    String header = fltcsv.headerCSV();
+                    out.append(header);
+                    out.append("\n");
+                }
+                String flAsString = fltcsv.flightToCSV(fl);
+                out.append(flAsString);
+                out.append("\n");
+
+                out.close();
+            } catch (IOException e) {
+                System.out.println("Couldn't log");
+                e.printStackTrace();
+            }
+
+            // ****************** end add flight to csv file ************************ //
+
             finish();
         } catch (Exception e) {
             Toast.makeText(this, "Something went wrong; couldn't save the flight log", Toast.LENGTH_SHORT).show();

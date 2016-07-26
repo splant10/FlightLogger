@@ -209,7 +209,7 @@ public class FlightLogInfoActivity extends FlightLogsActivity {
         final CharSequence[] emails = stor.getEmails().toArray(new CharSequence[0]);
 
         if (emails.length == 0) {
-            Toast.makeText(FlightLogInfoActivity.this, "There aren't any email addresses stored. User the menubar to add emails", Toast.LENGTH_LONG);
+            Toast.makeText(FlightLogInfoActivity.this, "There aren't any email addresses stored. User the menubar to add emails", Toast.LENGTH_LONG).show();
         } else {
             // popup alertdialog with edittext
             android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(context)
@@ -224,63 +224,10 @@ public class FlightLogInfoActivity extends FlightLogsActivity {
                 public void onClick(DialogInterface dialog, int which) {
                     dialog.dismiss();
 
-                    /*
-                    // create a new document
-                    PdfDocument document = new PdfDocument();
-
-                    // create a page description
-                    // Builder takes (int pageWidth, int pageHeight, int pageNumber)
-                    // width and height are in PostScript (1/72th of an inch)
-                    // 8.5"x11" = 612x792 PS
-                    PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(612, 792, 1)
-                            .setContentRect(new Rect(0,0,100,100))
-                            .create();
-
-                    // start a page
-                    PdfDocument.Page page = document.startPage(pageInfo);
-
-                    // draw something on the page
-                    View content = findViewById(R.id.llFLInfo1);
-                    content.draw(page.getCanvas());
-
-                    // finish the page
-                    document.finishPage(page);
-                    //. . .
-                    // add more pages
-                    //. . .
-                    // write the document content
-                    // http://stackoverflow.com/questions/9974987/how-to-send-an-email-with-a-file-attachment-in-android
-                    String outfileName = "flightLogFile.pdf";
-                    File outfile = new File(myDir, outfileName);
-
-                    try {
-                        FileOutputStream fos = new FileOutputStream(outfile);
-                        document.writeTo(fos);
-                        fos.close();
-                        document.close();
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
-                    */
-
-                    // http://stackoverflow.com/questions/9974987/how-to-send-an-email-with-a-file-attachment-in-android
-                    String outfileName = "flightLogFile.txt";
-                    File outfile = new File(myDir, outfileName);
-
-                    try {
-                        FileOutputStream fos = new FileOutputStream(outfile);
-                        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-                        String jsonData = gson.toJson(fl);
-                        //System.out.println("Saving:  " + jsonData);
-                        fos.write(jsonData.getBytes());
-                        fos.close();
-
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                    File outfile = stor.getCsvFile();
 
                     Uri path = Uri.fromFile(outfile);
+                    String externalPath = Environment.getExternalStorageDirectory().getAbsolutePath();
 
                     Intent i = new Intent(Intent.ACTION_SEND);
                     // set intent type to email

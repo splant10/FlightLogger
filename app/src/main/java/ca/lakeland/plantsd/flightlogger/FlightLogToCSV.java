@@ -20,160 +20,128 @@ public class FlightLogToCSV {
 
     private String csvSeparator;
     private Gson gson;
-    private File file;
 
     public FlightLogToCSV(String separator) {
         csvSeparator = separator;
         gson = new Gson();
-        this.file = new File("flightlogs.csv");
     }
 
-    public void writeHeaderToCSV() {
-        try
-        {
-            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF-8"));
+    public String headerCSV() {
 
-            StringBuffer oneLine = new StringBuffer();
-            oneLine.append("\"");
-            oneLine.append("Flight Log Number");
-            oneLine.append(csvSeparator);
-            oneLine.append("Date");
-            oneLine.append(csvSeparator);
-            oneLine.append("Serial Number");
-            oneLine.append(csvSeparator);
-            oneLine.append("Location");
-            oneLine.append(csvSeparator);
-            oneLine.append("Pilot");
-            oneLine.append(csvSeparator);
-            oneLine.append("Spotter");
-            oneLine.append(csvSeparator);
-            oneLine.append("Windspeed");
-            oneLine.append(csvSeparator);
-            oneLine.append("Temperature");
-            oneLine.append(csvSeparator);
-            oneLine.append("Weather Conditions");
-            oneLine.append(csvSeparator);
-            oneLine.append("Purpose of Flight");
-            oneLine.append(csvSeparator);
-            oneLine.append("Payload");
-            oneLine.append(csvSeparator);
-            oneLine.append("# of Flights");
-            oneLine.append(csvSeparator);
+        String oneLine = new String();
+        oneLine += "\"";
+        oneLine += "Flight Log Number";
+        oneLine += csvSeparator;
+        oneLine += "Date";
+        oneLine += csvSeparator;
+        oneLine += "Serial Number";
+        oneLine += csvSeparator;
+        oneLine += "Location";
+        oneLine += csvSeparator;
+        oneLine += "Pilot";
+        oneLine += csvSeparator;
+        oneLine += "Spotter";
+        oneLine += csvSeparator;
+        oneLine += "Windspeed";
+        oneLine += csvSeparator;
+        oneLine += "Temperature";
+        oneLine += csvSeparator;
+        oneLine += "Weather Conditions";
+        oneLine += csvSeparator;
+        oneLine += "Purpose of Flight";
+        oneLine += csvSeparator;
+        oneLine += "Payload";
+        oneLine += csvSeparator;
+        oneLine += "# of Flights";
+        oneLine += csvSeparator;
 
-            oneLine.append("Flights");
-            oneLine.append(csvSeparator);
+        oneLine += "Flights";
+        oneLine += csvSeparator;
 
-            oneLine.append("Comments");
-            oneLine.append(csvSeparator);
-            oneLine.append("Agency");
-            oneLine.append(csvSeparator);
-            oneLine.append("Total Flight Time");
-            oneLine.append(csvSeparator);
-            oneLine.append("Altitude");
-            oneLine.append(csvSeparator);
-            oneLine.append("Admin Comments");
-            oneLine.append("\"");
+        oneLine += "Comments";
+        oneLine += csvSeparator;
+        oneLine += "Agency";
+        oneLine += csvSeparator;
+        oneLine += "Total Flight Time";
+        oneLine += csvSeparator;
+        oneLine += "Altitude";
+        oneLine += csvSeparator;
+        oneLine += "Admin Comments";
+        oneLine += "\"";
 
-            bw.write(oneLine.toString());
-            bw.newLine();
+        return oneLine;
 
-            bw.flush();
-            bw.close();
-        }
-        catch (UnsupportedEncodingException e) {}
-        catch (FileNotFoundException e){}
-        catch (IOException e){}
     }
 
-    public void addFlightToCSV(FlightLog flightLog){
+    public String flightToCSV(FlightLog flightLog){
+
+        String oneLine = new String();
+        oneLine += "\"";
+        oneLine += flightLog.getFlightLogNum() <= 0 ? "" : flightLog.getFlightLogNum();
+        oneLine += csvSeparator;
+
+        String date = flightLog.getDate().trim();
+
+        oneLine += date.length() <= 0 ? "" : date;
+        oneLine += csvSeparator;
+        oneLine += flightLog.getSerialNum().trim().length() <= 0 ? "" : flightLog.getSerialNum();
+        oneLine += csvSeparator;
+        oneLine += flightLog.getLocation().trim().length() <= 0 ? "" : flightLog.getLocation();
+        oneLine += csvSeparator;
+        oneLine += flightLog.getPilot().getName().trim().length() <= 0 ? "" : flightLog.getPilot().getName();
+        oneLine += csvSeparator;
+        oneLine += flightLog.getSpotter().trim().length() <= 0 ? "" : flightLog.getSpotter();
+        oneLine += csvSeparator;
+        oneLine += flightLog.getWindSpeed() <= 0 ? "0" : flightLog.getWindSpeed();
+        oneLine += csvSeparator;
+        oneLine += flightLog.getTemperature() <= 0 ? "0" : flightLog.getTemperature();
+        oneLine += csvSeparator;
+
+        String weather = flightLog.getWeatherConditions().trim();
+
+        oneLine += weather.length() <= 0 ? "" : weather;
+        oneLine += csvSeparator;
+
+        String purpose = flightLog.getPurposeOfFlight().trim();
+
+        oneLine += purpose.length() <= 0 ? "" : purpose;
+        oneLine += csvSeparator;
+        oneLine += flightLog.getPayloadType().trim().length() <= 0 ? "" : flightLog.getPayloadType();
+        oneLine += csvSeparator;
+        oneLine += flightLog.getFlights().size() <= 0 ? "" : flightLog.getFlights().size();
+        oneLine += csvSeparator;
+
         try {
-            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF-8"));
+            String flightsJson = gson.toJson(flightLog.getFlights());
+            flightsJson = flightsJson.replace("\"", "\"\""); // need to do this so csv knows to ignore double quotes in the field
+            oneLine += flightsJson;
+        } catch (Exception e) {
 
-            // -- Add new flight
-            StringBuffer oneLine = new StringBuffer();
-            oneLine.append("\"");
-            oneLine.append(flightLog.getFlightLogNum() <= 0 ? "" : flightLog.getFlightLogNum());
-            oneLine.append(csvSeparator);
-
-            String date = flightLog.getDate().trim();
-
-            oneLine.append(date.length() <= 0 ? "" : date);
-            oneLine.append(csvSeparator);
-            oneLine.append(flightLog.getSerialNum().trim().length() <= 0 ? "" : flightLog.getSerialNum());
-            oneLine.append(csvSeparator);
-            oneLine.append(flightLog.getLocation().trim().length() <= 0 ? "" : flightLog.getLocation());
-            oneLine.append(csvSeparator);
-            oneLine.append(flightLog.getPilot().getName().trim().length() <= 0 ? "" : flightLog.getPilot().getName());
-            oneLine.append(csvSeparator);
-            oneLine.append(flightLog.getSpotter().trim().length() <= 0 ? "" : flightLog.getSpotter());
-            oneLine.append(csvSeparator);
-            oneLine.append(flightLog.getWindSpeed() <= 0 ? "0" : flightLog.getWindSpeed());
-            oneLine.append(csvSeparator);
-            oneLine.append(flightLog.getTemperature() <= 0 ? "0" : flightLog.getTemperature());
-            oneLine.append(csvSeparator);
-
-            String weather = flightLog.getWeatherConditions().trim();
-
-            oneLine.append(weather.length() <= 0 ? "" : weather);
-            oneLine.append(csvSeparator);
-
-            String purpose = flightLog.getPurposeOfFlight().trim();
-
-            oneLine.append(purpose.length() <= 0 ? "" : purpose);
-            oneLine.append(csvSeparator);
-            oneLine.append(flightLog.getPayloadType().trim().length() <= 0 ? "" : flightLog.getPayloadType());
-            oneLine.append(csvSeparator);
-            oneLine.append(flightLog.getFlights().size() <= 0 ? "" : flightLog.getFlights().size());
-            oneLine.append(csvSeparator);
-
-            try {
-                String flightsJson = gson.toJson(flightLog.getFlights());
-                flightsJson = flightsJson.replace("\"", "\"\""); // need to do this so csv knows to ignore double quotes in the field
-                oneLine.append(flightsJson);
-            } catch (Exception e) {
-
-            }
-            oneLine.append(csvSeparator);
-
-            String comments = flightLog.getComments().trim();
-
-            oneLine.append(comments.length() <= 0 ? "" : comments);
-            oneLine.append(csvSeparator);
-            oneLine.append("LLC");
-            oneLine.append(csvSeparator);
-            oneLine.append(flightLog.getAccumFlightTime() <= 0 ? "0" : flightLog.getAccumFlightTime());
-            oneLine.append(csvSeparator);
-            oneLine.append(flightLog.getMaxAltitude() <= 0 ? "0" : flightLog.getMaxAltitude());
-            oneLine.append(csvSeparator);
-
-            try {
-                for (AdminComment ac : flightLog.getAdminComments()) {
-                    String comment = ac.getComment().trim();
-
-                    oneLine.append(comment.length() <= 0 ? "" : comment);
-                    oneLine.append("; ");
-                }
-            } catch (Exception e) {}
-
-            oneLine.append("\"");
-
-            bw.write(oneLine.toString());
-            bw.newLine();
-            // --- end add new flight
-
-            bw.flush();
-            bw.close();
         }
-        catch (UnsupportedEncodingException e) {}
-        catch (FileNotFoundException e){}
-        catch (IOException e){}
-    }
+        oneLine += csvSeparator;
 
-    public File getFile() {
-        return file;
-    }
-    public void setFile(File f) {
-        this.file = f;
-    }
+        String comments = flightLog.getComments().trim();
 
+        oneLine += comments.length() <= 0 ? "" : comments;
+        oneLine += csvSeparator;
+        oneLine += "LLC";
+        oneLine += csvSeparator;
+        oneLine += flightLog.getAccumFlightTime() <= 0 ? "0" : flightLog.getAccumFlightTime();
+        oneLine += csvSeparator;
+        oneLine += flightLog.getMaxAltitude() <= 0 ? "0" : flightLog.getMaxAltitude();
+        oneLine += csvSeparator;
+
+        try {
+            for (AdminComment ac : flightLog.getAdminComments()) {
+                String comment = ac.getComment().trim();
+
+                oneLine += comment.length() <= 0 ? "" : comment;
+                oneLine += "; ";
+            }
+        } catch (Exception e) {}
+
+        oneLine += "\"";
+        return oneLine;
+
+    }
 }
