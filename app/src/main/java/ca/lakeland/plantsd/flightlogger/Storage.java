@@ -1,9 +1,20 @@
 package ca.lakeland.plantsd.flightlogger;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Environment;
+import android.provider.MediaStore;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.URI;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -25,6 +36,7 @@ public class Storage {
     private List<String> emails;
     private String adminPassword;
     private File csvFile;
+    static private String filePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/flightlogs.csv";
 
     private List<String> payloads = Arrays.asList("QX100","RX100","ADC-Micro");
     public List<String> getPayloads() {
@@ -132,7 +144,6 @@ public class Storage {
 
     public File getCsvFile() {
         if (csvFile == null) {
-            String filePath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/flightlogs.csv";
             csvFile = new File(filePath);
         }
         return csvFile;
@@ -140,6 +151,43 @@ public class Storage {
 
     public void setCsvFile(File f) {
         this.csvFile = f;
+    }
+
+    public void setCsvFile(String s) {
+        getCsvFile().delete();
+
+        try {
+            PrintWriter out = new PrintWriter(new FileWriter(getCsvFile(), false));
+            out.append(s);
+            out.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // http://stackoverflow.com/a/13357785
+    // Need the next two methods for amending flight logs to have admin comments
+    public static String convertStreamToString(InputStream is) throws Exception {
+        BufferedReader reader = new BufferedReader(new InputStreamReader(is));
+        StringBuilder sb = new StringBuilder();
+        String line = null;
+        while ((line = reader.readLine()) != null) {
+            sb.append(line).append("\n");
+        }
+        reader.close();
+        return sb.toString();
+    }
+
+    // http://stackoverflow.com/a/13357785
+    public static List<String> getStringListFromFile() throws Exception {
+        File fl = new File(filePath);
+        FileInputStream fin = new FileInputStream(fl);
+        String ret = convertStreamToString(fin);
+        //Make sure you close all streams.
+        fin.close();
+
+        String[] temp = ret.split("\n");
+        return new ArrayList<String>(Arrays.asList(temp));
     }
 
     public void clearAllData() {
@@ -150,7 +198,7 @@ public class Storage {
         this.flightLogs = null;
         this.emails = null;
         this.csvFile = null;
-        File file = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/flightlogs.csv");
+        File file = new File(filePath);
         boolean deleted = file.delete();
     }
 }

@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.print.PrintAttributes;
 import android.print.pdf.PrintedPdfDocument;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -33,6 +34,7 @@ import com.google.gson.GsonBuilder;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -186,6 +188,27 @@ public class FlightLogInfoActivity extends FlightLogsActivity {
                     int index = fl.getFlightLogNum() - 1;
                     stor.getFlightLogs().remove(index);
                     stor.getFlightLogs().add(index, fl);
+
+                    // amend the csv line regarding that flight log
+                    try {
+                        List<String> csvLines = stor.getStringListFromFile();
+                        // convert this fl to csv string.
+                        FlightLogToCSV fltcsv = new FlightLogToCSV("\",\"");
+                        String flCsv = fltcsv.flightToCSV(fl);
+                        csvLines.remove(index+1); // +1 is to account for the header line in the csv
+                        csvLines.add(index+1, flCsv);
+                        // build the result csv:
+                        String oneString = new String();
+                        for (String line : csvLines) {
+                            oneString += line;
+                            oneString += "\n";
+                        }
+                        // System.out.println(oneString); // seems to work out well enough.
+                        stor.setCsvFile(oneString);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                     finish();
                 }
             });
