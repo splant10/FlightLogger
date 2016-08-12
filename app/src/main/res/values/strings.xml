@@ -9,4 +9,11 @@
     <string name="title_flightlogs_activity">Flight Logs</string>
     <string name="title_pilots_activity">Pilots &amp; Spotters</string>
     <string name="my_email"><u>splant.10@gmail.com</u></string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

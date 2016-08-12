@@ -10,7 +10,17 @@
         android:icon="@drawable/logo2"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar" >
+        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".HomeScreen"
             android:label="@string/app_name"
@@ -35,9 +45,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ca.lakeland.plantsd.flightlogger.HomeScreen" />
         </activity>
-        <activity android:name=".NewFlightLogActivity"
-            android:screenOrientation="portrait"
-            android:configChanges="keyboardHidden|orientation|screenSize" />
+        <activity
+            android:name=".NewFlightLogActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".PilotsActivity"
             android:label="@string/title_pilots_activity"
@@ -56,7 +67,8 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".ChecklistInfoActivity" />
         <activity android:name=".EmailsActivity" />
-        <activity android:name=".AboutActivity"></activity>
+        <activity android:name=".AboutActivity" />
+
     </application>
 
 </manifest>
