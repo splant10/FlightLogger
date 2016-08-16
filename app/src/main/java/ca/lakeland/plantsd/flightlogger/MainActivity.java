@@ -1,8 +1,15 @@
 package ca.lakeland.plantsd.flightlogger;
 
+import android.support.v4.app.Fragment;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
+import android.text.InputType;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,23 +19,78 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+
+import com.google.gson.Gson;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-
     NavigationView navigationView = null;
     Toolbar toolbar = null;
+
+    Gson gson = new Gson();
+    private String storageFileName = "storage-json.txt";
+    // lazy singleton for getting stored data
+    private Storage stor;
+
+    static boolean adminLoggedIn = false;
+
+    Context ctxt = this;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        stor = Storage.getInstance();
+
+        // try to access data about previous flight plans and logs
+        try {
+
+            Context appContext = this.getApplicationContext();
+
+            // Import things from the file
+            FileInputStream fis = appContext.openFileInput(storageFileName);
+            InputStreamReader isr = new InputStreamReader(fis);
+            BufferedReader buffreader = new BufferedReader(isr);
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while ((line = buffreader.readLine()) != null) {
+                sb.append(line);
+            }
+            String json = sb.toString();
+            //System.out.println("Loading: " + json);
+
+            Storage storageTemp = gson.fromJson(json, Storage.class);
+
+            stor.setFlightNum(storageTemp.getFlightNum());
+            stor.setPilots(storageTemp.getPilots());
+            stor.setSpotters(storageTemp.getSpotters());
+            stor.setDoneChecklists(storageTemp.getDoneChecklists());
+            stor.setFlightLogs(storageTemp.getFlightLogs());
+            stor.setEmails(storageTemp.getEmails());
+            stor.setAdminPassword(storageTemp.getAdminPassword());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
         // Set the fragment initially
         PilotsFragment fragment = new PilotsFragment();
         android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, fragment);
+        fragmentTransaction.replace(R.id.fragment_container, fragment, "PILOT_FRAGMENT");
         fragmentTransaction.commit();
 
 
@@ -39,8 +101,11 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Fragment pilotsFragment = getSupportFragmentManager().findFragmentByTag("PILOT_FRAGMENT");
+                if (pilotsFragment != null && pilotsFragment.isVisible()) {
+                    pilotFabClick();
+                }
+
             }
         });
 
@@ -54,6 +119,30 @@ public class MainActivity extends AppCompatActivity
         navigationView.setNavigationItemSelectedListener(this);
     }
 
+
+    // Save data on pause
+    @Override
+    public void onPause() {
+        super.onPause();
+
+        Context appContext = this.getApplicationContext();
+        FileOutputStream fos = null;
+
+        try {
+            // Saving
+            fos = appContext.openFileOutput(storageFileName, Context.MODE_PRIVATE);
+            String jsonData = gson.toJson(stor);
+            //System.out.println("Saving:  " + jsonData);
+            fos.write(jsonData.getBytes());
+            fos.close();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+
+
     @Override
     public void onBackPressed() {
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -64,12 +153,16 @@ public class MainActivity extends AppCompatActivity
         }
     }
 
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -86,6 +179,9 @@ public class MainActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+
+
+    // Selecting different options in the side menu
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -100,7 +196,7 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_pilot) {
             PilotsFragment fragment = new PilotsFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_container, fragment);
+            fragmentTransaction.replace(R.id.fragment_container, fragment, "PILOT_FRAGMENT");
             fragmentTransaction.commit();
 
         }
@@ -108,5 +204,51 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+
+
+    // Handle the FAB when on the pilot/spotter fragment
+    private void pilotFabClick() {
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(ctxt);
+        builder.setTitle("New Pilot or Spotter");
+
+        LayoutInflater li = LayoutInflater.from(MainActivity.this);
+        final LinearLayout popupLayout = (LinearLayout)li.inflate(R.layout.new_pilot_popup, null);
+        builder.setView(popupLayout);
+
+        /////////////////////////////////////////
+        // Set up the buttons
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                EditText editText = (EditText) popupLayout.findViewById(R.id.etPilotName);
+                String name = editText.getText().toString();
+                RadioButton rb = (RadioButton) popupLayout.findViewById(R.id.radioPilot);
+
+                if (rb.isChecked()){ // if checked pilot
+                    Pilot pilot = new Pilot(name);
+                    stor.getPilots().add(pilot);
+                } else { // if checked spotter (unchecked pilot)
+                    stor.getSpotters().add(name);
+                }
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+
+
+    public Storage getStorage(){
+        return this.stor;
     }
 }

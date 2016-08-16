@@ -6,7 +6,15 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:windowActionBarOverlay">false</item>
+    </style>
+
+    <style name="ChristmasTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#F44336</item>
+        <item name="colorPrimaryDark">#D32F2F</item>
+        <item name="colorAccent">#4CAF50</item>
+        <item name="android:windowActionBarOverlay">false</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

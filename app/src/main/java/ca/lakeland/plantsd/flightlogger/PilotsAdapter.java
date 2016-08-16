@@ -42,12 +42,25 @@ public class PilotsAdapter extends ArrayAdapter<Pilot> {
 
         if (pilot != null) {
             TextView  tt1 = (TextView) v.findViewById(R.id.txtPilotName);
+            TextView  tt2 = (TextView) v.findViewById(R.id.txtPilotFlights);
+            TextView  tt3 = (TextView) v.findViewById(R.id.txtPilotFlightTime);
 
             if (tt1 != null) {
                 tt1.setText(pilot.getName());
             }
+            if (tt2 != null) {
+                tt2.setText("Flights: "+String.valueOf(pilot.getTakeoffsAndLandings()));
+            }
+            if (tt3 != null) {
+                tt3.setText("Flighttime: "+intToTime(pilot.getFlightTime()));
+            }
         }
         return v;
+    }
+
+    private String intToTime(Integer i) {
+        String result = String.format("%02d:%02d", i/60, i%60);
+        return result;
     }
 
     public void updateList() {

@@ -3,18 +3,36 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="76dp">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@drawable/back_rect"
+        android:layout_margin="6dp">
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="pilot name"
             android:id="@+id/txtPilotName"
-            android:layout_centerVertical="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="27dp" />
-    </RelativeLayout>
+            android:layout_margin="12dp"
+            android:textColor="@color/textSecondary"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="## Flights"
+            android:id="@+id/txtPilotFlights"
+            android:layout_margin="12dp"
+            android:textColor="@color/textSecondary"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="10:12 Flighttime"
+            android:id="@+id/txtPilotFlightTime"
+            android:layout_margin="12dp"
+            android:textColor="@color/textSecondary"/>
+    </LinearLayout>
 </LinearLayout>
