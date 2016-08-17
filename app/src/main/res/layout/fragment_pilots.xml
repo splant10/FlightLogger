@@ -32,6 +32,14 @@
                     android:layout_height="1dp"
                     android:background="@android:color/darker_gray"/>
 
+                <ViewStub
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/no_pilots_block"
+                    android:inflatedId="@+id/inf_no_pilots_block"
+                    android:layout="@layout/nothing_to_see_here"
+                    android:layout_gravity="center_horizontal" />
+
                 <ListView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -61,6 +69,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@android:color/darker_gray"/>
+
+                <ViewStub
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/no_spotters_block"
+                    android:inflatedId="@+id/inf_no_spotters_block"
+                    android:layout="@layout/nothing_to_see_here"
+                    android:layout_gravity="center_horizontal" />
+
 
 
 

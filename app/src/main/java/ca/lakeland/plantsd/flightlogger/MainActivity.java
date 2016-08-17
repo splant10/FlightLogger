@@ -23,10 +23,12 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -102,8 +104,12 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 Fragment pilotsFragment = getSupportFragmentManager().findFragmentByTag("PILOT_FRAGMENT");
+                Fragment checklistFragment = getSupportFragmentManager().findFragmentByTag("CHECKLIST_FRAGMENT");
+
                 if (pilotsFragment != null && pilotsFragment.isVisible()) {
                     pilotFabClick();
+                } else if (checklistFragment != null && checklistFragment.isVisible()) {
+                    Toast.makeText(ctxt, "CHECKLIST!!", Toast.LENGTH_SHORT).show();
                 }
 
             }
@@ -189,9 +195,13 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_checklist) {
+            ChecklistFragment fragment = new ChecklistFragment();
+            android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, fragment, "CHECKLIST_FRAGMENT");
+            fragmentTransaction.commit();
 
         } else if (id == R.id.nav_flightlog) {
-
+            clearStorage();
 
         } else if (id == R.id.nav_pilot) {
             PilotsFragment fragment = new PilotsFragment();
@@ -234,6 +244,9 @@ public class MainActivity extends AppCompatActivity
                 } else { // if checked spotter (unchecked pilot)
                     stor.getSpotters().add(name);
                 }
+
+                PilotsFragment.refresh(getSupportFragmentManager());
+
             }
         });
         builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
@@ -251,4 +264,43 @@ public class MainActivity extends AppCompatActivity
     public Storage getStorage(){
         return this.stor;
     }
+
+
+
+    public void clearStorage() {
+        final Context appContext = MainActivity.this;
+
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case DialogInterface.BUTTON_POSITIVE:
+                        // Yes button clicked
+                        File dir = getFilesDir();
+                        File fileToDelete = new File(dir, storageFileName);
+
+                        Boolean deleted = fileToDelete.delete();
+
+                        if (deleted) {
+                            stor.clearAllData();
+                            Toast.makeText(appContext, "All local data deleted", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(appContext, "Local storage could not be deleted", Toast.LENGTH_SHORT).show();
+                        }
+
+                        break;
+
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        // No button clicked
+                        break;
+                }
+            }
+        };
+
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(appContext);
+        builder.setMessage("Do you wish to delete all locally stored data?")
+                .setPositiveButton("Yes", dialogClickListener)
+                .setNegativeButton("No", dialogClickListener).show();
+    }
+
 }

@@ -2,12 +2,16 @@ package ca.lakeland.plantsd.flightlogger;
 
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewStub;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -53,6 +57,15 @@ public class PilotsFragment extends Fragment {
         MainActivity main = (MainActivity)getActivity();
         stor = main.getStorage();
 
+        if (stor.getPilots().size() <= 0) { // no pilots
+            ViewStub noPilotStub = (ViewStub) main.findViewById(R.id.no_pilots_block);
+            View inflated = noPilotStub.inflate();
+        }
+        if (stor.getSpotters().size() <= 0) { // no spotters
+            ViewStub noSpotterStub = (ViewStub) main.findViewById(R.id.no_spotters_block);
+            View inflated = noSpotterStub.inflate();
+        }
+
         ///*
         // Set up the pilots and spotters list views
         lvPilots = (ListView) getView().findViewById(R.id.lvPilots);
@@ -73,6 +86,11 @@ public class PilotsFragment extends Fragment {
         //*/
     }
 
-
+    public static void refresh(FragmentManager fragman) {
+        PilotsFragment fragment = new PilotsFragment();
+        android.support.v4.app.FragmentTransaction fragmentTransaction = fragman.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragment, "PILOT_FRAGMENT");
+        fragmentTransaction.commit();
+    }
 
 }
