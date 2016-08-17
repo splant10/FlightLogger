@@ -1,5 +1,6 @@
 package ca.lakeland.plantsd.flightlogger;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -109,7 +110,7 @@ public class MainActivity extends AppCompatActivity
                 if (pilotsFragment != null && pilotsFragment.isVisible()) {
                     pilotFabClick();
                 } else if (checklistFragment != null && checklistFragment.isVisible()) {
-                    Toast.makeText(ctxt, "CHECKLIST!!", Toast.LENGTH_SHORT).show();
+                    checklistFabClick();
                 }
 
             }
@@ -257,6 +258,13 @@ public class MainActivity extends AppCompatActivity
         });
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
+    }
+
+
+    // Handle the FAB when on the checklist fragment
+    private void checklistFabClick() {
+        Intent intent = new Intent(MainActivity.this, NewChecklistActivity.class);
+        startActivity(intent);
     }
 
 

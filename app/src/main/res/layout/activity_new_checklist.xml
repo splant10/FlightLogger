@@ -16,7 +16,7 @@
     android:fitsSystemWindows="true"
     tools:context=".NewChecklistActivity"
     android:orientation="vertical"
-        android:background="#DDDDDD">
+    android:background="#EEEEEE">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -45,6 +45,7 @@
                     android:layout_height="wrap_content"
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="Preflight Checklist"
+                    android:textColor="@color/textPrimary"
                     android:id="@+id/txtFPTitle"
                     android:layout_marginTop="25dp"
                     android:layout_marginBottom="10dp" />
@@ -60,6 +61,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Are NOTAMs in place?"
+                        android:textColor="@color/textPrimary"
                         android:id="@+id/chkPreNOTAM"
                         android:checked="false" />
 
@@ -68,6 +70,7 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:text="Have the proper authority to fly in the airspace of intended flight"
+                        android:textColor="@color/textSecondary"
                         android:id="@+id/txtPreNotam"
                         android:layout_marginLeft="20dp"
                         android:layout_marginBottom="5dp"
@@ -85,6 +88,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Evaluated any environmental hazards"
+                        android:textColor="@color/textPrimary"
                         android:id="@+id/chkPreEnviro" />
 
                     <TextView
@@ -92,6 +96,7 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:text="Be Aware of the general environment, including weather, terrain, obstacles, and hazards not only in the area you intend to fly but in all directions of where you will be flying. Ensure any wind speed is within the capability of the helicopter and the operator, and that visibility is greater than 2nm and the ceiling is above 1000 feet"
+                        android:textColor="@color/textSecondary"
                         android:id="@+id/txtPreEnviro"
                         android:layout_marginLeft="20dp"
                         android:layout_marginBottom="5dp"
@@ -109,6 +114,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Proper eye protection"
+                        android:textColor="@color/textPrimary"
                         android:id="@+id/chkPreEye" />
 
                     <TextView
@@ -116,6 +122,7 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:text="Ensure you are wearing safety glasses or other suitable eye protection"
+                        android:textColor="@color/textSecondary"
                         android:id="@+id/txtPreEye"
                         android:layout_marginLeft="20dp"
                         android:layout_marginBottom="5dp"
@@ -134,13 +141,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:id="@+id/chkPreSideArms"
-                        android:text="Side arms in good condition" />
+                        android:text="Side arms in good condition"
+                        android:textColor="@color/textPrimary"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:text="Check arms and clamps for weakness. Replace any worn or damaged parts. If the arms unfold, unfold arms; press firmly until they click into place. Test that arms do not unclip easily."
+                        android:textColor="@color/textSecondary"
                         android:id="@+id/txtPreSideArms"
                         android:layout_marginLeft="20dp"
                         android:layout_marginBottom="5dp"
@@ -158,6 +167,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Landing gear in working order"
+                        android:textColor="@color/textPrimary"
                         android:id="@+id/chkPreLandingGear" />
 
                     <TextView
@@ -165,6 +175,7 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:text="Check landing gear to make sure it is secured and in place. Inspect it for cracks or damage. Ensure lnding gear is not deformed and the Draganflyer helicopter sits level"
+                        android:textColor="@color/textSecondary"
                         android:id="@+id/txtPreLandingGear"
                         android:layout_marginLeft="20dp"
                         android:layout_marginBottom="5dp"
@@ -182,6 +193,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Motors are in working order"
+                        android:textColor="@color/textPrimary"
                         android:id="@+id/chkPreMotors" />
 
                     <TextView
@@ -189,6 +201,7 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:text="Without powering up the helicopter, rotate each rotor slowly by hand. Rotate the rotor at least one complete revolution. Although it feels bumpy, it should feel consistently bumpy. If a motor feels more or less resistive than typical, do not fly the helicopter"
+                        android:textColor="@color/textSecondary"
                         android:id="@+id/txtPreMotors"
                         android:layout_marginLeft="20dp"
                         android:layout_marginBottom="5dp"
@@ -206,6 +219,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Rotors are in working order"
+                        android:textColor="@color/textPrimary"
                         android:id="@+id/chkPreRotors" />
 
                     <TextView
@@ -213,6 +227,7 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:text="Check that all rotors are correctly installed. Inspect rotors for chips or cracks; replace any that are damaged"
+                        android:textColor="@color/textSecondary"
                         android:id="@+id/txtPreRotors"
                         android:layout_marginLeft="20dp"
                         android:layout_marginBottom="5dp"
@@ -230,6 +245,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Batteries are charged"
+                        android:textColor="@color/textPrimary"
                         android:id="@+id/chkPreBattery" />
 
                     <TextView
@@ -237,6 +253,7 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:text="Fully charge the helicopter batteries before each use. Ensure battery is placed in the correct position and securely connected"
+                        android:textColor="@color/textSecondary"
                         android:id="@+id/txtPreBattery"
                         android:layout_marginLeft="20dp"
                         android:layout_marginBottom="5dp"
@@ -254,6 +271,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Canopy is in good repair and secure with no loose parts"
+                        android:textColor="@color/textPrimary"
                         android:id="@+id/chkPreCanopy" />
 
                     <TextView
@@ -261,6 +279,7 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:text="The canopy is seated properly when the top shell overlaps the bottom shell. Inspect canopy for cracks; replace if damaged. Each time the canopy is removed, both the pilot and the observer shall test to ensure the canopy is secured upon placement"
+                        android:textColor="@color/textSecondary"
                         android:id="@+id/txtPreCanopy"
                         android:layout_marginLeft="20dp"
                         android:layout_marginBottom="5dp"
@@ -278,6 +297,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Handheld controller in working order"
+                        android:textColor="@color/textPrimary"
                         android:id="@+id/chkPreController" />
 
                     <TextView
@@ -285,6 +305,7 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:text="Ensure the micro SD card is inserted in its slot. Fully charge the controller battery. Ensure there is communication between the controller and the helicopter (without arming the helicopter)"
+                        android:textColor="@color/textSecondary"
                         android:id="@+id/txtPreController"
                         android:layout_marginLeft="20dp"
                         android:layout_marginBottom="5dp"
@@ -302,6 +323,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Inertial screen on controller working properly"
+                        android:textColor="@color/textPrimary"
                         android:id="@+id/chkPreInertial" />
 
                     <TextView
@@ -309,6 +331,7 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:text="Before flying, check the Inertial Screen on the controller, then tilt the helicopter on each axis and ensure all the IMU and Mag values are moving"
+                        android:textColor="@color/textSecondary"
                         android:id="@+id/txtPreInertial"
                         android:layout_marginLeft="20dp"
                         android:layout_marginBottom="5dp"
@@ -326,6 +349,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Camera setup secure and in working order"
+                        android:textColor="@color/textPrimary"
                         android:id="@+id/chkPreCamera" />
 
                     <TextView
@@ -333,6 +357,7 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:text="Ensure systems have charged batteries and that the camera is mounted securely onto the helicopter camera mount. The camera mount should be securely fastened to the helicopter"
+                        android:textColor="@color/textSecondary"
                         android:id="@+id/txtPreCamera"
                         android:layout_marginLeft="20dp"
                         android:layout_marginBottom="5dp"
@@ -350,6 +375,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Cell phone working"
+                        android:textColor="@color/textPrimary"
                         android:id="@+id/chkPreCell" />
 
                     <TextView
@@ -357,6 +383,7 @@
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:text="The cellphone must be charged with the ringer audible during operations. Cellphone must NOT be in silent mode"
+                        android:textColor="@color/textSecondary"
                         android:id="@+id/txtPreCell"
                         android:layout_marginLeft="20dp"
                         android:layout_marginBottom="5dp"
