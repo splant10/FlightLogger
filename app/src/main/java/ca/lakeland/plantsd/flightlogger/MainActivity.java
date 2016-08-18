@@ -20,6 +20,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -91,10 +92,11 @@ public class MainActivity extends AppCompatActivity
 
 
         // Set the fragment initially
-        PilotsFragment fragment = new PilotsFragment();
+        FlightLogsFragment fragment = new FlightLogsFragment();
         android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, fragment, "PILOT_FRAGMENT");
+        fragmentTransaction.replace(R.id.fragment_container, fragment, "FLIGHTLOG_FRAGMENT");
         fragmentTransaction.commit();
+        setTitle(R.string.title_flightlogs);
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -106,11 +108,14 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view) {
                 Fragment pilotsFragment = getSupportFragmentManager().findFragmentByTag("PILOT_FRAGMENT");
                 Fragment checklistFragment = getSupportFragmentManager().findFragmentByTag("CHECKLIST_FRAGMENT");
+                Fragment flightlogFragment = getSupportFragmentManager().findFragmentByTag("FLIGHTLOG_FRAGMENT");
 
                 if (pilotsFragment != null && pilotsFragment.isVisible()) {
                     pilotFabClick();
                 } else if (checklistFragment != null && checklistFragment.isVisible()) {
                     checklistFabClick();
+                } else if (flightlogFragment != null && flightlogFragment.isVisible()) {
+                    flightlogFabClick();
                 }
 
             }
@@ -180,6 +185,7 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            clearStorage();
             return true;
         }
 
@@ -200,15 +206,21 @@ public class MainActivity extends AppCompatActivity
             android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, fragment, "CHECKLIST_FRAGMENT");
             fragmentTransaction.commit();
+            setTitle(R.string.title_checklists);
 
         } else if (id == R.id.nav_flightlog) {
-            clearStorage();
+            FlightLogsFragment fragment = new FlightLogsFragment();
+            android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, fragment, "FLIGHTLOG_FRAGMENT");
+            fragmentTransaction.commit();
+            setTitle(R.string.title_flightlogs);
 
         } else if (id == R.id.nav_pilot) {
             PilotsFragment fragment = new PilotsFragment();
             android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, fragment, "PILOT_FRAGMENT");
             fragmentTransaction.commit();
+            setTitle(R.string.title_pilots);
 
         }
 
@@ -268,6 +280,13 @@ public class MainActivity extends AppCompatActivity
     }
 
 
+    // Handle the FAB when on the flightlog fragment
+    private void flightlogFabClick() {
+        Intent intent = new Intent(MainActivity.this, NewFlightLogActivity.class);
+        startActivity(intent);
+    }
+
+
 
     public Storage getStorage(){
         return this.stor;
@@ -295,6 +314,8 @@ public class MainActivity extends AppCompatActivity
                         } else {
                             Toast.makeText(appContext, "Local storage could not be deleted", Toast.LENGTH_SHORT).show();
                         }
+
+
 
                         break;
 

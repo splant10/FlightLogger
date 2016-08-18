@@ -1,0 +1,64 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="ca.lakeland.plantsd.flightlogger.FlightLogsFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <!--
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Flight Logs"
+                android:id="@+id/flightLogTitle"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
+                android:textAlignment="center"
+                android:textColor="@color/textPrimary"
+                android:layout_centerVertical="true" />
+
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email Flight Logs"
+                android:id="@+id/btnEmailCsv"
+                android:layout_centerVertical="true"
+                android:layout_alignParentEnd="true"
+                android:layout_margin="8dp" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@android:color/darker_gray"/>
+
+        -->
+
+        <ViewStub
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/no_flightlogs_block"
+            android:inflatedId="@+id/inf_no_flightlogs_block"
+            android:layout="@layout/nothing_to_see_here"
+            android:layout_gravity="center_horizontal" />
+
+        <ListView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/lvFlightLogs" />
+
+    </LinearLayout>
+
+</FrameLayout>

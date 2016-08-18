@@ -9,21 +9,6 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="Completed Checklists"
-            android:id="@+id/tvPilotsTitle"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:textAlignment="center"
-            android:textColor="@color/textPrimary" />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@android:color/darker_gray"/>
-
         <ViewStub
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
