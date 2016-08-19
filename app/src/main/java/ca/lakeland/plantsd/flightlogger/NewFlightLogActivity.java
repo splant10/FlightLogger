@@ -38,7 +38,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
-public class NewFlightLogActivity extends FlightLogsActivity implements AdapterView.OnItemSelectedListener {
+public class NewFlightLogActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     FlightLog fl;
 
@@ -460,7 +460,7 @@ public class NewFlightLogActivity extends FlightLogsActivity implements AdapterV
     @Override
     public void onBackPressed() {
         // Override the back button to verify user wishes to leave the new flight log
-        android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(context)
+        android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(this)
                 .setTitle("Exit Flight Log")
                 .setMessage("Are you sure you wish to leave this flight log? (Data will not be saved)");
 
