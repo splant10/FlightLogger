@@ -51,6 +51,13 @@ public class MainActivity extends AppCompatActivity
 
     Context ctxt = this;
 
+    private static final int MENU_ADMIN = Menu.FIRST;
+    private static final int MENU_ADD_EMAIL = MENU_ADMIN + 1;
+    private static final int MENU_VIEW_EMAILS = MENU_ADMIN + 2;
+    private static final int MENU_LOGIN = MENU_ADMIN + 3;
+    private static final int MENU_ABOUT = MENU_ADMIN + 4;
+    private static final int MENU_CHANGE_ADMIN_PASS = MENU_ADMIN + 5;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,6 +139,60 @@ public class MainActivity extends AppCompatActivity
     }
 
 
+
+    /**
+     * Gets called every time the user presses the menu button.
+     * Use if your menu is dynamic.
+     */
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        menu.clear();
+        menu.add(0, MENU_ADD_EMAIL, Menu.NONE, "Add an email address");
+        menu.add(0, MENU_VIEW_EMAILS, Menu.NONE, "View email addresses");
+        if(adminLoggedIn) {
+            menu.add(0, MENU_ADMIN, Menu.NONE, "Admin Logged In").setIcon(R.drawable.ic_lock_open).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+            menu.add(0, MENU_CHANGE_ADMIN_PASS, Menu.NONE, "Change Admin Password");
+            menu.add(0, MENU_ABOUT, Menu.NONE, "About");
+            menu.add(0, MENU_LOGIN, Menu.NONE, "Administrator Logout");
+        } else {
+            menu.add(0, MENU_ABOUT, Menu.NONE, "About");
+            menu.add(0, MENU_LOGIN, Menu.NONE, "Login as Administrator");
+        }
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case MENU_ADMIN:
+                Toast.makeText(this, "Logged in as administrator", Toast.LENGTH_SHORT).show();
+                return true;
+            case MENU_ADD_EMAIL:
+                SettingsMenu.addEmailAddress(this);
+                return true;
+            case MENU_VIEW_EMAILS:
+                Intent emailIntent = new Intent(this, EmailsActivity.class);
+                startActivity(emailIntent);
+                return true;
+            case MENU_CHANGE_ADMIN_PASS:
+                SettingsMenu.changeAdminPassword(this);
+                return true;
+            case MENU_ABOUT:
+                Intent aboutIntent = new Intent(this, AboutActivity.class);
+                startActivity(aboutIntent);
+                return true;
+            case MENU_LOGIN:
+                SettingsMenu.adminLoginLogoutButton(this);
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
+    }
+
+
     // Save data on pause
     @Override
     public void onPause() {
@@ -174,23 +235,6 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            clearStorage();
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
 
 
 

@@ -50,7 +50,7 @@ Said the fly, "let us flee!"
 So they flew through a flaw in the flue.
  */
 
-public class FlightLogInfoActivity extends FlightLogsActivity {
+public class FlightLogInfoActivity extends AppCompatActivity {
 
     Storage stor;
     public String selectedEmail;
