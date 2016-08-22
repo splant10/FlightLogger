@@ -21,7 +21,7 @@ public class SettingsMenu {
         final Activity context = (Activity) ctxt;
         stor = Storage.getInstance();
 
-        Boolean adminLoggedIn = HomeScreen.getAdminLoggedIn();
+        Boolean adminLoggedIn = MainActivity.getAdminLoggedIn();
 
         if (!adminLoggedIn) { // not logged in as admin
 
@@ -43,7 +43,7 @@ public class SettingsMenu {
                                 public void onClick(DialogInterface dialog, int which) {
                                     String password = input.getText().toString();
                                     if (password.equals(stor.getAdminPassword())) {
-                                        HomeScreen.setAdminLoggedIn(true);
+                                        MainActivity.setAdminLoggedIn(true);
                                         Toast.makeText(context, "Logged in as administrator", Toast.LENGTH_SHORT).show();
                                         context.invalidateOptionsMenu();
                                     } else {
@@ -67,7 +67,7 @@ public class SettingsMenu {
             alertDialog.setPositiveButton("YES",
                     new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
-                            HomeScreen.setAdminLoggedIn(false);
+                            MainActivity.setAdminLoggedIn(false);
                             context.invalidateOptionsMenu();
                             Toast.makeText(context, "Logged out of administrator account", Toast.LENGTH_SHORT).show();
                         }

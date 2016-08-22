@@ -338,6 +338,15 @@ public class MainActivity extends AppCompatActivity
 
 
 
+    public static Boolean getAdminLoggedIn() {
+        return adminLoggedIn;
+    }
+    public static void setAdminLoggedIn(Boolean bool) {
+        adminLoggedIn = bool;
+    }
+
+
+
     public void clearStorage() {
         final Context appContext = MainActivity.this;
 
