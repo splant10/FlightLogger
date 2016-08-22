@@ -242,6 +242,8 @@ public class NewFlightLogActivity extends AppCompatActivity implements AdapterVi
         }
     };
 
+
+
     public void btnSubmit(View view) {
         final View v = view;
         // http://stackoverflow.com/questions/2478517/how-to-display-a-yes-no-dialog-box-on-android
@@ -266,6 +268,8 @@ public class NewFlightLogActivity extends AppCompatActivity implements AdapterVi
                 .setPositiveButton("Yes", dialogClickListener)
                 .setNegativeButton("No", dialogClickListener).show();
     }
+
+
 
     public void submitFlightLog(View view) {
         try {
@@ -456,6 +460,8 @@ public class NewFlightLogActivity extends AppCompatActivity implements AdapterVi
         }
 
     }
+
+
 
     @Override
     public void onBackPressed() {
