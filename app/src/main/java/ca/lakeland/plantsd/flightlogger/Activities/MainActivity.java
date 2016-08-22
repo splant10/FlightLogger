@@ -56,10 +56,10 @@ public class MainActivity extends AppCompatActivity
 
     private static final int MENU_ADMIN = Menu.FIRST;
     private static final int MENU_ADD_EMAIL = MENU_ADMIN + 1;
-    private static final int MENU_VIEW_EMAILS = MENU_ADMIN + 2;
-    private static final int MENU_LOGIN = MENU_ADMIN + 3;
-    private static final int MENU_ABOUT = MENU_ADMIN + 4;
-    private static final int MENU_CHANGE_ADMIN_PASS = MENU_ADMIN + 5;
+    private static final int MENU_VIEW_EMAILS = MENU_ADD_EMAIL + 1;
+    private static final int MENU_LOGIN = MENU_VIEW_EMAILS + 1;
+    private static final int MENU_ABOUT = MENU_LOGIN + 1;
+    private static final int MENU_CHANGE_ADMIN_PASS = MENU_ABOUT + 1;
 
 
     @Override
@@ -161,6 +161,7 @@ public class MainActivity extends AppCompatActivity
             menu.add(0, MENU_ABOUT, Menu.NONE, "About");
             menu.add(0, MENU_LOGIN, Menu.NONE, "Login as Administrator");
         }
+
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -193,6 +194,13 @@ public class MainActivity extends AppCompatActivity
                 return super.onOptionsItemSelected(item);
 
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
     }
 
 
@@ -231,16 +239,6 @@ public class MainActivity extends AppCompatActivity
 
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-
-
-
-
     // Selecting different options in the side menu
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
@@ -253,6 +251,7 @@ public class MainActivity extends AppCompatActivity
             android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, fragment, "CHECKLIST_FRAGMENT");
             fragmentTransaction.commit();
+
             setTitle(R.string.title_checklists);
 
         } else if (id == R.id.nav_flightlog) {
@@ -260,6 +259,7 @@ public class MainActivity extends AppCompatActivity
             android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, fragment, "FLIGHTLOG_FRAGMENT");
             fragmentTransaction.commit();
+
             setTitle(R.string.title_flightlogs);
 
         } else if (id == R.id.nav_pilot) {
@@ -267,6 +267,7 @@ public class MainActivity extends AppCompatActivity
             android.support.v4.app.FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, fragment, "PILOT_FRAGMENT");
             fragmentTransaction.commit();
+
             setTitle(R.string.title_pilots);
 
         }
