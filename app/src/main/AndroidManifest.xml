@@ -12,19 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".MainActivity"
+            android:name=".Activities.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".HomeScreen"
-            android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -39,14 +29,14 @@
                 android:value="ca.lakeland.plantsd.flightlogger.HomeScreen" />
         </activity>
         <activity
-            android:name=".NewChecklistActivity"
+            android:name=".Activities.NewChecklistActivity"
             android:label="@string/title_checklists">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="ca.lakeland.plantsd.flightlogger.HomeScreen" />
         </activity>
         <activity
-            android:name=".NewFlightLogActivity"
+            android:name=".Activities.NewFlightLogActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="portrait" />
         <activity
@@ -59,15 +49,15 @@
         </activity>
         <activity android:name=".NewPilotActivity" />
         <activity android:name=".PilotInfoActivity" />
-        <activity android:name=".FlightLogInfoActivity" />
-        <activity android:name=".TestActivity" />
+        <activity android:name=".Activities.FlightLogInfoActivity" />
+        <activity android:name=".Activities.TestActivity" />
         <activity
             android:name=".ChecklistsActivity"
             android:label="@string/title_checklists"
             android:theme="@style/AppTheme" />
-        <activity android:name=".ChecklistInfoActivity" />
-        <activity android:name=".EmailsActivity" />
-        <activity android:name=".AboutActivity" />
+        <activity android:name=".Activities.ChecklistInfoActivity" />
+        <activity android:name=".Activities.EmailsActivity" />
+        <activity android:name=".Activities.AboutActivity" />
 
     </application>
 

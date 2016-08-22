@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="ca.lakeland.plantsd.flightlogger.ChecklistInfoActivity"
+    tools:context=".Activities.ChecklistInfoActivity"
     android:orientation="vertical">
 
     <include layout="@layout/app_bar"/>
@@ -16,7 +16,7 @@
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
-        tools:context="ca.lakeland.plantsd.flightlogger.ChecklistInfoActivity">
+        tools:context=".Activities.ChecklistInfoActivity">
 
 
         <TextView
