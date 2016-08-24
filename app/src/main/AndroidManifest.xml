@@ -29,6 +29,7 @@
             android:screenOrientation="portrait" />
         <activity android:name=".Activities.FlightLogInfoActivity" />
         <activity android:name=".Activities.TestActivity" />
+        <activity android:name=".Activities.NewChecklistActivity" />
         <activity android:name=".Activities.ChecklistInfoActivity" />
         <activity android:name=".Activities.EmailsActivity" />
         <activity android:name=".Activities.AboutActivity" />

@@ -61,6 +61,8 @@ public class MainActivity extends AppCompatActivity
     private static final int MENU_ABOUT = MENU_LOGIN + 1;
     private static final int MENU_CHANGE_ADMIN_PASS = MENU_ABOUT + 1;
 
+    public static Boolean allowRefresh = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -222,6 +224,30 @@ public class MainActivity extends AppCompatActivity
 
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+
+
+    // Refresh the fragments on resume.
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (allowRefresh) {
+            allowRefresh = false;
+
+            // Don't need to refresh Pilots/Spotters fragment, since the activity isn't left when
+            // using that fragment.
+            Fragment checklistFragment = getSupportFragmentManager().findFragmentByTag("CHECKLIST_FRAGMENT");
+            Fragment flightlogFragment = getSupportFragmentManager().findFragmentByTag("FLIGHTLOG_FRAGMENT");
+
+            if (checklistFragment != null && checklistFragment.isVisible()) {
+                getSupportFragmentManager().beginTransaction().detach(checklistFragment).attach(checklistFragment).commit();
+            } else if (flightlogFragment != null && flightlogFragment.isVisible()) {
+                getSupportFragmentManager().beginTransaction().detach(flightlogFragment).attach(flightlogFragment).commit();
+            }
+
         }
     }
 

@@ -200,9 +200,10 @@ public class NewChecklistActivity extends AppCompatActivity implements View.OnCl
                     Toast.makeText(getApplicationContext(),"Signature could not be saved", Toast.LENGTH_SHORT).show();
                 }
             }
-            Toast.makeText(getApplicationContext(),"Signature saved", Toast.LENGTH_SHORT).show();
 
             dv.destroyDrawingCache();
+            MainActivity.allowRefresh = true;
+
             finish();
 
         } else {

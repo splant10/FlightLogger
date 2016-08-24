@@ -253,6 +253,8 @@ public class NewFlightLogActivity extends AppCompatActivity implements AdapterVi
                 switch (which){
                     case DialogInterface.BUTTON_POSITIVE:
                         //Yes button clicked
+                        MainActivity.allowRefresh = true;
+
                         submitFlightLog(v);
                         break;
 
