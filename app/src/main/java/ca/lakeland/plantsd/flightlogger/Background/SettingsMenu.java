@@ -3,14 +3,20 @@ package ca.lakeland.plantsd.flightlogger.Background;
 import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
+import android.os.Environment;
 import android.support.v7.app.AlertDialog;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 
 import ca.lakeland.plantsd.flightlogger.Activities.MainActivity;
 import ca.lakeland.plantsd.flightlogger.Objects.Storage;
@@ -18,6 +24,7 @@ import ca.lakeland.plantsd.flightlogger.Objects.Storage;
 public class SettingsMenu {
 
     private static Storage stor;
+    private static String selectedAddress;
 
     public static void adminLoginLogoutButton(Context ctxt) {
         final Activity context = (Activity) ctxt;
@@ -188,6 +195,66 @@ public class SettingsMenu {
     }
 
     public static void emailFile(Context ctxt, File file) {
+        // Hold on to your butts
+        final File fileToSend = file;
+        final Context context = ctxt;
 
+        stor = Storage.getInstance();
+
+        // http://www.learn-android-easily.com/2013/01/adding-radio-buttons-in-dialog.html
+        final CharSequence[] emails = stor.getEmails().toArray(new CharSequence[0]);
+
+        if (emails.length == 0) {
+            Toast.makeText(context, "There aren't any email addresses stored. User the menubar to add emails", Toast.LENGTH_LONG).show();
+        } else {
+            // popup alertdialog with edittext
+            android.support.v7.app.AlertDialog.Builder alertDialog = new android.support.v7.app.AlertDialog.Builder(context)
+                    .setTitle("Choose Recipient");
+
+            alertDialog.setSingleChoiceItems(emails, -1, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int item) {
+                    selectedAddress = emails[item].toString();
+                }
+            });
+            alertDialog.setPositiveButton("YES", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+
+                    File outfile = fileToSend;
+
+                    Uri path = Uri.fromFile(outfile);
+                    String externalPath = Environment.getExternalStorageDirectory().getAbsolutePath();
+
+                    Intent i = new Intent(Intent.ACTION_SEND);
+                    // set intent type to email
+                    i.setType("vnd.android.cursor.dir/email");
+
+                    String recipient[] = {selectedAddress};
+                    Calendar myCalendar = Calendar.getInstance();
+                    SimpleDateFormat df = new SimpleDateFormat(("MMM dd, yyyy"));
+                    String today = df.format(myCalendar.getTime());
+
+                    i.putExtra(Intent.EXTRA_EMAIL, recipient);
+                    i.putExtra(Intent.EXTRA_SUBJECT, "Flight Logs as of " + today);
+                    i.putExtra(Intent.EXTRA_TEXT, "Please find attached the file for the stored flight logs");
+                    i.putExtra(Intent.EXTRA_STREAM, path);
+
+                    try {
+                        // http://stackoverflow.com/questions/13872569/how-to-delete-file-from-sd-card-after-mail-send-successfully
+                        context.startActivity(Intent.createChooser(i, "Send mail..."));
+                    } catch (android.content.ActivityNotFoundException ex) {
+                        Toast.makeText(context, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            });
+            alertDialog.setNegativeButton("NO", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+
+            alertDialog.show();
+        }
     }
 }

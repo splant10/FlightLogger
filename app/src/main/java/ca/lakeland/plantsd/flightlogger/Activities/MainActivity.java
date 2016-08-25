@@ -187,8 +187,9 @@ public class MainActivity extends AppCompatActivity
                 Intent emailIntent = new Intent(this, EmailsActivity.class);
                 startActivity(emailIntent);
                 return true;
-            //case MENU_EMAIL_FLIGHTLOGS:
-
+            case MENU_EMAIL_FLIGHTLOGS:
+                SettingsMenu.emailFile(this, stor.getCsvFile());
+                return true;
             case MENU_CHANGE_ADMIN_PASS:
                 SettingsMenu.changeAdminPassword(this);
                 return true;
