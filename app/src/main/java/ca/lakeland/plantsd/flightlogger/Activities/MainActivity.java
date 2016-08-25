@@ -1,22 +1,23 @@
 package ca.lakeland.plantsd.flightlogger.Activities;
 
-import android.content.Intent;
-import android.support.v4.app.Fragment;
+import android.app.ActivityManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AlertDialog;
-import android.view.LayoutInflater;
-import android.view.View;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -57,9 +58,11 @@ public class MainActivity extends AppCompatActivity
     private static final int MENU_ADMIN = Menu.FIRST;
     private static final int MENU_ADD_EMAIL = MENU_ADMIN + 1;
     private static final int MENU_VIEW_EMAILS = MENU_ADD_EMAIL + 1;
-    private static final int MENU_LOGIN = MENU_VIEW_EMAILS + 1;
+    private static final int MENU_EMAIL_FLIGHTLOGS = MENU_VIEW_EMAILS + 1;
+    private static final int MENU_LOGIN = MENU_EMAIL_FLIGHTLOGS + 1;
     private static final int MENU_ABOUT = MENU_LOGIN + 1;
     private static final int MENU_CHANGE_ADMIN_PASS = MENU_ABOUT + 1;
+    private static final int MENU_CLEAR_DATA = MENU_CHANGE_ADMIN_PASS + 1;
 
     public static Boolean allowRefresh = false;
 
@@ -154,10 +157,12 @@ public class MainActivity extends AppCompatActivity
         menu.clear();
         menu.add(0, MENU_ADD_EMAIL, Menu.NONE, "Add an email address");
         menu.add(0, MENU_VIEW_EMAILS, Menu.NONE, "View email addresses");
+        menu.add(0, MENU_EMAIL_FLIGHTLOGS, Menu.NONE, "Email flight logs");
         if(adminLoggedIn) {
             menu.add(0, MENU_ADMIN, Menu.NONE, "Admin Logged In").setIcon(R.drawable.ic_lock_open).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
             menu.add(0, MENU_CHANGE_ADMIN_PASS, Menu.NONE, "Change Admin Password");
             menu.add(0, MENU_ABOUT, Menu.NONE, "About");
+            menu.add(0, MENU_CLEAR_DATA, Menu.NONE, "Clear Data");
             menu.add(0, MENU_LOGIN, Menu.NONE, "Administrator Logout");
         } else {
             menu.add(0, MENU_ABOUT, Menu.NONE, "About");
@@ -166,6 +171,8 @@ public class MainActivity extends AppCompatActivity
 
         return super.onPrepareOptionsMenu(menu);
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -180,6 +187,8 @@ public class MainActivity extends AppCompatActivity
                 Intent emailIntent = new Intent(this, EmailsActivity.class);
                 startActivity(emailIntent);
                 return true;
+            //case MENU_EMAIL_FLIGHTLOGS:
+
             case MENU_CHANGE_ADMIN_PASS:
                 SettingsMenu.changeAdminPassword(this);
                 return true;
@@ -189,6 +198,10 @@ public class MainActivity extends AppCompatActivity
                 return true;
             case MENU_LOGIN:
                 SettingsMenu.adminLoginLogoutButton(this);
+                return true;
+            case MENU_CLEAR_DATA:
+                clearStorage();
+                return true;
 
             default:
                 // If we got here, the user's action was not recognized.
@@ -197,6 +210,8 @@ public class MainActivity extends AppCompatActivity
 
         }
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -377,6 +392,7 @@ public class MainActivity extends AppCompatActivity
 
 
 
+    // should be moved to settings
     public void clearStorage() {
         final Context appContext = MainActivity.this;
 
@@ -385,11 +401,19 @@ public class MainActivity extends AppCompatActivity
             public void onClick(DialogInterface dialog, int which) {
                 switch (which) {
                     case DialogInterface.BUTTON_POSITIVE:
+                        try {
+                            ((ActivityManager)appContext.getSystemService(ACTIVITY_SERVICE)).clearApplicationUserData();
+                            System.out.println("all data cleared");
+                        } catch (Exception e) {
+                            System.out.println("not a new enough system");
+                        }
+                        /*
                         // Yes button clicked
                         File dir = getFilesDir();
                         File fileToDelete = new File(dir, storageFileName);
 
                         Boolean deleted = fileToDelete.delete();
+
 
                         if (deleted) {
                             stor.clearAllData();
@@ -397,6 +421,7 @@ public class MainActivity extends AppCompatActivity
                         } else {
                             Toast.makeText(appContext, "Local storage could not be deleted", Toast.LENGTH_SHORT).show();
                         }
+                        */
 
 
 

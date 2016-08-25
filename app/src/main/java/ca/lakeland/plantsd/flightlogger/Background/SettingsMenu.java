@@ -10,6 +10,8 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import java.io.File;
+
 import ca.lakeland.plantsd.flightlogger.Activities.MainActivity;
 import ca.lakeland.plantsd.flightlogger.Objects.Storage;
 
@@ -182,6 +184,10 @@ public class SettingsMenu {
                 });
 
         alertDialog.show();
+
+    }
+
+    public static void emailFile(Context ctxt, File file) {
 
     }
 }

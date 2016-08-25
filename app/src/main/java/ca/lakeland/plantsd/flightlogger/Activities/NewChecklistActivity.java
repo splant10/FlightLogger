@@ -1,5 +1,7 @@
 package ca.lakeland.plantsd.flightlogger.Activities;
 
+import android.content.Context;
+import android.content.ContextWrapper;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Environment;
@@ -178,28 +180,7 @@ public class NewChecklistActivity extends AppCompatActivity implements View.OnCl
             DoneChecklist doneChecklist = new DoneChecklist(today, author);
             stor.getDoneChecklists().add(doneChecklist);
 
-            // http://stackoverflow.com/questions/649154/save-bitmap-to-location
-            // Thanks to Ulrich Scheller for this. Retrieved June 3 2016
-            String path = Environment.getExternalStorageDirectory().toString();
-            FileOutputStream out = null;
-            File signatureImg = new File(path, today+author+".png");
-            try {
-                out = new FileOutputStream(signatureImg);
-                dv.getDrawingCache().compress(Bitmap.CompressFormat.PNG, 100, out);
-                out.flush();
-            } catch (Exception e) {
-                e.printStackTrace();
-                Toast.makeText(getApplicationContext(),"Signature could not be saved", Toast.LENGTH_SHORT).show();
-            } finally {
-                try {
-                    if (out != null) {
-                        out.close();
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                    Toast.makeText(getApplicationContext(),"Signature could not be saved", Toast.LENGTH_SHORT).show();
-                }
-            }
+            saveImageToInternal(getApplicationContext(), dv.getDrawingCache(), today+author, "png");
 
             dv.destroyDrawingCache();
             MainActivity.allowRefresh = true;
@@ -208,6 +189,19 @@ public class NewChecklistActivity extends AppCompatActivity implements View.OnCl
 
         } else {
             Toast.makeText(this, "You haven't completed the checklist. Please do so.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    // http://stackoverflow.com/a/19339672 - Retrieved August 24
+    private void saveImageToInternal(Context context, Bitmap b, String name, String extension){
+        name=name+"."+extension;
+        FileOutputStream out;
+        try {
+            out = context.openFileOutput(name, Context.MODE_PRIVATE);
+            b.compress(Bitmap.CompressFormat.PNG, 100, out);
+            out.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }

@@ -1,18 +1,17 @@
 package ca.lakeland.plantsd.flightlogger.Activities;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Environment;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import java.io.File;
+import java.io.FileInputStream;
 
 import ca.lakeland.plantsd.flightlogger.Objects.DoneChecklist;
 import ca.lakeland.plantsd.flightlogger.R;
@@ -41,6 +40,7 @@ public class ChecklistInfoActivity extends AppCompatActivity {
             authorName = dc.getAuthor();
 
             TextView txtAuthor = (TextView) findViewById(R.id.txtChkInfoAuthor);
+            getSupportActionBar().setTitle("Checklist for " + day);
 
             txtAuthor.setText(authorName);
 
@@ -51,25 +51,16 @@ public class ChecklistInfoActivity extends AppCompatActivity {
         }
 
 
-
         // get bitmap signature image
+        Bitmap bmap = getImageBitmapFromInternal(getApplicationContext(), day+authorName, "png");
         try {
-            String path = Environment.getExternalStorageDirectory().toString();
-            File signatureImg = new File(path, day + authorName + ".png");
-
-            if (signatureImg.exists()) {
-                sig = BitmapFactory.decodeFile(signatureImg.getAbsolutePath());
-                ImageView imgSignature = (ImageView) findViewById(R.id.imgChkInfoSignature);
-                imgSignature.setImageBitmap(sig);
-            }
-
+            ImageView imgSignature = (ImageView) findViewById(R.id.imgChkInfoSignature);
+            imgSignature.setImageBitmap(bmap);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        Toolbar mActionBarToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(mActionBarToolbar);
-        getSupportActionBar().setTitle("Checklist for " + day);
+
     }
 
     @Override
@@ -89,5 +80,19 @@ public class ChecklistInfoActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    // http://stackoverflow.com/a/19339672 - Retrieved August 24
+    private Bitmap getImageBitmapFromInternal(Context context, String name, String extension) {
+        name=name+"."+extension;
+        try{
+            FileInputStream fis = context.openFileInput(name);
+            Bitmap b = BitmapFactory.decodeStream(fis);
+            fis.close();
+            return b;
+        }
+        catch(Exception e){
+        }
+        return null;
     }
 }
