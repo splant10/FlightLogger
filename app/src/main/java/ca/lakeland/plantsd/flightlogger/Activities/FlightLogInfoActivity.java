@@ -23,6 +23,8 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
+import ca.lakeland.plantsd.flightlogger.Background.ExcelFromFlightLog;
+import ca.lakeland.plantsd.flightlogger.Background.SettingsMenu;
 import ca.lakeland.plantsd.flightlogger.Objects.AdminComment;
 import ca.lakeland.plantsd.flightlogger.Objects.Flight;
 import ca.lakeland.plantsd.flightlogger.Objects.FlightLog;
@@ -251,5 +253,9 @@ public class FlightLogInfoActivity extends AppCompatActivity {
 
             }
         }
+    }
+
+    public void onEmailClick(View view) {
+        ExcelFromFlightLog effl = new ExcelFromFlightLog(this, String.valueOf(fl.getFlightLogNum())+fl.getDate()+".xls", fl);
     }
 }

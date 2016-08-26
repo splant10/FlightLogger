@@ -24,7 +24,7 @@ public class FlightLog implements Serializable {
     private String comments;
     private int flightLogNum, agencyNum;
     private float accumFlightTime, maxAltitude;
-    private List<AdminComment> adminComments;
+    private List<AdminComment> adminComments = new ArrayList<AdminComment>(0);
 
 
     public FlightLog() {
