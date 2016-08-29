@@ -35,15 +35,14 @@ public class EmailsAdapter extends ArrayAdapter<String> {
 
         if (v == null) {
             vi = LayoutInflater.from(getContext());
-            v = vi.inflate(R.layout.adapter_pilot_row, null); // pilot row will work for this, since
-                                                        // it's just the one text field to fill in
+            v = vi.inflate(R.layout.adapter_email, null);
         }
 
         String email = (String) emails.get(position);
 
         if (email != null) {
 
-            TextView txt1 = (TextView) v.findViewById(R.id.txtPilotName);
+            TextView txt1 = (TextView) v.findViewById(R.id.txtEmailAddress);
             if (txt1 != null) {
                 txt1.setText(email);
             }
