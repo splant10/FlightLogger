@@ -239,7 +239,7 @@ public class FlightLogInfoActivity extends AppCompatActivity {
         menu.add(0, MENU_ADD_EMAIL, Menu.NONE, "Add an email address");
         menu.add(0, MENU_VIEW_EMAILS, Menu.NONE, "View email addresses");
         if (MainActivity.getAdminLoggedIn()) {
-            menu.add(0, MENU_ADMIN, Menu.NONE, "Admin Logged In").setIcon(R.drawable.ic_lock_open_black_24dp).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+            menu.add(0, MENU_ADMIN, Menu.NONE, "Admin Logged In").setIcon(R.drawable.ic_lock_open).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
             menu.add(0, MENU_LOGIN, Menu.NONE, "Administrator Logout");
         } else {
             menu.add(0, MENU_LOGIN, Menu.NONE, "Login as Administrator");
@@ -262,6 +262,9 @@ public class FlightLogInfoActivity extends AppCompatActivity {
                 return true;
             case MENU_LOGIN:
                 SettingsMenu.adminLoginLogoutButton(this);
+            case android.R.id.home: // if choosing back arrow
+                onBackPressed();
+                return true;
 
             default:
                 // If we got here, the user's action was not recognized.

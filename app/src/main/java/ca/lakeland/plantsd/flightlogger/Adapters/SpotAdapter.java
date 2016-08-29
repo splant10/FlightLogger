@@ -40,24 +40,16 @@ public class SpotAdapter extends ArrayAdapter<String> {
 
         if (v == null) {
             vi = LayoutInflater.from(getContext());
-            v = vi.inflate(R.layout.adapter_pilot_row, null);
+            v = vi.inflate(R.layout.adapter_spot_row, null);
         }
 
         String spotter = (String) spotters.get(position);
 
         if (spotter != null) {
-            TextView tt1 = (TextView) v.findViewById(R.id.txtPilotName);
-            TextView tt2 = (TextView) v.findViewById(R.id.txtPilotFlights);
-            TextView tt3 = (TextView) v.findViewById(R.id.txtPilotFlightTime);
+            TextView tt1 = (TextView) v.findViewById(R.id.txtSpotterName);
 
             if (tt1 != null) {
                 tt1.setText(spotter);
-            }
-            if (tt2 != null) {
-                tt2.setText("");
-            }
-            if (tt3 != null) {
-                tt3.setText("");
             }
         }
         return v;

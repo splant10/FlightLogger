@@ -83,7 +83,7 @@ public class PilotsFragment extends Fragment {
 
         lvSpotters = (ListView) getView().findViewById(R.id.lvSpotters);
         //spotAdapter = new ArrayAdapter<String>(getActivity(), R.layout.adapter_pilot_row, R.id.txtPilotName, stor.getSpotters());
-        spotAdapter = new SpotAdapter(main, R.layout.adapter_pilot_row, stor.getSpotters());
+        spotAdapter = new SpotAdapter(main, R.layout.adapter_spot_row, stor.getSpotters());
         lvSpotters.setAdapter(spotAdapter);
         //*/
     }
