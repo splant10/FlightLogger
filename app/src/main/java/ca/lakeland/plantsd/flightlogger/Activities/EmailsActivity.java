@@ -93,32 +93,28 @@ public class EmailsActivity extends AppCompatActivity implements AdapterView.OnI
         String email = stor.getEmails().get(position);
         // Log.i("-----------------|", " that would be " + fl.getDate());
 
-        if (MainActivity.getAdminLoggedIn()) { // admin
-            // make a dialog asking if want to delete the email.
-            DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    switch (which) {
-                        case DialogInterface.BUTTON_POSITIVE:
-                            // Yes button clicked
-                            stor.getEmails().remove(pos);
-                            customAdapter.notifyDataSetChanged();
-                            break;
+        // make a dialog asking if want to delete the email.
+        DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
+                    case DialogInterface.BUTTON_POSITIVE:
+                        // Yes button clicked
+                        stor.getEmails().remove(pos);
+                        customAdapter.notifyDataSetChanged();
+                        break;
 
-                        case DialogInterface.BUTTON_NEGATIVE:
-                            // No button clicked
-                            break;
-                    }
+                    case DialogInterface.BUTTON_NEGATIVE:
+                        // No button clicked
+                        break;
                 }
-            };
-            AlertDialog.Builder builder = new AlertDialog.Builder(EmailsActivity.this);
-            builder.setMessage("Do you wish to delete this email address?")
-                    .setPositiveButton("Yes", dialogClickListener)
-                    .setNegativeButton("No", dialogClickListener).show();
-            return true;
-        } else { // regular user
-            return true;
-        }
+            }
+        };
+        AlertDialog.Builder builder = new AlertDialog.Builder(EmailsActivity.this);
+        builder.setMessage("Do you wish to delete this email address?")
+                .setPositiveButton("Yes", dialogClickListener)
+                .setNegativeButton("No", dialogClickListener).show();
+        return true;
     }
 
     @Override
