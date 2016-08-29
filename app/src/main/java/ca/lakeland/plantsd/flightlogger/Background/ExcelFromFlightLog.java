@@ -49,7 +49,10 @@ public class ExcelFromFlightLog {
         this.filename = saveAs;
         this.fl = flightLog;
 
-        this.wb = createWorkbook(this.filename);
+        this.wb = createWorkbook(saveAs);
+        if (wb == null) {
+            System.out.println("wb is null");
+        }
         this.ws = createSheet(this.wb, "Flight log", 0);
 
         // Widen column widths
@@ -183,7 +186,7 @@ public class ExcelFromFlightLog {
             // WorkbookSettings from above
             wb = Workbook.createWorkbook(this.excelFile,wbSettings);
         } catch(IOException ex) {
-            Log.e("----------", ex.getStackTrace().toString());
+            ex.printStackTrace();
             Log.e("----------", ex.getMessage());
         }
 

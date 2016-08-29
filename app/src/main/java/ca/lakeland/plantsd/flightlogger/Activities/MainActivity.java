@@ -130,7 +130,11 @@ public class MainActivity extends AppCompatActivity
                 } else if (checklistFragment != null && checklistFragment.isVisible()) {
                     checklistFabClick();
                 } else if (flightlogFragment != null && flightlogFragment.isVisible()) {
-                    flightlogFabClick();
+                    if ((stor.getPilots().size() <=0) || (stor.getSpotters().size() <=0)) {
+                        Toast.makeText(MainActivity.this, "Need to have pilots and spotters to make a flight log!", Toast.LENGTH_LONG).show();
+                    } else {
+                        flightlogFabClick();
+                    }
                 }
 
             }

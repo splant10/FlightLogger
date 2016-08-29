@@ -326,7 +326,7 @@ public class NewFlightLogActivity extends AppCompatActivity implements AdapterVi
                     }
                 }
             } else {
-                Toast.makeText(this, "To add pilots, navigate to 'Pilots & Spotters' on the main screen", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "To add pilots, navigate to 'Pilots & Spotters' via the side drawer", Toast.LENGTH_LONG).show();
                 return;
             }
 
@@ -334,7 +334,7 @@ public class NewFlightLogActivity extends AppCompatActivity implements AdapterVi
             if (stor.getSpotters().size() != 0) {
                 spotter = ((Spinner) findViewById(R.id.spinLogSpotter)).getSelectedItem().toString();
             } else {
-                Toast.makeText(this, "To add spotters, navigate to 'Pilots & Spotters' on the main screen", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "To add spotters, navigate to 'Pilots & Spotters' via the side drawer", Toast.LENGTH_LONG).show();
                 return;
             }
 
@@ -382,6 +382,7 @@ public class NewFlightLogActivity extends AppCompatActivity implements AdapterVi
 
             ArrayList<Flight> flights = new ArrayList<Flight>();
             int flightCount = llFlightInfos.getChildCount();
+            int totalFlightTime = 0;
             for (int i = 0; i < flightCount; ++i) { // iterate over flights
                 try {
                     EditText etTakeoff = (EditText) llFlightInfos.getChildAt(i).findViewById(R.id.etInfoTakeoff);
@@ -395,6 +396,7 @@ public class NewFlightLogActivity extends AppCompatActivity implements AdapterVi
                     String takeoff = etTakeoff.getText().toString();
                     String land = etLand.getText().toString();
                     int time = Integer.parseInt(etTime.getText().toString());
+                    totalFlightTime += time;
                     String battNum = etBattNum.getText().toString();
                     Float startVolt = Float.parseFloat(etStartVolt.getText().toString());
                     Float endVolt = Float.parseFloat(etEndVolt.getText().toString());
@@ -419,6 +421,8 @@ public class NewFlightLogActivity extends AppCompatActivity implements AdapterVi
 
             FlightLog fl = new FlightLog(serial, date, location, pilot, spotter, windSpeed, temperature, weatherConditions,
                     purpose, payload, flights, comments, flightLogNum, altitude);
+
+            fl.setAccumFlightTime(totalFlightTime);
 
             stor.getFlightLogs().add(fl);
 

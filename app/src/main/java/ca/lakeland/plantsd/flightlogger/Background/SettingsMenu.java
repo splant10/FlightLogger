@@ -230,12 +230,9 @@ public class SettingsMenu {
                     i.setType("vnd.android.cursor.dir/email");
 
                     String recipient[] = {selectedAddress};
-                    Calendar myCalendar = Calendar.getInstance();
-                    SimpleDateFormat df = new SimpleDateFormat(("MMM dd, yyyy"));
-                    String today = df.format(myCalendar.getTime());
 
                     i.putExtra(Intent.EXTRA_EMAIL, recipient);
-                    i.putExtra(Intent.EXTRA_SUBJECT, "Flight Logs" + today);
+                    i.putExtra(Intent.EXTRA_SUBJECT, "FlightLogger file");
                     i.putExtra(Intent.EXTRA_TEXT, "Please find attached the file for the stored flight logs");
                     i.putExtra(Intent.EXTRA_STREAM, path);
 

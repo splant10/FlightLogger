@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -51,6 +52,11 @@ public class FlightLogInfoActivity extends AppCompatActivity {
     String root = Environment.getExternalStorageDirectory().toString();
     File myDir;
     int EMAIL = 101; // result code
+
+    private static final int MENU_ADMIN = Menu.FIRST;
+    private static final int MENU_ADD_EMAIL = MENU_ADMIN + 1;
+    private static final int MENU_VIEW_EMAILS = MENU_ADMIN + 2;
+    private static final int MENU_LOGIN = MENU_ADMIN + 3;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -219,18 +225,49 @@ public class FlightLogInfoActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        //getMenuInflater().inflate(R.menu.main, menu);
         return true;
+    }
+
+    /**
+     * Gets called every time the user presses the menu button.
+     * Use if your menu is dynamic.
+     */
+    @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        menu.clear();
+        menu.add(0, MENU_ADD_EMAIL, Menu.NONE, "Add an email address");
+        menu.add(0, MENU_VIEW_EMAILS, Menu.NONE, "View email addresses");
+        if (MainActivity.getAdminLoggedIn()) {
+            menu.add(0, MENU_ADMIN, Menu.NONE, "Admin Logged In").setIcon(R.drawable.ic_lock_open_black_24dp).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+            menu.add(0, MENU_LOGIN, Menu.NONE, "Administrator Logout");
+        } else {
+            menu.add(0, MENU_LOGIN, Menu.NONE, "Login as Administrator");
+        }
+        return super.onPrepareOptionsMenu(menu);
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case android.R.id.home: // if choosing back arrow
-                onBackPressed();
+            case MENU_ADMIN:
+                Toast.makeText(this, "Logged in as administrator", Toast.LENGTH_SHORT).show();
                 return true;
+            case MENU_ADD_EMAIL:
+                SettingsMenu.addEmailAddress(this);
+                return true;
+            case MENU_VIEW_EMAILS:
+                Intent emailIntent = new Intent(this, EmailsActivity.class);
+                startActivity(emailIntent);
+                return true;
+            case MENU_LOGIN:
+                SettingsMenu.adminLoginLogoutButton(this);
+
             default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
                 return super.onOptionsItemSelected(item);
+
         }
     }
 
@@ -256,6 +293,10 @@ public class FlightLogInfoActivity extends AppCompatActivity {
     }
 
     public void onEmailClick(View view) {
-        ExcelFromFlightLog effl = new ExcelFromFlightLog(this, String.valueOf(fl.getFlightLogNum())+fl.getDate()+".xls", fl);
+        if (stor.getEmails().size() <= 0) {
+            Toast.makeText(this, "No email addresses stored; use the menu bar to add email addresses", Toast.LENGTH_LONG).show();
+        } else {
+            ExcelFromFlightLog effl = new ExcelFromFlightLog(this, String.valueOf("Flight log "+fl.getFlightLogNum())+" "+fl.getDate()+".xls", fl);
+        }
     }
 }

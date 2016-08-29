@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewStub;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -42,6 +43,11 @@ public class EmailsActivity extends AppCompatActivity implements AdapterView.OnI
         Toolbar mActionBarToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mActionBarToolbar);
         getSupportActionBar().setTitle("Email Addresses");
+
+        if (stor.getEmails().size() <= 0) { // no emails
+            ViewStub noEmailsStub = (ViewStub) findViewById(R.id.no_emails_block);
+            View inflated = noEmailsStub.inflate();
+        }
     }
 
     /**

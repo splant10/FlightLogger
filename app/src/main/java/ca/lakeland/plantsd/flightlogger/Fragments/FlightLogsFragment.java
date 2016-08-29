@@ -62,7 +62,7 @@ public class FlightLogsFragment extends Fragment {
         main = (MainActivity)getActivity();
         stor = main.getStorage();
 
-        if (stor.getFlightLogs().size() <= 0) { // no pilots
+        if (stor.getFlightLogs().size() <= 0) { // no flight logs
             ViewStub noFlightlogsStub = (ViewStub) main.findViewById(R.id.no_flightlogs_block);
             View inflated = noFlightlogsStub.inflate();
         }
